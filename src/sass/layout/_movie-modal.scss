@@ -1,0 +1,153 @@
+
+.button-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color linear 200ms;
+
+    &:hover {
+        background-color: #FF6B01;
+    }
+}
+
+.modal .icon {
+    stroke: #000000;
+    transition: stroke linear 200ms;
+}
+
+.button-close:hover .icon {
+    stroke: #fff;
+}
+
+.modal .image {
+    width: 240px;
+    height: 357px;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.25);
+    opacity: 1; 
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal {
+    display: flex;
+    width: 280px;
+    height: 95vh;
+    overflow-y: scroll;
+    padding: 48px 20px 40px;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+}
+
+ 
+
+.modal .title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.about .title {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #000000;
+}
+
+.about .text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #000000;
+    line-height: calc(20/12);
+}
+
+.modal .properties {
+    display: flex;
+}
+
+.modal .titles {
+    margin-right: 41px;
+}
+
+.modal .property {
+    font-size: 12px;
+    font-weight: 500;
+    color: #8C8C8C;
+}
+
+.modal .value {
+    font-size:12px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.modal .property:not(:last-child), .modal .value:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.modal .buttons {
+    margin-top: 20px;
+    display: flex;
+}
+
+.buttons .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 110px;
+    height: 44px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: calc(16/12);
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #000000;
+    transition: color linear 200ms, background-color linear 200ms;
+}
+.buttons .button:nth-child(1) {
+    margin-right: 20px;
+}
+
+.buttons .button:hover {
+    color: #fff;
+    background-color: #FF6B01;
+    border: none;
+}
+
+.modal .first-mark {
+    padding: 1px 10px;
+    background-color: #FF6B01;
+    border-radius: 5px;
+    color: #F7F7F7;
+}
+
+.modal .second-mark {
+    padding: 1px 4px;
+    background-color: #F7F7F7;
+    border-radius: 5px;
+}
+
+
