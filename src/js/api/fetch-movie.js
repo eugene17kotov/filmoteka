@@ -1,2 +1,11 @@
 import axios from 'axios';
-import { API_KEY, TREND_URL, SEARCH_URL, ID_URL } from './api-vars';
+
+export async function getMovies(url) {
+  try {
+    const response = await axios.get(`${url}`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
