@@ -207,15 +207,14 @@ ul {
     }
 
     &-name {
-        // transition: color $animation-duration $timing-function;
-
+       
         @media screen and (max-width: 767px) {
             display: none;
         }
 
         font-size: 30px;
+        font: bold;
         color: $secondary-text-color;
-        // transition: color $animation-duration $timing-function;
     }
 }
 
@@ -231,6 +230,8 @@ ul {
     text-transform: uppercase;
     color: $secondary-text-color;
     cursor: pointer;
+    font-size: large;
+        font: bold;
 
     transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -263,7 +264,6 @@ ul {
         color: white;
         outline: none;
 
-
         &-btn {
             border: none;
             background-color: inherit;
@@ -278,7 +278,7 @@ ul {
         width: 336px;
         &::placeholder {
             font-weight: 400px;
-            font-size: 14px;
+            font-size: 18px;
             line-height: 1.14;
             color: $secondary-text-color;
         }
