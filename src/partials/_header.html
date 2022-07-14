@@ -21,7 +21,9 @@
           </li>
           <li class="header__nav-item">
             <button class="header__nav-btn" type="button" data-action="library">
-              My library
+              <a class="header__nav-btn" href="././my-library.html"
+                >My library</a
+              >
             </button>
           </li>
         </ul>
@@ -30,6 +32,22 @@
     <!-- film searcher -->
     <div class="header__filmsearch">
       <!-- form -->
+      <form class="header__form" role="search">
+        <input
+          class="header__form-input"
+          type="text"
+          name="query"
+          placeholder="Search movies by name"
+          autocomplete="off"
+        />
+        <button type="submit" class="header__form-input-btn js-input-btn">
+          <svg class="header__form-search-icon" width="12" height="12">
+            <use
+              href="./././images/header-img/symbol-defs.svg#icon-search"
+            ></use>
+          </svg>
+        </button>
+      </form>
     </div>
   </div>
 </header>
