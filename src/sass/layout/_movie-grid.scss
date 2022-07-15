@@ -28,8 +28,7 @@
     }
 }
 
-
-.gallery__item {
+.gallery__link {
     position: relative;
 }
 
@@ -43,12 +42,6 @@
 .info {
     padding: 8px;
     height: 60px;
-}
-
-.info-path {
-    display: flex;
-    justify-content: start;
-    align-items: center;
 }
 
 .info-item {
@@ -65,7 +58,13 @@
     }
 }
 
-.info-item1 {
+.info-detail {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.info-detail__item {
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -79,7 +78,7 @@
     }
 }
 
-.info-item1:not(:last-child) {
+.info-detail__item:not(:last-child) {
     border-right: 2px solid #FF6B08;
     padding-right: 5px;
 }
