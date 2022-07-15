@@ -23,6 +23,16 @@
     transition: stroke linear 200ms;
 }
 
+.modal .content {
+    @media screen and (min-width: $tab) {
+        width: 264px;
+    }
+
+    @media screen and (min-width: $desk) {
+        width: 391px; 
+    }
+}
+
 .button-close:hover .icon {
     stroke: #fff;
 }
@@ -30,6 +40,18 @@
 .modal .image {
     width: 240px;
     height: 357px;
+
+    @media screen and (min-width:$tab){
+        width: 264px;
+        height: 374px;
+        margin-right: 68px;
+    }
+
+    @media screen and (min-width:$tab) {
+        width: 375px;
+        height: 478px;
+        margin-right: 16px;
+    }
 }
 
 .backdrop {
@@ -54,6 +76,22 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
+
+    @media screen and (min-width: 768px) {
+        width: 704px;
+        height: 552px;
+        flex-direction: row;
+        padding-top: 40px;
+        padding-right: 72px;
+        padding-bottom: 40px;
+        padding-left: 36px;
+    }
+
+    @media screen and (min-width: $desk) {
+        width: 806px;
+        height: 558px;
+        padding: 40px 12px;
+    }
 }
 
  
@@ -63,6 +101,14 @@
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: 500;
+
+    @media screen and (min-width: $tab) {
+        margin-top: 0;
+    }
+
+    @media screen and (min-width: $desk) {
+        font-size: 30px;
+    }
 }
 
 .about .title {
@@ -87,6 +133,10 @@
 
 .modal .titles {
     margin-right: 41px;
+
+    @media screen and (min-width: $desk) {
+        margin-right: 85px;
+    }
 }
 
 .modal .property {
@@ -103,11 +153,19 @@
 
 .modal .property:not(:last-child), .modal .value:not(:last-child) {
     margin-bottom: 8px;
+
+    @media screen and (min-width: $desk) {
+        margin-bottom: 10px;
+    }
 }
 
 .modal .buttons {
     margin-top: 20px;
     display: flex;
+
+    @media screen and (min-width: $desk) {
+        padding-left: 8px;
+    }
 }
 
 .buttons .button {
@@ -126,16 +184,29 @@
     background-color: #fff;
     border: 1px solid #000000;
     transition: color linear 200ms, background-color linear 200ms;
+
+    &:hover {
+        color: #fff;
+        background-color: #FF6B01;
+        border: none;
+    }
+
+    @media screen and (min-width:$tab){
+        width: 125px;
+    }
+
+    @media screen and (min-width:$desk){
+        width: 136px;
+    }
 }
 .buttons .button:nth-child(1) {
     margin-right: 20px;
+
+    @media screen and (min-width:$tab) {
+        margin-right: 15px;
+    }
 }
 
-.buttons .button:hover {
-    color: #fff;
-    background-color: #FF6B01;
-    border: none;
-}
 
 .modal .first-mark {
     padding: 1px 10px;
