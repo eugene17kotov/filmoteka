@@ -1,7 +1,8 @@
 // Основной шрифт и цвет
 
-// body {
-// }
+body {
+  font-family: 'Roboto', sans-serif;
+}
 
 // Сброс отступов
 
@@ -14,6 +15,12 @@ h6,
 p {
   margin: 0;
   padding: 0;
+}
+
+// сброс стиля у ссылки
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 // сброс стиля у списка
