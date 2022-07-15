@@ -11,6 +11,31 @@ $mob: 320px;
 $tab: 768px;
 $desk: 1280px;
 $max-width: 767px;
+
+@mixin media($size) {
+    @media screen and (min-width: $size) {
+        @content;
+    }
+}
+
+@mixin mob {
+    @media screen and (min-width: $mob) {
+        @content;
+    }
+}
+
+@mixin tab {
+    @media screen and (min-width: $tab) {
+        @content;
+    }
+}
+
+@mixin desk {
+    @media screen and (min-width: $desk) {
+        @content;
+    }
+}
+
 a {
     text-decoration: none;
 }
@@ -23,12 +48,11 @@ ul {
     height: 230px;
     padding-top: 46px;
     background-color: $logo-color;
-    ;
 
 }
 
 .header--home {
-    @media screen and (max-width: $max-width) {
+    @media screen and (min-width: $mob) {
         background: url('../images/header-img/header-home-mob-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
@@ -141,14 +165,12 @@ ul {
 
     @media screen and (min-width: $tab) {
         width: $tab;
-        padding-left: 75px;
-        padding-right: 75px;
+        padding-left: 32px;
+        padding-right: 32px;
     }
 
     @media screen and (min-width: $desk) {
         width: $desk;
-        padding-left: 70px;
-        padding-right: 70px;
     }
 }
 
@@ -184,38 +206,33 @@ ul {
 .header__logo {
     align-items: center;
     display: flex;
+    color: white;
 
     &-icon {
-        width: 24px;
-        height: 24px;
+        width: 32px;
+        height: 32px;
         margin-right: 12px;
-        fill: $logo-color;
+        fill: currentColor;
 
         @media screen and (min-width: $tab) {
             margin-right: 10px;
         }
     }
 
-    &:hover> {
-        svg {
-            stroke: $logo-color;
-        }
-
-        span {
-            color: $logo-color;
-        }
-    }
-
     &-name {
+        font-size: 35px;
+        font-weight: 500;
+        color: currentColor;
        
         @media screen and (max-width: 767px) {
             display: none;
         }
-
-        font-size: 35px;
-        font-weight: 500;
-        color: $secondary-text-color;
     }
+
+    &:hover {
+        color: $accent-color
+    }
+
 }
 
 .header__nav-btn {
@@ -250,6 +267,7 @@ ul {
 .header__form {
     display: flex;
     justify-content: center;
+    color: white;
 
     &-input {
         background-color: transparent;
@@ -264,11 +282,14 @@ ul {
         color: white;
         outline: none;
 
-        &-btn {
-            border: none;
-            background-color: inherit;
-            transform: translateX(-100%);
-            padding: 0px;
+        &:hover,
+        &:focus {
+            border-bottom: 0.5px solid $accent-color;
+            color: $accent-color;
+
+            &::placeholder {
+                color: currentColor;
+            }       
         }
 
         @media screen and (min-width: $mob) and (max-width: $max-width) {
@@ -276,34 +297,38 @@ ul {
         }
 
         width: 336px;
+
         &::placeholder {
             font-weight: 400px;
             font-size: 18px;
             line-height: 1.14;
-            color: $secondary-text-color;
+            color: currentColor;
         }
-
     }
 
-    &-search-icon {
-        stroke: $secondary-text-color;
-    }
-    &-input:hover,
-    &-input:focus {
-        border-bottom: 0.5px solid $accent-color;
+    &-input-btn {
+        border: none;
+        background-color: inherit;
+        transform: translateX(-100%);
+        padding: 0px;
+        cursor: pointer;
+        color: currentColor;
 
-        &::placeholder {
+        &:hover,
+        &:focus {
             color: $accent-color;
         }
-        &-search-icon {
-            stroke: $accent-color;
-        }
+    }
+
+    &-input-icon {
+        stroke: currentColor;
     }
 
 }
 
 .library-btn {
     margin-top: 45px;
+    cursor: pointer;
     &-list {
         display: flex;
         justify-content: center;
@@ -325,6 +350,8 @@ ul {
     border: none;
     width: 130px;
     height: 44px;
+    cursor: pointer;
+    
 
     @media screen and(min-width:$tab) {
         width: 136px;
