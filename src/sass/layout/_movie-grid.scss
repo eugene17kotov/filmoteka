@@ -7,11 +7,8 @@
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 20px;
-    padding-bottom: 40px;
 
     @include tab {
-        padding: 60px 0;
         max-width: 768px;
         grid-template-columns: repeat(2, 1fr);
         grid-auto-columns: 336px;

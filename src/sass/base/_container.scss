@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    padding: 0 20px;
+    padding: 20px 20px 82px 20px;
     margin: 0 auto;
 
     @include tel {
@@ -9,10 +9,11 @@
 
     @include tab {
         width: 768px;
-        padding: 0 32px;
+        padding: 60px 32px 101px 32px;
     }
 
     @include desk {
         width: 1280px;
+        padding-bottom: 120px;
     }
 }
