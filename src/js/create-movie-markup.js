@@ -9,7 +9,7 @@ export function createMovieMarkup(movie) {
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
-            </a>
+            
             <div class="info">
               <p class="info__item">${title}</p>
               <div class="info-detail">
@@ -17,6 +17,7 @@ export function createMovieMarkup(movie) {
                 <p class="info-detail__item">${year}</p>
               </div>
             </div>
+            </a>
           </li>`;
 }
 
