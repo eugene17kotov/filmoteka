@@ -154,6 +154,7 @@
         @include media-min($tab) {
             margin-right: 10px;
         }
+        
     }
 
     &-name {
@@ -249,7 +250,7 @@
         transform: translateX(-100%);
         padding: 0px;
         cursor: pointer;
-        color: currentColor;
+        color: white;
 
         &:hover,
         &:focus {
@@ -258,7 +259,7 @@
     }
 
     &-input-icon {
-        stroke: currentColor;
+        fill: currentColor;
     }
 
 }
