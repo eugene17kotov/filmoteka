@@ -1,47 +1,50 @@
+$trans-time: 300ms;
+
 .header {
     height: 230px;
     padding-top: 46px;
     background-color: $logo-color;
+
 }
 
 .header--home {
     @include media-min($mob) {
-        background: url('../images/header-img/header-home-mob-1x.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
-
-        @include media-2-min($mob) {
         background: url('../images/header-img/header-home-mob-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @include media-min($tab) {
-        background: url('../images/header-img/header-home-tab-1x.jpg');
+        @include media-2-min($mob) {
+        background: url('../images/header-img/header-home-mob-3x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-        @include media-2-min($tab) {
+    @include media-min($tab) {
         background: url('../images/header-img/header-home-tab-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
+        @include media-2-min($tab) {
+        background: url('../images/header-img/header-home-tab-3x.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
         @include media-min($desk) {
-        background: url('../images/header-img/header-home-desk-1x.jpg');
+        background: url('../images/header-img/header-home-desk-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
         @include media-2-min($desk) {
-        background: url('../images/header-img/header-home-desk-2x.jpg');
+        background: url('../images/header-img/header-home-desk-3x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -50,46 +53,66 @@
 
 .header--library {
     @include media-min($mob) {
-        background: url('../images/header-img/header-lib-mob-1x.jpg');
+        background-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.56),
+                    rgba(0, 0, 0, 0.56)),
+                    url('../images/header-img/header-lib-mob-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
         @include media-2-min($mob) {
-        background: url('../images/header-img/header-lib-mob-2x.jpg');
+        background-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.56),
+                    rgba(0, 0, 0, 0.56)),
+                    url('../images/header-img/header-lib-mob-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
         @include media-min($tab) {
-        background: url('../images/header-img/header-lib-tab-1x.jpg');
+        background-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.56),
+                    rgba(0, 0, 0, 0.56)),
+                    url('../images/header-img/header-lib-tab-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
         @include media-2-min($tab) {
-        background: url('../images/header-img/header-lib-tab-2x.jpg');
+        background-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.56),
+                    rgba(0, 0, 0, 0.56)),
+                    url('../images/header-img/header-lib-tab-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
         @include media-min($desk) {
-        background: url('../images/header-img/header-lib-desk-1x.jpg');
+        background-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.56),
+                    rgba(0, 0, 0, 0.56)),
+                url('../images/header-img/header-lib-desk-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+        // background-color: rgba(0, 0, 0, 0.56);
     }
 
         @include media-2-min($desk) {
-        background: url('../images/header-img/header-lib-desk-2x.jpg');
+        background-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.56),
+                    rgba(0, 0, 0, 0.56)),
+                    url('../images/header-img/header-lib-desk-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
+        background: rgba(0, 0, 0, 0.56);
 }
 
 .header__container {
@@ -144,7 +167,7 @@
     align-items: center;
     display: flex;
     color: white;
-
+    transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
     &-icon {
         width: 32px;
         height: 32px;
@@ -188,13 +211,13 @@
     font-size: large;
     font-weight: 500;
 
-    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header__nav-btn:hover,
 .header__nav-btn:focus {
     color: $accent-color;
-    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    
 }
 
 .header__filmsearch {
@@ -219,6 +242,7 @@
         padding-bottom: 4px;
         color: white;
         outline: none;
+        transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
 
         &:hover,
         &:focus {
@@ -251,6 +275,7 @@
         padding: 0px;
         cursor: pointer;
         color: white;
+        transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
 
         &:hover,
         &:focus {
@@ -298,10 +323,11 @@
     color: $secondary-text-color;
     background-color: transparent;
     align-content: center;
+    transition: background-color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
 
     &--active {
         background-color: $accent-color;
-        border: none;
+        border: $accent-color;
     }
 
     &:hover,
