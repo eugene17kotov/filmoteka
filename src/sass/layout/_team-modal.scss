@@ -20,12 +20,18 @@
     background-color 250ms ease-in;
 }
 
+.backdrop-team--is-hidden {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
 .modal-team {
   position: relative;
 
   z-index: 999;
 
-  overflow-y: hidden;
+  overflow-y: scroll;
   //   width: 850px;
   //   max-height: 300px;
   padding: 20px 15px 35px;
@@ -33,8 +39,14 @@
   width: 100%;
   // height: 350px;
 
-  @media screen and (min-width: 480px) {
-    width: 450px;
+  @media screen and (max-width: 767px) {
+    width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 580px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -58,7 +70,7 @@
   //     padding-bottom: 0;
   //   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 1280px) {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -72,9 +84,9 @@
 
   background-color: azure;
 
-  border-radius: 24px;
+  border-radius: 15px;
 
-  //   box-shadow: 9px 10px 16px 11px rgba(128, 0, 0, 0.6);
+  box-shadow: 9px 10px 16px 11px rgba(0, 0, 30, 0.6);
 
   transition: transform 250ms ease-in, visibility 250ms ease-in,
     opacity 250ms ease-in, box-shadow 250ms ease-in;
@@ -86,10 +98,6 @@
     transform: translate(-50%, -50%) scale(2);
   }
 }
-
-// .wrapper-team {
-// display: flex;
-// }
 
 .team {
   display: flex;
@@ -127,13 +135,18 @@
 
   margin-bottom: 5px;
 
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
 
   @media screen and(min-width:768px) {
     width: 150px;
     height: 150px;
   }
+
+  // @media screen and(min-width:1280px) {
+  //   width: 180px;
+  //   height: 180px;
+  // }
 }
 
 .team__link {
@@ -157,11 +170,21 @@
   }
 
   &--linkedin {
+    @media screen and (max-width: 767px) {
+      bottom: 15px;
+      left: 7px;
+    }
+
     bottom: 15px;
     left: 13px;
   }
 
   &--github {
+    @media screen and (max-width: 767px) {
+      bottom: 15px;
+      right: 7px;
+    }
+
     bottom: 15px;
     right: 13px;
   }
@@ -169,13 +192,21 @@
 
 .team__text-content {
   text-align: center;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 500;
+
+  @media screen and (min-width: 768px) {
+    font-size: 13px;
+  }
 }
 
 .team__member {
   margin-bottom: 5px;
-  font-size: 16px;
+  font-size: 13px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 .team__role {
