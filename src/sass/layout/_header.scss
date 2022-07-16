@@ -1,49 +1,3 @@
-//breakpoints
-
-// @mixin media-min($size) {
-//     @media screen and (min-width: $size) {
-//         @content;
-//     }
-// }
-
-// @mixin media-max($size) {
-//     @media screen and (max-width: $size) {
-//         @content;
-//     }
-// }
-
-// @mixin media-min-max($size-mine, $size-max) {
-//     @media screen and (min-width: $size-mine) and (max-width: $size-max) {
-//         @content;
-//     }
-// }
-
-// @mixin media-2-max($size) {
-
-//     @media screen and (min-device-pixel-ratio: 2) and (max-width: $size),
-//     (min-resolution: 192dpi) and (max-width: $size),
-//     (min-resolution: 2dppx) and (max-width: $size) {
-//         @content;
-//     }
-// }
-
-// @mixin media-2-min($size) {
-
-//     @media screen and (min-device-pixel-ratio: 2) and (min-width: $size),
-//     (min-resolution: 192dpi) and (min-width: $size),
-//     (min-resolution: 2dppx) and (min-width: $size) {
-//         @content;
-//     }
-// }
-
-a {
-    text-decoration: none;
-}
-
-ul {
-    list-style: none;
-}
-
 .header {
     height: 230px;
     padding-top: 46px;
@@ -138,7 +92,6 @@ ul {
     }
 }
 
-// ===
 .header__container {
     max-width: 100%;
     margin: 0 auto;
