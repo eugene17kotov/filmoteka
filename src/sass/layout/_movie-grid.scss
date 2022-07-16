@@ -1,6 +1,5 @@
 .gallery {
     display: grid;
-    max-width: 320px;
     grid-auto-columns: 280px;
     grid-auto-rows: 443px;
     grid-row-gap: 20px;
@@ -10,7 +9,7 @@
 
     @include tab {
         max-width: 768px;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 336px);
         grid-auto-columns: 336px;
         grid-auto-rows: 495px;
         grid-column-gap: 32px;
@@ -19,7 +18,7 @@
 
     @include desk {
         max-width: 1280px;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 395px);
         grid-auto-columns: 395px;
         grid-auto-rows: 634px;
         grid-column-gap: 16px;
@@ -36,12 +35,21 @@
     object-fit: cover;
     border-radius: 5px;
 
+    transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover,
+    &:focus {
+        transform: scale(1.02);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+
     @include tab{
         height: 455px;
     }
 
     @include desk {
         height: 574px;
+        width: 634px;
     }
 }
 
@@ -61,6 +69,9 @@
     line-height: 1.33;
     text-transform: uppercase;
     color: #000000;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     @include desk {
         font-size: 20px;
