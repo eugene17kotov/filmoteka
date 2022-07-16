@@ -19,13 +19,37 @@ export function renderPagination(currentPage, totalPages) {
 
     if (currentPage > 1) {
         buttons.push(createButton(currentPage - 1, true, "arrow-left"));
+        buttons.push(createButton(1));
     }
 
-    buttons.push(createDotsButton());
+    if (currentPage >= 5) {
+        buttons.push(createDotsButton())
+    }
+
+    if (currentPage >= 3) {
+        if (currentPage >= 4) {
+            buttons.push(createButton(currentPage-2))
+        }
+        buttons.push(createButton(currentPage-1))
+    }
 
     buttons.push(createButton(currentPage, false));
 
-    buttons.push(createDotsButton());
+    if (currentPage <= totalPages-2) {
+        buttons.push(createButton(currentPage+1));
+        if (currentPage <= totalPages-3) {
+            buttons.push(createButton(currentPage+2));
+        }
+    }
+
+
+    if (currentPage < totalPages-3) {
+        buttons.push(createDotsButton());
+    }
+
+    if (currentPage != totalPages) {
+        buttons.push(createButton(totalPages))
+    }
 
     if (currentPage < totalPages) {
         buttons.push(createButton(currentPage + 1, true, "arrow-right"));
