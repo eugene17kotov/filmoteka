@@ -5,21 +5,34 @@ const refs = {
 
 const { backdrop, closeBtn } = refs;
 
-closeBtn.addEventListener('click', e => {
-  e.preventDefault();
-  backdrop.classList.add('visually-hidden');
-});
+closeBtn.addEventListener('click', onCloseBtnClick);
+window.addEventListener('keydown', onKeydownEscape);
+backdrop.addEventListener('click', onBackdropClick);
 
-window.addEventListener('keydown', e => {
+function onCloseBtnClick(e) {
+  e.preventDefault();
+  backdrop.classList.add('is-hidden');
+  removeAllEventListeners();
+}
+
+function onKeydownEscape(e) {
   e.preventDefault();
   if (e.key === 'Escape') {
-    backdrop.classList.add('visually-hidden');
+    backdrop.classList.add('is-hidden');
   }
-});
+  removeAllEventListeners();
+}
 
-backdrop.addEventListener('click', e => {
+function onBackdropClick(e) {
   if (!e.target.classList.contains('backdrop')) {
     return;
   }
-  backdrop.classList.add('visually-hidden');
-});
+  backdrop.classList.add('is-hidden');
+  removeAllEventListeners();
+}
+
+function removeAllEventListeners() {
+  closeBtn.removeEventListener('click', onCloseBtnClick);
+  window.removeEventListener('keydown', onKeydownEscape);
+  backdrop.removeEventListener('click', onBackdropClick);
+}
