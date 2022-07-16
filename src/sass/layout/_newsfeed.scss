@@ -1,0 +1,35 @@
+.newsfeed-header-section {
+    margin-bottom: 50px;
+}
+
+.newsfeed-heading {
+    color: white;
+    text-align: center;
+}
+
+.newsfeed {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.news-item-image {
+    margin-bottom: 15px;
+}
+
+.news-item-title {
+    margin-bottom: 10px;
+}
+
+.news-item-description {
+    margin-bottom: 5px;
+}
+
+.news-item-content {
+    margin-bottom: 10px;
+}
+
+.news-item-btn {
+    display: block;
+    margin-bottom: 20px;
+}
