@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newsfeed</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header header--home">
+      <div class="header__container">
+        <div class="header__section newsfeed-header-section">
+          <nav class="header__nav">
+            <a class="header__logo" href="././index.html">
+              <svg class="header__logo-icon">
+                <use href="./././images/symbol-defs.svg#icon-film"></use>
+              </svg>
+              <span class="header__logo-name">Filmoteka</span>
+            </a>
+            <!--  -->
+            <ul class="header__nav-list">
+              <li class="header__nav-item">
+                <a class="header__nav-btn" href="././index.html">Home</a>
+              </li>
+              <li class="header__nav-item">
+                <a class="header__nav-btn" href="././my-library.html"
+                  >My library</a
+                >
+              </li>
+              <li class="header__nav-item header__nav-item--active">
+                <a class="header__nav-btn" href="././newsfeed.html">Newsfeed</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <h1 class="newsfeed-heading">
+          News from the world of cinema for the last week
+        </h1>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2 class="title visually-hidden">Newsfeed</h2>
+        <div class="container">
+          <ul class="newsfeed"></ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer section -->
+    <include src="./partials/_footer.html"></include>
+    <!-- Team modal -->
+    <include src="./partials/_team-modal.html"></include>
+
+    <!-- JS -->
+    <script src="./js/newsfeed.js" type="module"></script>
+    <script src="./js/team-modal.js" type="module"></script>
+  </body>
+</html>
