@@ -1,6 +1,6 @@
 import { getMovies } from './api/fetch-movie';
 import { createMovieMarkup } from './create-movie-markup';
-import { LAST_REQUESTED_URL, TREND_URL } from './api/api-vars';
+import { TREND_URL } from './api/api-vars';
 import { renderPagination } from './pagination.js';
 
 (async () => {
