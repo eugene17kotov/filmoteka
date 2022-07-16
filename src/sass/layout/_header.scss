@@ -1,99 +1,46 @@
-//colors
-$primary-text-color: #000000;
-$secondary-text-color: #ffffff;
-$accent-color: #ff6600;
-$accent-hover-color: #ff6600;
-$logo-color: #818181;
-// font
-$primary-font: 'Roboto', sans-serif;
-//breakpoints
-$mob: 320px;
-$tab: 768px;
-$desk: 1280px;
-$max-width: 767px;
-
-@mixin media($size) {
-    @media screen and (min-width: $size) {
-        @content;
-    }
-}
-
-@mixin mob {
-    @media screen and (min-width: $mob) {
-        @content;
-    }
-}
-
-@mixin tab {
-    @media screen and (min-width: $tab) {
-        @content;
-    }
-}
-
-@mixin desk {
-    @media screen and (min-width: $desk) {
-        @content;
-    }
-}
-
-a {
-    text-decoration: none;
-}
-
-ul {
-    list-style: none;
-}
-
 .header {
     height: 230px;
     padding-top: 46px;
     background-color: $logo-color;
-
 }
 
 .header--home {
-    @media screen and (min-width: $mob) {
+    @include media-min($mob) {
         background: url('../images/header-img/header-home-mob-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media (min-device-pixel-ratio: 2) and (max-width: $max-width),
-    (min-resolution: 192dpi) and (max-width: $max-width),
-    (min-resolution: 2dppx) and (max-width: $max-width) {
+        @include media-2-min($mob) {
         background: url('../images/header-img/header-home-mob-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media screen and (min-width: $tab) {
+    @include media-min($tab) {
         background: url('../images/header-img/header-home-tab-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media (min-device-pixel-ratio: 2) and (min-width: $tab),
-    (min-resolution: 192dpi) and (min-width: $tab),
-    (min-resolution: 2dppx) and (min-width: $tab) {
+        @include media-2-min($tab) {
         background: url('../images/header-img/header-home-tab-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media screen and (min-width: $desk) {
+        @include media-min($desk) {
         background: url('../images/header-img/header-home-desk-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media (min-device-pixel-ratio: 2) and (min-width: $desk),
-    (min-resolution: 192dpi) and (min-width: $desk),
-    (min-resolution: 2dppx) and (min-width: $desk) {
+        @include media-2-min($desk) {
         background: url('../images/header-img/header-home-desk-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
@@ -102,48 +49,42 @@ ul {
 }
 
 .header--library {
-    @media screen and (min-width: $mob) {
+    @include media-min($mob) {
         background: url('../images/header-img/header-lib-mob-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media (min-device-pixel-ratio: 2) and (min-width: $mob),
-    (min-resolution: 192dpi) and (min-width: $mob),
-    (min-resolution: 2dppx) and (min-width: $mob) {
+        @include media-2-min($mob) {
         background: url('../images/header-img/header-lib-mob-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media screen and (min-width: $tab) {
+        @include media-min($tab) {
         background: url('../images/header-img/header-lib-tab-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media (min-device-pixel-ratio: 2) and (min-width: $tab),
-    (min-resolution: 192dpi) and (min-width: $tab),
-    (min-resolution: 2dppx) and (min-width: $tab) {
+        @include media-2-min($tab) {
         background: url('../images/header-img/header-lib-tab-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media screen and (min-width: $desk) {
+        @include media-min($desk) {
         background: url('../images/header-img/header-lib-desk-1x.jpg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
     }
 
-    @media (min-device-pixel-ratio: 2) and (min-width: $desk),
-    (min-resolution: 192dpi) and (min-width: $desk),
-    (min-resolution: 2dppx) and (min-width: $desk) {
+        @include media-2-min($desk) {
         background: url('../images/header-img/header-lib-desk-2x.jpg');
         background-repeat: no-repeat;
         background-position: center;
@@ -151,25 +92,21 @@ ul {
     }
 }
 
-// ===
 .header__container {
     max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin: 0 auto;
+    padding: 0 20px;
 
-    @media screen and (min-width: $mob) {
+    @include media-min($mob) {
         width: $mob;
     }
 
-    @media screen and (min-width: $tab) {
+    @include media-min($tab) {
         width: $tab;
-        padding-left: 32px;
-        padding-right: 32px;
+        padding: 0 32px;
     }
 
-    @media screen and (min-width: $desk) {
+    @include media-min($desk) {
         width: $desk;
     }
 }
@@ -214,7 +151,7 @@ ul {
         margin-right: 12px;
         fill: currentColor;
 
-        @media screen and (min-width: $tab) {
+        @include media-min($tab) {
             margin-right: 10px;
         }
     }
@@ -224,7 +161,7 @@ ul {
         font-weight: 500;
         color: currentColor;
        
-        @media screen and (max-width: 767px) {
+        @include media-max($mob-max-width) {
             display: none;
         }
     }
@@ -292,7 +229,7 @@ ul {
             }       
         }
 
-        @media screen and (min-width: $mob) and (max-width: $max-width) {
+        @include media-min-max($mob, $mob-max-width) {
             width: 278px;
         }
 
@@ -353,7 +290,7 @@ ul {
     cursor: pointer;
     
 
-    @media screen and(min-width:$tab) {
+    @include media-min($tab) {
         width: 136px;
     }
     border: 1px solid $secondary-text-color;
