@@ -1,8 +1,6 @@
 const teamRef = document.querySelector('.footer__link');
 const backdropTeamRef = document.querySelector('.backdrop-team');
 
-console.log(teamRef);
-
 teamRef.addEventListener('click', onGoitteamClick);
 
 function onGoitteamClick(e) {
