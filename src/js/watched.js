@@ -10,17 +10,16 @@ const refs = {
 }
 
 
-let watchedMovies = [];
+
 
 refs.addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
 
 
 
-function onAddToWatchedBtnClick (){
-   localStorage.setItem('film', refs.film.textContent);
-    refs.addToWatchedButton.innerHTML = 'Remove From Watched';
+function onAddToWatchedBtnClick() {
+   localStorage.setItem('watched', refs.film.textContent);
+    refs.addToWatchedButton.textContent = 'Remove From Watched';
     refs.addToWatchedButton.classList.add('is-addedToWatchedFilms');
-    watchedMovies.push(localStorage.getItem('film'));
    const watchedFilm = document.querySelector('.is-addedToWatchedFilms');
     watchedFilm.addEventListener('click', onRemoveFromWatchedBtnClick);
 
@@ -28,45 +27,54 @@ function onAddToWatchedBtnClick (){
 
 
 function onRemoveFromWatchedBtnClick() {
-    const watchedFilm = document.querySelector('.is-addedToWatchedFilms');
-    watchedFilm.classList.remove('is-addedToWatchedFilms');
-    refs.addToWatchedButton.innerHTML = 'Add to Watched';
-    localStorage.removeItem('film');
+  
+    refs.addToWatchedButton.classList.remove('is-addedToWatchedFilms');
+    refs.addToWatchedButton.textContent = 'Add to Watched';
+    localStorage.removeItem('watched');
 }
 
+
+function getStorage() {
+    let watched = localStorage.getItem('watched');
+    if (watched === null) {
+      return  watched = [];
+    } else {
+       return watched = JSON.parse(watched);
+    }
+}
 
 /////LIBRARY - WATCHED
 
-refs.watchedButton.addEventListener('click', onWatchedBtnClick);
+// refs.watchedButton.addEventListener('click', onWatchedBtnClick);
 
-async function onWatchedBtnClick (){
-    if (localStorage.getItem('key') !== null) {
-   const  searchText = watchedMovies;
-        const movie = await searchMovies(searchText);  
-   console.log(movie)     
-   renderMovieCards(movie.results);     
-}
-
-
-
-
-}
+// async function onWatchedBtnClick (){
+//     if (localStorage.getItem('key') !== null) {
+//    const  searchText = watchedMovies;
+//         const movie = await searchMovies(searchText);  
+//    console.log(movie)     
+//    renderMovieCards(movie.results);     
+// }
 
 
 
 
-function searchMovies(movie) {
-    return getMovies(
-        `${SEARCH_URL}?api_key=${API_KEY}&query=${movie}`
-    );
-}
+// }
 
-function renderMovieCards(movies) {
-  const movieGalleryMarkup = movies
-    .map(movie => createMovieMarkup(movie))
-    .join('');
 
-  document
-    .querySelector('.library-gallery')
-    .insertAdjacentHTML('beforeend', movieGalleryMarkup);
-}
+
+
+// function searchMovies(movie) {
+//     return getMovies(
+//         `${SEARCH_URL}?api_key=${API_KEY}&query=${movie}`
+//     );
+// }
+
+// function renderMovieCards(movies) {
+//   const movieGalleryMarkup = movies
+//     .map(movie => createMovieMarkup(movie))
+//     .join('');
+
+//   document
+//     .querySelector('.library-gallery')
+//     .insertAdjacentHTML('beforeend', movieGalleryMarkup);
+// }
