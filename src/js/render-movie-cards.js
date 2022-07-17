@@ -8,9 +8,9 @@ import { renderPagination } from './pagination.js';
 
   renderMovieCards(trendMoviesList.results);
 
-  // need to save last url to localstorage 
+  // Viktor:need to save last url to localstorage 
   localStorage.setItem('LAST_REQUESTED_URL', TREND_URL)
-  // render pagination buttons
+  // Viktor:render pagination buttons
   renderPagination(trendMoviesList.page, trendMoviesList.total_pages);
 })();
 
@@ -21,5 +21,5 @@ export function renderMovieCards(movies) {
   document
     .querySelector('.gallery')
     .innerHTML=movieGalleryMarkup;
-    // .insertAdjacentHTML('beforeend', movieGalleryMarkup);   // we need replace card, not append!
+    //.insertAdjacentHTML('beforeend', movieGalleryMarkup);   //Viktor: we need replace card, not append!
 }
