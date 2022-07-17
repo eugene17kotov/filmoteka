@@ -84,9 +84,4 @@ cardModal.addEventListener('click', clickOnMovieHandler);
             <div class="about-container">
                 <p class="text">${overview}</p>
             </div>
-<<<<<<< Updated upstream
    ` }
-=======
-        `
- }
->>>>>>> Stashed changes
