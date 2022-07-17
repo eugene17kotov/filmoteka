@@ -11,7 +11,7 @@
     background-color: transparent;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color linear 200ms;
+    transition: background-color 200ms linear;
 
     &:hover {
         background-color: #FF6B01;
@@ -59,9 +59,20 @@
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.25);
-    opacity: 1; 
+    visibility: visible;
+    opacity: 1;
     width: 100vw;
     height: 100vh;
+
+    transition: opacity 250ms linear,
+    visibility 250ms linear,
+    background-color 250ms linear;
+}
+
+.backdrop.is-hidden {
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
 }
 
 .modal {
@@ -151,6 +162,7 @@
     color: #000000;
 }
 
+
 .modal .property:not(:last-child), .modal .value:not(:last-child) {
     margin-bottom: 8px;
 
@@ -183,7 +195,7 @@
     border-radius: 5px;
     background-color: #fff;
     border: 1px solid #000000;
-    transition: color linear 200ms, background-color linear 200ms;
+    transition: color 200ms linear, background-color 200ms linear;
 
     &:hover {
         color: #fff;

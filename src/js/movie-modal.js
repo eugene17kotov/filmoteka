@@ -1,3 +1,7 @@
+const refs = {
+  backdrop: document.querySelector('.backdrop'),
+  closeBtn: document.querySelector('button[data-dismiss="modal"]'),
+};
 
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL } from './api/api-vars';

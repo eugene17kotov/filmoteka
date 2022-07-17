@@ -8,7 +8,7 @@ import { TREND_URL } from './api/api-vars';
   renderMovieCards(trendMoviesList);
 })();
 
-function renderMovieCards(movies) {
+export function renderMovieCards(movies) {
   const movieGalleryMarkup = movies
     .map(movie => createMovieMarkup(movie))
     .join('');
