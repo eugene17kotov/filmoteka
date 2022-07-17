@@ -11,6 +11,22 @@ export function createMovieMarkup(movie) {
 
   const movieGenresList = getMovieGenresList(genre_ids).join(', ');
 
+  if (poster_path === null) {
+  return `<li>
+            <a class="gallery__link" href="#">
+              <img class="gallery__image" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
+            
+            <div class="info">
+              <p class="info__item">${title}</p>
+              <div class="info-detail">
+                <p class="info-detail__item">${movieGenresList}</p>
+                <p class="info-detail__item">${year}</p>
+              </div>
+            </div>
+            </a>
+          </li>`;
+}
+
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
