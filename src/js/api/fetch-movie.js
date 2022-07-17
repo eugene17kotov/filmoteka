@@ -9,3 +9,6 @@ export async function getMovies(url) {
     console.error(error);
   }
 }
+
+
+

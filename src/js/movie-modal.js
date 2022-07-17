@@ -3,11 +3,59 @@ import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL } from './api/api-vars';
 // import { BASE_IMG_URL } from './api/api-vars';
 
-const cardModal = document.querySelector('.gallery');
-const imgageContainer = document.querySelector('.image-container');
-const backdrop = document.querySelector('.backdrop');
+const refs = {
+    backdrop: document.querySelector('.backdrop'),
+    closeBtn: document.querySelector('button[data-dismiss="modal"]'),
+    cardModal: document.querySelector('.gallery'),
+    imgageContainer: document.querySelector('.js-film'),
+};
 
- 
+
+  
+  const { backdrop, closeBtn, cardModal,imgageContainer } = refs;
+  
+  export default function addAllEventListenersModal() {
+    closeBtn.addEventListener('click', onCloseBtnClick);
+    window.addEventListener('keydown', onKeydownEscape);
+    backdrop.addEventListener('click', onBackdropClick);
+  }
+  
+  function onCloseBtnClick(e) {
+    e.preventDefault();
+    backdrop.classList.add('is-hidden');
+    removeAllEventListenersModal();
+  }
+  
+  function onKeydownEscape(e) {
+    e.preventDefault();
+    if (e.key === 'Escape') {
+      backdrop.classList.add('is-hidden');
+    }
+    removeAllEventListenersModal();
+  }
+  
+  function onBackdropClick(e) {
+    if (!e.target.classList.contains('backdrop')) {
+      return;
+    }
+    backdrop.classList.add('is-hidden');
+    removeAllEventListenersModal();
+  }
+  
+  function removeAllEventListenersModal() {
+    closeBtn.removeEventListener('click', onCloseBtnClick);
+    window.removeEventListener('keydown', onKeydownEscape);
+    backdrop.removeEventListener('click', onBackdropClick);
+  }
+
+
+
+
+// const cardModal = document.querySelector('.gallery');
+// const imgageContainer = document.querySelector('.image-container');
+// const backdrop = document.querySelector('.backdrop');
+
+let movieId;
 
 cardModal.addEventListener('click', clickOnMovieHandler);
 
@@ -22,18 +70,22 @@ cardModal.addEventListener('click', clickOnMovieHandler);
       return;
     }
   
-    let movieId = e.target.dataset.id;
-    
-     fetchById(movieId);
-  
+    movieId = e.target.dataset.id;
+    console.log(movieId);
+
+
+    fetchById(movieId).then(r => {
+        renderFilmCard(r) ; 
+        backdrop.setAttribute('id', movieId);
+    })
   }
 
  
   
   //Фетч фильма по ID
   async function fetchById() {
-    const movieId = (await getMovies(ID_URL)).results;
-    renderFilmCard(movieId);
+    return (await getMovies(ID_URL)).results;
+    
   }
 
   function renderFilmCard(film) {
@@ -41,7 +93,7 @@ cardModal.addEventListener('click', clickOnMovieHandler);
     
   }
   
-
+  
 
  function modalFilmCart(movieFilm) {
     const { title, 
