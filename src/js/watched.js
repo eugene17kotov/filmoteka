@@ -7,7 +7,12 @@ const refs = {
 
 refs.addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
 
-
+function isInLocalStorage(id) {
+  if (!localStorage.getItem('watched').contains(id)) {
+    return false;
+  }
+  return true;
+}
 
 function onAddToWatchedBtnClick() {
   const id = document.querySelector('backdrop').id;
@@ -19,12 +24,7 @@ function onAddToWatchedBtnClick() {
     localStorage.removeItem('watched', id);
   }
 }
-function isInLocalStorage(id) {
-  if (!localStorage.getItem('watched').contains(id)) {
-    return false;
-  }
-  return true;
-}
+
 
 // function onAddToWatchedBtnClick() {
 //    localStorage.setItem('watched', refs.film.textContent);
