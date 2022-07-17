@@ -347,12 +347,13 @@ body.header-menu-open {
 
 .header-mob-menu-open-btn {
     display: inline-flex;
-
+    z-index: 0;
     margin: 0;
     padding: 0;
     border: none;
     background-color: transparent;
     fill: currentColor;
+    cursor: pointer;
 
     &:hover,
     &:focus {
@@ -428,7 +429,7 @@ body.header-menu-open {
 
     &:hover,
     &:focus {
-        color: #3dcf86;
+        color: $accent-color;
         // text-decoration: underline;
     }
 }
