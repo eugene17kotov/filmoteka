@@ -96,8 +96,6 @@ function clearFilmCard() {
   imgContainer.innerHTML = '';
 }
 
-
-
   const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
         
 
