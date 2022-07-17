@@ -1,5 +1,6 @@
 import { getMovies } from './api/fetch-movie';
-import { ID_URL, BASE_IMG_URL } from './api/api-vars';
+import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
+
 
 
 
@@ -16,6 +17,7 @@ export default function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
+  
 }
 
 function onCloseBtnClick(e) {
@@ -54,7 +56,7 @@ function clickOnMovieHandler(e) {
   e.preventDefault();
 
   
-   backdrop.classList.remove('is-hidden')
+    backdrop.classList.remove('is-hidden')
  if (e.target.nodeName !== 'IMG' && e.target.nodeName !== 'H2') {
    return;
  }
@@ -64,13 +66,17 @@ function clickOnMovieHandler(e) {
  
   fetchById(movieId);
 
+  addAllEventListenersModal();
+  clearFilmCard();
+
 }
 
 
 
 //Фетч фильма по ID
  function fetchById(movieId) {
- getMovies(ID_URL).then(
+  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`
+ getMovies(idURL).then(
   res => {
     renderFilmCard(res);
     backdrop.setAttribute('id', movieId);
@@ -81,10 +87,19 @@ function clickOnMovieHandler(e) {
 }
 
 function renderFilmCard(film) {
-//  imgageContainer.insertAdjacentHTML('afterbegin', modalFilmCart(markup));
+
 modalFilmCart(film)
  
 }
+
+function clearFilmCard() {
+  imgContainer.innerHTML = '';
+}
+
+
+
+  const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
+        
 
 function modalFilmCart({ 
   title, 
@@ -96,15 +111,9 @@ function modalFilmCart({
   overview,
   poster_path, } ) {
 
-  
+    
     const markup = `
-    <button class="button-close" data-dismiss="modal">
-            <svg class="icon" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
-                <path d="m8 8 14 14M8 22 22 8" stroke-width="2" />
-            </svg>
-        </button>
-       
-        <div class="image-container">
+      <div class="image-container">
     <img 
     src="${BASE_IMG_URL}${poster_path}"
       alt="${title} movie poster}" 
@@ -125,7 +134,8 @@ function modalFilmCart({
           <p class="value"><span class="first-mark">${vote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
           <p class="value">${popularity}</p>
           <p class="value">${original_title}</p>
-          <p class="value">${genres}</p>
+          <p class="value">${getGenresNames(genres)}</p>
+          
       </div>
     </div>
     <div class="about">

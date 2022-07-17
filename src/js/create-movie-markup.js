@@ -21,7 +21,7 @@ export function createMovieMarkup(movie) {
           </li>`;
 }
 
-function getMovieGenresList(genresIdsList) {
+export function getMovieGenresList(genresIdsList) {
   let movieGenres = genres.reduce((acc, { id, name }) => {
     if (genresIdsList.includes(id)) {
       acc.push(name);
