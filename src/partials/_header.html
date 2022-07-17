@@ -9,6 +9,15 @@
           <span class="header__logo-name">Filmoteka</span>
         </a>
         <!--  -->
+        <button type="button" class="header-mob-menu-open-btn">
+          <svg class="menu-btn__icon" aria-label="Включение моб. меню heder">
+            <use
+              href="./././images/symbol-defs.svg##icon-menu"
+              width="32"
+              height="32"
+            ></use>
+          </svg>
+        </button>
         <ul class="header__nav-list">
           <li class="header__nav-item">
             <a
@@ -26,6 +35,7 @@
         </ul>
       </nav>
     </div>
+
     <div class="header__filmsearch">
       <form class="header__form" role="search">
         <input
@@ -41,6 +51,41 @@
           </svg>
         </button>
       </form>
+    </div>
+  </div>
+
+  <div class="header-mob-menu visually-hidden">
+    <div class="container mob-menu-container">
+      <div class="mob-menu-top">
+        <button type="button" class="header-mob-menu-close-btn">
+          <svg
+            class="menu-btn__icon"
+            width="40"
+            height="40"
+            aria-label="Выключение мобильного меню"
+          >
+            <use
+              class="menu-btn__icon--close"
+              href="./images/symbol-defs.svg#icon-close"
+            ></use>
+          </svg>
+        </button>
+        <ul class="mob-menu-list list">
+          <li class="mob-menu__item">
+            <a href="././index.html" class="mob-menu__link">Home</a>
+          </li>
+          <li class="mob-menu__item">
+            <a
+              href="././my-library.html"
+              class="mob-menu__link mob-menu__link--current"
+              >My library</a
+            >
+          </li>
+          <li class="mob-menu__item">
+            <a href="././newsfeed.html" class="mob-menu__link">Newsfeed</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </header>

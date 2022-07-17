@@ -1,5 +1,7 @@
 $trans-time: 300ms;
-
+body.header-menu-open {
+    overflow: hidden;
+}
 .header {
     height: 230px;
     padding-top: 46px;
@@ -133,15 +135,22 @@ $trans-time: 300ms;
         width: $desk;
     }
 }
-
+.header__section {
+        @include media-max($mob) {
+            display: inline-flex;
+            }
+}
 .header__nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     &-list {
+        display: none;
+        @include media-min($tab) {
         display: flex;
         list-style: none;
+        }
     }
 
     &-item {
@@ -333,5 +342,93 @@ $trans-time: 300ms;
     &:hover,
     &:focus {
         @extend .library__item-btn--active;
+    }
+}
+
+.header-mob-menu-open-btn {
+    display: inline-flex;
+
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    fill: currentColor;
+
+    &:hover,
+    &:focus {
+        fill: $accent-color;
+    }
+
+    @include media-min($tab) {
+        display: none;
+    }
+}
+.menu-btn__icon {
+   color: white;  
+   fill: currentColor;
+    width: 32px;
+    height: 32px;
+
+
+}
+.header-mob-menu {
+    position: fixed;
+    z-index: 1;
+    background-color: #3b3838;
+    width: 100%;
+    height: 100%;
+    // max-width: 620px;
+    // min-height: 700px;
+    top: 0;
+    left: 0;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-style: normal;
+    color: honeydew;
+}
+
+.mob-menu-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.header-mob-menu-close-btn {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    fill: currentColor;
+
+    &:hover,
+    &:focus {
+        fill: $accent-color;
+    }
+}
+
+.mob-menu__item:not(:last-child) {
+    margin-bottom: 32px;
+}
+
+.mob-menu__link {
+    font-size: 40px;
+    line-height: 47px;
+    letter-spacing: 0.02em;
+    color: #f5ebeb;
+
+    &--current {
+        color: $accent-color;
+    }
+
+    &:hover,
+    &:focus {
+        color: #3dcf86;
+        // text-decoration: underline;
     }
 }
