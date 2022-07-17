@@ -3,7 +3,7 @@ import axios from 'axios';
 const today = new Date().toISOString().slice(0, 10);
 const lastWeeksDate = getLastWeeksDate();
 const query = 'movie';
-const NEWS_URL_BY_QUERY = `https://newsapi.org/v2/everything?q=${query}&from=${lastWeeksDate}&to=${today}&language=en&sortBy=relevancy&pageSize=20&page=1&apiKey=262f56bb0a9143c7aea90930d1daf721`;
+const NEWS_URL_BY_QUERY = `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=${query}&from=${lastWeeksDate}&to=${today}&language=en&sortBy=relevancy&pageSize=20&page=1&apiKey=262f56bb0a9143c7aea90930d1daf721`;
 const NEWS_URL_TOP_HEADLINES = `https://newsapi.org/v2/top-headlines?category=entertainment&country=us&apiKey=262f56bb0a9143c7aea90930d1daf721`;
 
 async function getNewsFeed(url) {
