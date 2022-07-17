@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 0 20px 40px;
 
   @include tab {
-    padding: 60px 0;
+    padding: 0 0 60px;
   }
 }
 
@@ -20,11 +20,14 @@
   cursor: pointer;
 }
 
-.pagination-button:not(:last-child),
-.dots {
+.pagination-button:not(:last-child) {
     margin-right: 16px;
   }
 
+  .dots {
+    margin-right: 16px;
+    
+  }
 
 .pagination-button--current {
   width: 40px;
@@ -34,12 +37,12 @@
   border-radius: 5px;
 }
 
+.dots,
 .first-button,
-.last-button,
-.dots {
+.last-button {
   @media screen and (max-width: 767px) {
     display: none;
-}
+  }
 }
 
 .arrow-left {
