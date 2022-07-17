@@ -23,6 +23,30 @@
   opacity: 0;
 }
 
+.modal-team__close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  border: none;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 300ms $cubic;
+  color: #000000;
+
+  &:hover {
+    color: #ff6b01;
+  }
+}
+
+.modal-team__close-icon {
+  fill: currentColor;
+}
+
 .modal-team {
   position: relative;
 
