@@ -7,6 +7,8 @@ function onGoitteamClick(e) {
   e.preventDefault();
 
   backdropTeamRef.classList.remove('backdrop-team--is-hidden');
+  document.body.classList.toggle('modal-open');
+
   document.addEventListener('keydown', onEscClick);
   backdropTeamRef.addEventListener('click', onBackdropClick);
 }
@@ -16,6 +18,8 @@ function onEscClick(event) {
 
   if (event.code === 'Escape') {
     backdropTeamRef.classList.add('backdrop-team--is-hidden');
+    document.body.classList.toggle('modal-open');
+
     document.removeEventListener('keydown', onEscClick);
   }
 }
@@ -23,6 +27,8 @@ function onEscClick(event) {
 function onBackdropClick(event) {
   if (!event.target.closest('.modal-team')) {
     backdropTeamRef.classList.add('backdrop-team--is-hidden');
+    document.body.classList.toggle('modal-open');
+
     backdropTeamRef.removeEventListener('click', onBackdropClick);
   }
 }
