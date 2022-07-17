@@ -1,5 +1,6 @@
 import { API_KEY, SEARCH_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
+import { renderPagination } from './pagination'; //Viktor;
 import { renderMovieCards } from './render-movie-cards';
 
 const refs = {
@@ -12,10 +13,17 @@ if (refs.form) {
 
 
 
-export function searchMovies(movie, pageNumber) {
-    return getMovies(
-        `${SEARCH_URL}?api_key=${API_KEY}&query=${movie}&page=${pageNumber}`
-    ); 
+// export function searchMovies(movie, pageNumber) {
+//     return getMovies(
+//         `${SEARCH_URL}?api_key=${API_KEY}&query=${movie}&page=${pageNumber}`
+//     ); 
+// }
+
+//Viktor rewrited function: save searchUrl to localStorage for using in pagination;
+export function searchMovies(searchText) {
+    const searchUrl = `${SEARCH_URL}&query=${searchText}`;
+    localStorage.setItem('LAST_REQUESTED_URL', searchUrl)
+    return getMovies(searchUrl); 
 }
 
 let searchText = '';
@@ -30,16 +38,15 @@ export async function onFormSubmit(e) {
     const muvie = await searchMovies(searchText);
 
     e.target.reset();
-    
+
     renderMovieCards(muvie.results);
+    renderPagination(muvie.page, muvie.total_pages);  //Viktor: renderPagination function added
     
 }
 
 function clearGallery() {
     refs.gallery.innerHTML = '';
 }
-
-
 
 
 
