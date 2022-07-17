@@ -1,6 +1,6 @@
 import { API_KEY, SEARCH_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
-import { renderMovieCards } from './render-movie-cards';
+import { createMovieMarkup } from './create-movie-markup';
 
 
 const refs = {
@@ -51,7 +51,7 @@ async function onWatchedBtnClick (){
 
 
 }
-onWatchedBtnClick();  
+
 
 
 
@@ -59,4 +59,14 @@ function searchMovies(movie) {
     return getMovies(
         `${SEARCH_URL}?api_key=${API_KEY}&query=${movie}`
     );
+}
+
+function renderMovieCards(movies) {
+  const movieGalleryMarkup = movies
+    .map(movie => createMovieMarkup(movie))
+    .join('');
+
+  document
+    .querySelector('.library-gallery')
+    .insertAdjacentHTML('beforeend', movieGalleryMarkup);
 }
