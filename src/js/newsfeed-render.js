@@ -1,5 +1,3 @@
-// Styles
-import '../sass/main.scss';
 import axios from 'axios';
 
 const today = new Date().toISOString().slice(0, 10);
