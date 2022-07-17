@@ -1,16 +1,20 @@
 @import './utils/vars';
 @import './utils/reset';
 
-@import './base/container';
 @import './utils/mixins';
+@import './base/section';
+@import './base/container';
 @import './utils/tools';
 @import './utils/modern-normalize';
 @import './components/button';
 
 @import './layout/header';
 @import './layout/library-header';
+@import './layout/library-main';
 @import './layout/movie-grid';
+@import './layout/newsfeed';
 @import './layout/movie-card';
+@import './layout/pagination-wrap';
 @import './layout/footer';
 @import './layout/movie-modal';
 @import './layout/team-modal';
