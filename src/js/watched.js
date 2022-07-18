@@ -76,14 +76,15 @@ const libraryGallery = document.querySelector('.library-gallery');
 const libraryWatchedBtn = document.querySelector(
   'button[data-action="watched"]'
 );
+console.log(libraryWatchedBtn);
 
 libraryWatchedBtn &&
-  libraryWatchedBtn.addEventListener('click', onWatchedBtnClick);
+libraryWatchedBtn.addEventListener('click',onWatchedBtnClick);
 
 const watchedMovieId = localStorage.getItem('watched');
 
-function onWatchedBtnClick() {
-  if (watchedMovieId === null) {
+export function onWatchedBtnClick() {
+  if (watchedMovieId) {
     const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
     libraryTextContainer.innerHTML = noMoviesMarkup;
     return;
@@ -94,7 +95,7 @@ function onWatchedBtnClick() {
   fetchWatched(watchedMovieId);
 }
 
-function fetchWatched(watchedMovieId) {
+export function fetchWatched(watchedMovieId) {
   const moviesIDInWatched = JSON.parse(watchedMovieId);
 
   moviesIDInWatched.map(movieID => {

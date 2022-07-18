@@ -1,7 +1,9 @@
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
-import {onAddToWatchedBtnClick}from './watched';
+import { onAddToWatchedBtnClick } from './watched';
+import { onWatchedBtnClick } from './watched';
+import { fetchWatched } from './watched';
 
 const refs = {
   backdrop: document.querySelector('.backdrop'),
@@ -30,8 +32,14 @@ function addAllEventListenersModal() {
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
   queueBtn.addEventListener('click', onBtnQueueClick);
-   addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick)
+  addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick)
 }
+
+const libraryWatchedBtn = document.querySelector(
+  'button[data-action="watched"]'
+);
+libraryWatchedBtn &&
+libraryWatchedBtn.addEventListener('click', onWatchedBtnClick);
 
 function onCloseBtnClick(e) {
   e.preventDefault();
