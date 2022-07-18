@@ -78,9 +78,10 @@ libraryQueueBtn &&
 const queueMovieId = localStorage.getItem('queue');
 
 function onLibraryQueueBtnClick() {
-  if (queueMovieId === null) {
+  console.log(queueMovieId);
+  if (queueMovieId === null || JSON.parse(queueMovieId === [])) {
     const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
-    libraryTextContainer.insertAdjacentHTML('afterbegin', noMoviesMarkup);
+    libraryTextContainer.innerHTML = noMoviesMarkup;
     return;
   }
 
