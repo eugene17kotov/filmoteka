@@ -10,7 +10,7 @@
 }
 
 .pagination-button{
-  padding: 0;
+  padding: 13px 11px;
   font-family: Roboto;
   font-weight: 500;
   font-size: 12px;
@@ -21,7 +21,7 @@
 }
 
 .pagination-button:not(:last-child) {
-    margin-right: 16px;
+    margin-right: 8px;
   }
 
   .dots {
@@ -30,6 +30,7 @@
   }
 
 .pagination-button--current {
+  padding: 13px 11px;
   width: 40px;
   height: 40px;
   background-color: #FF6B08;
