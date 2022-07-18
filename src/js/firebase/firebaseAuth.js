@@ -3,13 +3,13 @@ import { getDatabase, ref, set, get, child, onValue } from 'firebase/database';
 
 import {
   getAuth,
+  onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 //
-
-import { cleanLoginModal } from './htmlUI';
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -51,23 +51,56 @@ export async function logUser(email, password) {
     });
 }
 
+// current user
+export async function getCurrentUser() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  return user;
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    // ...
+  } else {
+    // No user is signed in.
+  }
+}
+
+//
+//
+
+export function watchUser() {
+  const auth = getAuth();
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
+}
+
+// logout
+export async function logOut() {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      console.log('Sign-out successful.');
+    })
+    .catch(error => {
+      // An error happened.
+    });
+}
+
 // CRUD
 
 // function createNote() {}
 //
 export async function readNote(user) {
-  // const database = getDatabase();
-
-  // const dataRef = ref(database, 'galleries/' + user.uid);
-  // return await onValue(dataRef, snapshot => {
-  //   const data = snapshot.val();
-
-  //   console.log(
-  //     `aaaaaaaaaaaaaaaaaaaaa"${data.email}" "${data.username}" "${user.uid}"`
-  //   );
-  //   return data;
-  // });
-
   const dbRef = ref(getDatabase());
   return await get(child(dbRef, `users/${user.uid}`))
     .then(snapshot => {

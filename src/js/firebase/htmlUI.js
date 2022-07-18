@@ -5,7 +5,7 @@ import {
   loggedMarkup,
 } from './htmlMarkup';
 
-import { connectToBD, logUser, readNote } from './firebaseAuth';
+import { logUser, getCurrentUser, logOut, readNote } from './firebaseAuth';
 import {} from '@firebase/util';
 
 // hrefs
@@ -13,7 +13,7 @@ const hrefAuthHeaderHtml = document.getElementById('auth-header');
 const hrefModalHtml = document.getElementById('auth-modal');
 // const loginForm = document.getElementById('login-form');
 
-export async function onLoginBtn(e) {
+async function onLoginBtn(e) {
   //   console.log('onLoginBtn');
   e.preventDefault();
   const password = e.target.password.value;
@@ -30,7 +30,6 @@ export async function onLoginBtn(e) {
       readNote(myUser);
       const dbNote = await readNote(myUser);
       console.log('dbNote   ', dbNote);
-      // makeLoggedHtml(` user logged as ${myUser.uid} `);
       makeLoggedHtml(` user logged as ${dbNote.email} `);
     } else {
       document.getElementById('login-error').innerText = ` ${myUser
@@ -40,13 +39,18 @@ export async function onLoginBtn(e) {
   }
 }
 
-export function cancelLogin(e) {
+async function onLogoutBtn(e) {
+  e.target.removeEventListener('click', onLogoutBtn);
+
+  await logOut();
+  //   getCurrentUser();
+  makeLogRegHtml();
+}
+
+function cancelLogin(e) {
   console.log('cancelLogin');
   cleanLoginModal();
   makeLogRegHtml();
-
-  //   console.log(e.target);
-  //   e.target.resetForm();
 }
 
 export function makeLogRegHtml() {
@@ -60,7 +64,8 @@ export function makeLogRegHtml() {
 
 function makeLoggedHtml(loggedUser) {
   hrefAuthHeaderHtml.innerHTML = loggedMarkup;
-  document.getElementById('logged-user').innerText = `${loggedUser}`; //  logged as
+  document.getElementById('logged-user').innerText = loggedUser;
+  document.getElementById('logout').addEventListener('click', onLogoutBtn);
 }
 
 function onSignButton(e) {
