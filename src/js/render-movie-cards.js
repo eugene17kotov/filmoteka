@@ -1,4 +1,3 @@
-
 import { getMovies } from './api/fetch-movie';
 import { createMovieMarkup } from './create-movie-markup';
 import { TREND_URL } from './api/api-vars';
@@ -26,5 +25,4 @@ export function renderMovieCards(movies) {
   function appendMarkup() {
     gallery.innerHTML = movieGalleryMarkup;
   }
-
 }

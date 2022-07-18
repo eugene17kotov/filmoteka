@@ -1,16 +1,15 @@
-import fetchMovie from './api/fetch-movie';
+// import fetchMovie from './api/fetch-movie';
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
-import { renderPagination } from './pagination.js';
+// import { renderPagination } from './pagination.js';
 import { getMovies } from './api/fetch-movie';
-import { createMovieMarkup } from './create-movie-markup';
+// import { createMovieMarkup } from './create-movie-markup';
 //////////////////////////////////////////////////////////
 const refs = {
-addToWatchedButton: document.querySelector('.to-watched'),
-library: document.querySelector('.library-gallery'),
-bg: document.querySelector('.backdrop'),
-modal: document.querySelector('.js-modal'),
-
-}
+  addToWatchedButton: document.querySelector('.to-watched'),
+  //   library: document.querySelector('.library-gallery'),
+  bg: document.querySelector('.backdrop'),
+  //   modal: document.querySelector('.js-modal'),
+};
 
 const { addToWatchedButton, library, bg, modal } = refs;
 ///////////////////ADD TO WATCHED/////////////////////////////////
@@ -55,14 +54,14 @@ function inLocalStorage(value) {
     if (!JSON.parse(localStorage.getItem('watched').includes(value))) {
       return false;
     }
+    return true;
   }
   return true;
 }
 
 export function onAddToWatchedBtnClick() {
-
   const id = bg.id;
-  
+
   if (!inLocalStorage(id)) {
     addToWatchedButton.textContent = 'Remove from watched';
     localstorage.setFilm('watched', id);
@@ -70,24 +69,23 @@ export function onAddToWatchedBtnClick() {
     addToWatchedButton.textContent = 'Add to watched';
     localstorage.removeFilm('watched', id);
   }
- 
 }
-
 
 const libraryTextContainer = document.querySelector('.if-have-no-movies');
 const libraryGallery = document.querySelector('.library-gallery');
-const libraryWatchedBtn = document.querySelector('button[data-action="watched"]');
-
+const libraryWatchedBtn = document.querySelector(
+  'button[data-action="watched"]'
+);
 
 libraryWatchedBtn &&
-  libraryWatchedBtn.addEventListener('click', onAddToWatchedBtnClick);
+  libraryWatchedBtn.addEventListener('click', onWatchedBtnClick);
 
 const watchedMovieId = localStorage.getItem('watched');
 
-function onAddToWatchedBtnClick() {
+function onWatchedBtnClick() {
   if (watchedMovieId === null) {
     const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
-    libraryTextContainer.insertAdjacentHTML('afterbegin', noMoviesMarkup);
+    libraryTextContainer.innerHTML = noMoviesMarkup;
     return;
   }
 
