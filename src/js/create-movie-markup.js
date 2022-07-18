@@ -14,7 +14,7 @@ export function createMovieMarkup(movie) {
   if (poster_path === null) {
     return `<li>
             <a class="gallery__link" href="#">
-              <img class="gallery__image" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
+              <img class="gallery__image" data-id="${id}" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
             
             <div class="info">
               <p class="info__item">${title}</p>
