@@ -38,7 +38,7 @@ export async function onFormSubmit(e) {
     const muvie = await searchMovies(searchText);
 
     e.target.reset();
-    
+
     renderMovieCards(muvie.results);
     renderPagination(muvie.page, muvie.total_pages);  //Viktor: renderPagination function added
     
@@ -47,8 +47,6 @@ export async function onFormSubmit(e) {
 function clearGallery() {
     refs.gallery.innerHTML = '';
 }
-
-
 
 
 
