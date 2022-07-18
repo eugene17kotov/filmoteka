@@ -1,122 +1,151 @@
-// import fetchMovie from './api/fetch-movie';
-// import { API_KEY, BASE_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
-// import { renderPagination } from './pagination.js';
-// import { getMovies } from './api/fetch-movie';
-// import { createMovieMarkup } from './create-movie-markup';
-// //////////////////////////////////////////////////////////
-// const refs = {
-//   addToWatchedButton: document.querySelector('.to-watched'),
-//   gallery: document.querySelector('.library-gallery'),
-//   modal: document.querySelector('.js-modal'),
-//   libraryWatchedBtn: document.querySelector('button[data-action="watched"]'),
-// };
-// ///////////////////ADD TO WATCHED/////////////////////////////////
+import fetchMovie from './api/fetch-movie';
+import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
+import { renderPagination } from './pagination.js';
+import { getMovies } from './api/fetch-movie';
+import { createMovieMarkup } from './create-movie-markup';
+//////////////////////////////////////////////////////////
+const refs = {
+addToWatchedButton: document.querySelector('.to-watched'),
+library: document.querySelector('.library-gallery'),
+bg: document.querySelector('.backdrop'),
+modal: document.querySelector('.js-modal'),
 
-// refs.modal.addEventListener('click', modal);
+}
 
-// function modal() {
-//   refs.addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
-//   function onAddToWatchedBtnClick() {
-//     if (!isInLocalStorage(id)) {
-//       refs.addToWatchedButton.textContent = 'Remove From Watched';
-//       localStorage.setItem('watched', id);
-//     } else {
-//       refs.addToWatchedButton.textContent = 'Add to watched';
-//       localStorage.removeItem('watched', id);
-//     }
-//   }
+const { addToWatchedButton, library, bg, modal } = refs;
+///////////////////ADD TO WATCHED/////////////////////////////////
+const localstorage = {
+  loadData(key) {
+    const localStorageData = localStorage.getItem(key);
+    return JSON.parse(localStorageData);
+  },
 
-//   function isInLocalStorage(id) {
-//     if (!localStorage.getItem('watched').contains(id)) {
-//       return false;
-//     }
-//     return true;
-//   }
-// }
-// // ///////////////////ADD TO WATCHED/////////////////////////////////
+  saveData(key, value) {
+    const dataToSave = JSON.stringify(value);
+    localStorage.setItem(key, dataToSave);
+  },
 
-// // /////WATCHED/////
+  setFilm(key, value) {
+    const currentCollection = this.getMovies(key);
+    currentCollection.push(value);
+    this.saveData(key, currentCollection);
+  },
 
-// refs.libraryWatchedBtn.addEventListener('click', onLibraryWatchedBtnClick);
-// const libraryTextContainer = document.querySelector('.library-text');
+  removeFilm(key, value) {
+    const films = this.getMovies(key);
+    if (films.includes(value)) {
+      films.splice(films.indexOf(value), 1);
+      this.saveData(key, films);
+    } else return;
+  },
 
-// function onLibraryWatchedBtnClick(watchedMovieUrl) {
-//   let watchedMovieId = localStorage.getItem('watched');
-//   if (watched === null) {
-//     return (libraryTextContainer.textContent = 'You have not added any movies');
-//   } else {
-//     (async () => {
-//       const moviesById = await getMovies(ID_URL);
-//       renderMovieCardsLibrary(moviesById.results);
-//       renderPagination(trendMoviesList.page, trendMoviesList.total_pages);
-//     })();
-//   }
-// }
+  getMovies(key) {
+    const movies = this.loadData(key);
+    if (!movies) {
+      this.saveData(key, []);
+      return [];
+    } else {
+      return movies;
+    }
+  },
+};
 
-// function renderMovieCardsLibrary(movies) {
-//   const movieGalleryMarkup = movies
-//     .map(movie => createMovieMarkup(movie))
-//     .join('');
-//   document
-//     .querySelector('.library-gallery')
-//     .insertAdjacentHTML('beforeend', movieGalleryMarkup);
-// }
+function inLocalStorage(value) {
+  if (localStorage.getItem('watched') !== null) {
+    if (!JSON.parse(localStorage.getItem('watched').includes(value))) {
+      return false;
+    }
+  }
+  return true;
+}
 
-// ///WATCHED/////
+export function onAddToWatchedBtnClick() {
 
-// function createMovieMarkup(movie) {
-//   const { title, genre_ids, release_date, poster_path, vote_average } = movie;
-//   const year = release_date.slice(0, 4);
-//   const movieGenresList = getMovieGenresList(genre_ids).join(', ');
+  const id = bg.id;
+  
+  if (!inLocalStorage(id)) {
+    addToWatchedButton.textContent = 'Remove from watched';
+    localstorage.setFilm('watched', id);
+  } else {
+    addToWatchedButton.textContent = 'Add to watched';
+    localstorage.removeFilm('watched', id);
+  }
+ 
+}
 
-//   return `<li>
-//             <a class="gallery__link" href="#">
-//               <img class="gallery__image" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
 
-//             <div class="info">
-//               <p class="info__item">${title}</p>
-//               <div class="info-detail">
-//                 <p class="info-detail__item">${movieGenresList}</p>
-//                 <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-//               </div>
-//             </div>
-//             </a>
-//           </li>`;
-// }
+const libraryTextContainer = document.querySelector('.if-have-no-movies');
+const libraryGallery = document.querySelector('.library-gallery');
+const libraryWatchedBtn = document.querySelector('button[data-action="watched"]');
 
-// /////////////////////////////////////
-// // function onAddToWatchedBtnClick() {
-// //   localStorage.setItem('watched', refs.film.textContent);
-// //   refs.addToWatchedButton.textContent = 'Remove From Watched';
-// //   refs.addToWatchedButton.classList.add('is-addedToWatchedFilms');
-// //   const watchedFilm = document.querySelector('.is-addedToWatchedFilms');
-// //   watchedFilm.addEventListener('click', onRemoveFromWatchedBtnClick);
-// // }
-// // function onRemoveFromWatchedBtnClick() {
-// //   refs.addToWatchedButton.classList.remove('is-addedToWatchedFilms');
-// //   refs.addToWatchedButton.textContent = 'Add to Watched';
-// //   localStorage.removeItem('watched');
-// // }
+libraryWatchedBtn  &&
+  libraryWatchedBtn .addEventListener('click', onAddToWatchedBtnClick);
 
-// // function onAddToWatchedBtnClick() {
-// //   localStorage.setItem('watched', refs.film.textContent);
-// //   refs.addToWatchedButton.textContent = 'Remove From Watched';
-// //   refs.addToWatchedButton.classList.add('is-addedToWatchedFilms');
-// //   const watchedFilm = document.querySelector('.is-addedToWatchedFilms');
-// //   watchedFilm.addEventListener('click', onRemoveFromWatchedBtnClick);
-// // }
+const watchedMovieId = localStorage.getItem('watched');
 
-// // function onRemoveFromWatchedBtnClick() {
-// //   refs.addToWatchedButton.classList.remove('is-addedToWatchedFilms');
-// //   refs.addToWatchedButton.textContent = 'Add to Watched';
-// //   localStorage.removeItem('watched');
-// // }
+function onAddToWatchedBtnClick() {
+  if (watchedMovieId === null) {
+    const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
+    libraryTextContainer.insertAdjacentHTML('afterbegin', noMoviesMarkup);
+    return;
+  }
 
-// // function getStorage() {
-// //   let watched = localStorage.getItem('watched');
-// //   if (watched === null) {
-// //     return (watched = []);
-// //   } else {
-// //     return (watched = JSON.parse(watched));
-// //   }
-// // }
+  libraryGallery.innerHTML = '';
+
+  fetchWatched(watchedMovieId);
+}
+
+function fetchWatched(watchedMovieId) {
+  const moviesIDInWatched = JSON.parse(watchedMovieId);
+
+  moviesIDInWatched.map(movieID => {
+    fetchById(movieID).then(res => {
+      renderMovieCardsLibrary(res);
+    });
+  });
+}
+
+function fetchById(movieId) {
+  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
+  return getMovies(idURL);
+}
+
+function renderMovieCardsLibrary(movie) {
+  const movieGalleryMarkup = createLibraryMovieMarkup(movie);
+
+  libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
+}
+
+function createLibraryMovieMarkup(movie) {
+  const { title, genres, release_date, poster_path, vote_average, id } = movie;
+
+  let year = '';
+  if (typeof release_date !== 'undefined' && release_date.length > 4) {
+    year = release_date.slice(0, 4);
+  }
+
+  const queueGenres = getQueueMovieGenresList(genres);
+
+  return `<li>
+            <a class="gallery__link" href="#">
+              <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
+
+            <div class="info">
+              <p class="info__item">${title}</p>
+              <div class="info-detail">
+                <p class="info-detail__item">${queueGenres}</p>
+                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
+              </div>
+            </div>
+            </a>
+          </li>`;
+}
+
+function getQueueMovieGenresList(genres) {
+  let genresNames = genres.map(genre => genre.name);
+  if (genresNames.length > 3) {
+    genresNames = genresNames.slice(0, 2);
+    genresNames.push('Other');
+  }
+  return genresNames.join(', ');
+}
