@@ -78,8 +78,9 @@ const libraryTextContainer = document.querySelector('.if-have-no-movies');
 const libraryGallery = document.querySelector('.library-gallery');
 const libraryWatchedBtn = document.querySelector('button[data-action="watched"]');
 
-libraryWatchedBtn  &&
-  libraryWatchedBtn .addEventListener('click', onAddToWatchedBtnClick);
+
+libraryWatchedBtn &&
+  libraryWatchedBtn.addEventListener('click', onAddToWatchedBtnClick);
 
 const watchedMovieId = localStorage.getItem('watched');
 
