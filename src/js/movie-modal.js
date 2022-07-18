@@ -5,7 +5,7 @@ import { onBtnQueueClick } from './queue';
 const refs = {
   backdrop: document.querySelector('.backdrop'),
   closeBtn: document.querySelector('button[data-dismiss="modal"]'),
-  cardModal: document.querySelector('.gallery'),
+  cardModal: document.querySelector('ul[data-point="galery"]'),
   imgContainer: document.querySelector('.js-modal'),
   queueBtn: document.querySelector('.to-queue'),
   imgRef: document.querySelector('.image-container'),
@@ -58,9 +58,9 @@ function removeAllEventListenersModal() {
   queueBtn.removeEventListener('click', onBtnQueueClick);
 }
 
-// if (cardModal) {
-cardModal.addEventListener('click', clickOnMovieHandler);
-// }
+if (cardModal) {
+  cardModal.addEventListener('click', clickOnMovieHandler);
+}
 
 let movieId;
 // клик

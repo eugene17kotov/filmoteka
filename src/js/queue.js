@@ -112,7 +112,7 @@ function renderMovieCardsLibrary(movie) {
 }
 
 function createLibraryMovieMarkup(movie) {
-  const { title, genres, release_date, poster_path, vote_average } = movie;
+  const { title, genres, release_date, poster_path, vote_average, id } = movie;
 
   let year = '';
   if (typeof release_date !== 'undefined' && release_date.length > 4) {
@@ -123,7 +123,7 @@ function createLibraryMovieMarkup(movie) {
 
   return `<li>
             <a class="gallery__link" href="#">
-              <img class="gallery__image" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
+              <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
 
             <div class="info">
               <p class="info__item">${title}</p>
