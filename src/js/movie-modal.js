@@ -58,9 +58,7 @@ function removeAllEventListenersModal() {
   queueBtn.removeEventListener('click', onBtnQueueClick);
 }
 
-if (cardModal) {
-  cardModal.addEventListener('click', clickOnMovieHandler);
-}
+cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 
 let movieId;
 // клик

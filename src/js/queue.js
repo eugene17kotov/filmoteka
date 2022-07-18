@@ -68,20 +68,19 @@ export function onBtnQueueClick() {
   }
 }
 
-const libraryTextContainer = document.querySelector('.library-text');
+const libraryTextContainer = document.querySelector('.if-have-no-movies');
 const libraryGallery = document.querySelector('.library-gallery');
 const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
 
-libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
+libraryQueueBtn &&
+  libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
 const queueMovieId = localStorage.getItem('queue');
 
 function onLibraryQueueBtnClick() {
   if (queueMovieId === null) {
     const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
-    document
-      .querySelector('.if-have-no-movies')
-      .insertAdjacentHTML('afterbegin', noMoviesMarkup);
+    libraryTextContainer.insertAdjacentHTML('afterbegin', noMoviesMarkup);
     return;
   }
 
