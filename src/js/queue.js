@@ -46,24 +46,28 @@ const localstorage = {
   },
 };
 
-// if (queueBtn) {
-// queueBtn.addEventListener('click', onBtnQueueClick);
-// }
-
 function inLocalStorage(value) {
-  if (!localStorage.getItem('queue').contains(value)) {
-    return false;
+  if (localStorage.getItem('queue') !== null) {
+    if (!JSON.parse(localStorage.getItem('queue').includes(value))) {
+      return false;
+    }
   }
   return true;
 }
 
 export function onBtnQueueClick() {
+  // localStorage.clear();
   const id = bg.id;
+  const test = localStorage.getItem('queue');
+  // console.log(test);
+
+  // console.log(bg.id);
   if (!inLocalStorage(id)) {
-    refs.queueBtn.textContent = 'Remove to queue';
+    queueBtn.textContent = 'Remove from queue';
     localstorage.setFilm('queue', id);
   } else {
-    refs.queueBtn.textContent = 'Add to queue';
+    queueBtn.textContent = 'Add to queue';
     localstorage.removeFilm('queue', id);
   }
+  // console.log(test);
 }

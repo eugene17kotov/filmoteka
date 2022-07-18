@@ -8,14 +8,25 @@ const refs = {
   cardModal: document.querySelector('.gallery'),
   imgContainer: document.querySelector('.js-modal'),
   queueBtn: document.querySelector('.to-queue'),
+  imgRef: document.querySelector('.image-container'),
+  contentRef: document.querySelector('.content-markup'),
 };
 
-const { backdrop, closeBtn, cardModal, imgContainer, queueBtn } = refs;
+const {
+  backdrop,
+  closeBtn,
+  cardModal,
+  imgContainer,
+  queueBtn,
+  imgRef,
+  contentRef,
+} = refs;
 
-export default function addAllEventListenersModal() {
+function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
+  queueBtn.addEventListener('click', onBtnQueueClick);
 }
 
 function onCloseBtnClick(e) {
@@ -44,6 +55,7 @@ function removeAllEventListenersModal() {
   closeBtn.removeEventListener('click', onCloseBtnClick);
   window.removeEventListener('keydown', onKeydownEscape);
   backdrop.removeEventListener('click', onBackdropClick);
+  queueBtn.removeEventListener('click', onBtnQueueClick);
 }
 
 cardModal.addEventListener('click', clickOnMovieHandler);
@@ -63,18 +75,16 @@ function clickOnMovieHandler(e) {
   fetchById(movieId);
 
   addAllEventListenersModal();
-  clearFilmCard();
+  // clearFilmCard();
 }
 
 //Фетч фильма по ID
 function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
-  getMovies(idURL)
-    .then(res => {
-      renderFilmCard(res);
-      backdrop.setAttribute('id', movieId);
-    })
-    .finally(queueBtn.addEventListener('click', onBtnQueueClick));
+  getMovies(idURL).then(res => {
+    renderFilmCard(res);
+    backdrop.setAttribute('id', movieId);
+  });
 }
 
 function renderFilmCard(film) {
@@ -97,17 +107,15 @@ function modalFilmCart({
   overview,
   poster_path,
 }) {
-  const imageMarkuo = ``;
-  const markup = `
-<div class="image-container">
-    <img 
+  const imageMarkup = `
+  <img 
     src="${BASE_IMG_URL}${poster_path}"
       alt="${title} movie poster}" 
-      width="240" height="357" 
+      width="395" height="574" 
       class="image"
-      />
-</div>
-<div class="content">
+      />`;
+
+  const markup = `
   <h2 class="title">${title}</h2>
   <div class="properties">
       <div class="titles">
@@ -130,8 +138,16 @@ function modalFilmCart({
           <p class="text">${overview}</p>          
       </div>
   </div>
-</div>
       `;
 
-  imgContainer.insertAdjacentHTML('afterbegin', markup);
+  imgRef.innerHTML = imageMarkup;
+  contentRef.innerHTML = markup;
+
+  const id = backdrop.id;
+  if (JSON.parse(localStorage.getItem('queue').includes(id))) {
+    queueBtn.textContent = 'Remove from queue';
+  } else {
+    queueBtn.textContent = 'Add to queue';
+  }
+  // imgContainer.insertAdjacentHTML('afterbegin', markup);
 }
