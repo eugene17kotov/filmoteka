@@ -46,9 +46,9 @@ const localstorage = {
   },
 };
 
-if (queueBtn) {
-  queueBtn.addEventListener('click', onBtnQueueClick);
-}
+// if (queueBtn) {
+// queueBtn.addEventListener('click', onBtnQueueClick);
+// }
 
 function inLocalStorage(value) {
   if (!localStorage.getItem('queue').contains(value)) {
@@ -57,7 +57,7 @@ function inLocalStorage(value) {
   return true;
 }
 
-function onBtnQueueClick() {
+export function onBtnQueueClick() {
   const id = bg.id;
   if (!inLocalStorage(id)) {
     refs.queueBtn.textContent = 'Remove to queue';
