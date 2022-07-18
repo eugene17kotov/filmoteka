@@ -71,10 +71,13 @@ function clickOnMovieHandler(e) {
   }
 
   movieId = e.target.dataset.id;
+  backdrop.setAttribute('id', movieId);
 
   fetchById(movieId);
 
   addAllEventListenersModal();
+
+  whichBtnShow(movieId);
   // clearFilmCard();
 }
 
@@ -83,7 +86,6 @@ function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
   getMovies(idURL).then(res => {
     renderFilmCard(res);
-    backdrop.setAttribute('id', movieId);
   });
 }
 
@@ -143,11 +145,19 @@ function modalFilmCart({
   imgRef.innerHTML = imageMarkup;
   contentRef.innerHTML = markup;
 
-  const id = backdrop.id;
-  if (JSON.parse(localStorage.getItem('queue').includes(id))) {
+  // imgContainer.insertAdjacentHTML('afterbegin', markup);
+}
+
+function whichBtnShow(id) {
+  const localstorage = localStorage.getItem('queue');
+
+  if (localstorage === null) {
+    queueBtn.textContent = 'Add to queue';
+    return;
+  }
+  if (JSON.parse(localstorage.includes(id))) {
     queueBtn.textContent = 'Remove from queue';
   } else {
     queueBtn.textContent = 'Add to queue';
   }
-  // imgContainer.insertAdjacentHTML('afterbegin', markup);
 }

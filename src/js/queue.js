@@ -69,5 +69,5 @@ export function onBtnQueueClick() {
     queueBtn.textContent = 'Add to queue';
     localstorage.removeFilm('queue', id);
   }
-  // console.log(test);
+  console.log(test);
 }
