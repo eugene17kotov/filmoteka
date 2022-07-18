@@ -43,6 +43,7 @@ function createNewsCardMarkup(newsItem) {
 
   const img = multimedia.find(item => /blog/.test(item.subtype));
   let newsImg = '';
+
   if (!img) {
     newsImg = 'https://picsum.photos/400/300';
   } else {
