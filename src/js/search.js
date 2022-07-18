@@ -6,6 +6,7 @@ import { renderMovieCards } from './render-movie-cards';
 const refs = {
     form: document.querySelector('.header__form'),
     gallery: document.querySelector('.gallery'),
+    loader: document.querySelector(".backdrop-loader"),
 }
 if (refs.form) {
     refs.form.addEventListener('submit', onFormSubmit);
@@ -30,6 +31,8 @@ let searchText = '';
 
 export async function onFormSubmit(e) {
     e.preventDefault();
+
+    refs.loader.classList.remove('backdrop-loader--is-hidden');
     
     clearGallery();
     
@@ -37,11 +40,12 @@ export async function onFormSubmit(e) {
     
     const muvie = await searchMovies(searchText);
 
+    refs.loader.classList.add('backdrop-loader--is-hidden');
+
     e.target.reset();
 
     renderMovieCards(muvie.results);
-    renderPagination(muvie.page, muvie.total_pages);  //Viktor: renderPagination function added
-    
+    renderPagination(muvie.page, muvie.total_pages);  //Viktor: renderPagination function added 
 }
 
 function clearGallery() {
