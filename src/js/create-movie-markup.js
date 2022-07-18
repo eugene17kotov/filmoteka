@@ -4,15 +4,15 @@ import { BASE_IMG_URL } from './api/api-vars';
 export function createMovieMarkup(movie) {
   const { title, genre_ids, release_date, poster_path, id } = movie;
 
-  let year = "";
-  if (typeof release_date !== "undefined" && release_date.length > 4) {
+  let year = '';
+  if (typeof release_date !== 'undefined' && release_date.length > 4) {
     year = release_date.slice(0, 4);
   }
 
   const movieGenresList = getMovieGenresList(genre_ids).join(', ');
 
   if (poster_path === null) {
-  return `<li>
+    return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
             
@@ -25,7 +25,7 @@ export function createMovieMarkup(movie) {
             </div>
             </a>
           </li>`;
-}
+  }
 
   return `<li>
             <a class="gallery__link" href="#">
