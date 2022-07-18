@@ -1,6 +1,6 @@
-import { ID_URL, BASE_IMG_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie';
-import { genres } from './genres.json';
+import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
+// import { renderPagination } from './pagination.js';
 
 const refsModal = {
   queueBtn: document.querySelector('.to-queue'),
@@ -51,17 +51,14 @@ function inLocalStorage(value) {
     if (!JSON.parse(localStorage.getItem('queue').includes(value))) {
       return false;
     }
+    return true;
   }
   return true;
 }
 
 export function onBtnQueueClick() {
-  // localStorage.clear();
   const id = bg.id;
-  const test = localStorage.getItem('queue');
-  // console.log(test);
 
-  // console.log(bg.id);
   if (!inLocalStorage(id)) {
     queueBtn.textContent = 'Remove from queue';
     localstorage.setFilm('queue', id);
@@ -69,5 +66,81 @@ export function onBtnQueueClick() {
     queueBtn.textContent = 'Add to queue';
     localstorage.removeFilm('queue', id);
   }
-  console.log(test);
+}
+
+const libraryTextContainer = document.querySelector('.library-text');
+const libraryGallery = document.querySelector('.library-gallery');
+const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
+
+libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
+
+const queueMovieId = localStorage.getItem('queue');
+
+function onLibraryQueueBtnClick() {
+  if (queueMovieId === null) {
+    const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
+    document
+      .querySelector('.if-have-no-movies')
+      .insertAdjacentHTML('afterbegin', noMoviesMarkup);
+    return;
+  }
+
+  libraryGallery.innerHTML = '';
+
+  fetchQueue(queueMovieId);
+}
+
+function fetchQueue(queueMovieId) {
+  const moviesIDInQueue = JSON.parse(queueMovieId);
+
+  moviesIDInQueue.map(movieID => {
+    fetchById(movieID).then(res => {
+      renderMovieCardsLibrary(res);
+    });
+  });
+}
+
+function fetchById(movieId) {
+  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
+  return getMovies(idURL);
+}
+
+function renderMovieCardsLibrary(movie) {
+  const movieGalleryMarkup = createLibraryMovieMarkup(movie);
+
+  libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
+}
+
+function createLibraryMovieMarkup(movie) {
+  const { title, genres, release_date, poster_path, vote_average } = movie;
+
+  let year = '';
+  if (typeof release_date !== 'undefined' && release_date.length > 4) {
+    year = release_date.slice(0, 4);
+  }
+
+  const queueGenres = getQueueMovieGenresList(genres);
+
+  return `<li>
+            <a class="gallery__link" href="#">
+              <img class="gallery__image" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
+
+            <div class="info">
+              <p class="info__item">${title}</p>
+              <div class="info-detail">
+                <p class="info-detail__item">${queueGenres}</p>
+                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
+              </div>
+            </div>
+            </a>
+          </li>`;
+}
+
+function getQueueMovieGenresList(genres) {
+  let genresNames = genres.map(genre => genre.name);
+  if (genresNames.length > 3) {
+    genresNames = genresNames.slice(0, 2);
+    genresNames.push('Other');
+  }
+  return genresNames.join(', ');
 }

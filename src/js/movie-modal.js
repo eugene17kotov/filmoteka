@@ -58,7 +58,9 @@ function removeAllEventListenersModal() {
   queueBtn.removeEventListener('click', onBtnQueueClick);
 }
 
+// if (cardModal) {
 cardModal.addEventListener('click', clickOnMovieHandler);
+// }
 
 let movieId;
 // клик
@@ -78,7 +80,6 @@ function clickOnMovieHandler(e) {
   addAllEventListenersModal();
 
   whichBtnShow(movieId);
-  // clearFilmCard();
 }
 
 //Фетч фильма по ID
@@ -91,10 +92,6 @@ function fetchById(movieId) {
 
 function renderFilmCard(film) {
   modalFilmCart(film);
-}
-
-function clearFilmCard() {
-  imgContainer.innerHTML = '';
 }
 
 const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
@@ -144,8 +141,6 @@ function modalFilmCart({
 
   imgRef.innerHTML = imageMarkup;
   contentRef.innerHTML = markup;
-
-  // imgContainer.insertAdjacentHTML('afterbegin', markup);
 }
 
 function whichBtnShow(id) {

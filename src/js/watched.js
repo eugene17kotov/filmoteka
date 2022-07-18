@@ -12,8 +12,6 @@
 // };
 // ///////////////////ADD TO WATCHED/////////////////////////////////
 
-// const id = document.querySelector('backdrop').id;
-
 // refs.modal.addEventListener('click', modal);
 
 // function modal() {
@@ -35,9 +33,9 @@
 //     return true;
 //   }
 // }
-// ///////////////////ADD TO WATCHED/////////////////////////////////
+// // ///////////////////ADD TO WATCHED/////////////////////////////////
 
-// /////WATCHED/////
+// // /////WATCHED/////
 
 // refs.libraryWatchedBtn.addEventListener('click', onLibraryWatchedBtnClick);
 // const libraryTextContainer = document.querySelector('.library-text');
@@ -64,9 +62,7 @@
 //     .insertAdjacentHTML('beforeend', movieGalleryMarkup);
 // }
 
-//
-
-/////WATCHED/////
+// ///WATCHED/////
 
 // function createMovieMarkup(movie) {
 //   const { title, genre_ids, release_date, poster_path, vote_average } = movie;
@@ -88,47 +84,39 @@
 //           </li>`;
 // }
 
-///////////////////////////////////////
-//     function onAddToWatchedBtnClick() {
-//    localStorage.setItem('watched', refs.film.textContent);
-//     refs.addToWatchedButton.textContent = 'Remove From Watched';
-//     refs.addToWatchedButton.classList.add('is-addedToWatchedFilms');
-//    const watchedFilm = document.querySelector('.is-addedToWatchedFilms');
-//     watchedFilm.addEventListener('click', onRemoveFromWatchedBtnClick);
+// /////////////////////////////////////
+// // function onAddToWatchedBtnClick() {
+// //   localStorage.setItem('watched', refs.film.textContent);
+// //   refs.addToWatchedButton.textContent = 'Remove From Watched';
+// //   refs.addToWatchedButton.classList.add('is-addedToWatchedFilms');
+// //   const watchedFilm = document.querySelector('.is-addedToWatchedFilms');
+// //   watchedFilm.addEventListener('click', onRemoveFromWatchedBtnClick);
+// // }
+// // function onRemoveFromWatchedBtnClick() {
+// //   refs.addToWatchedButton.classList.remove('is-addedToWatchedFilms');
+// //   refs.addToWatchedButton.textContent = 'Add to Watched';
+// //   localStorage.removeItem('watched');
+// // }
 
-//     }
-//     function onRemoveFromWatchedBtnClick() {
+// // function onAddToWatchedBtnClick() {
+// //   localStorage.setItem('watched', refs.film.textContent);
+// //   refs.addToWatchedButton.textContent = 'Remove From Watched';
+// //   refs.addToWatchedButton.classList.add('is-addedToWatchedFilms');
+// //   const watchedFilm = document.querySelector('.is-addedToWatchedFilms');
+// //   watchedFilm.addEventListener('click', onRemoveFromWatchedBtnClick);
+// // }
 
-//     refs.addToWatchedButton.classList.remove('is-addedToWatchedFilms');
-//     refs.addToWatchedButton.textContent = 'Add to Watched';
-//         localStorage.removeItem('watched');
-// }
+// // function onRemoveFromWatchedBtnClick() {
+// //   refs.addToWatchedButton.classList.remove('is-addedToWatchedFilms');
+// //   refs.addToWatchedButton.textContent = 'Add to Watched';
+// //   localStorage.removeItem('watched');
+// // }
 
-//
-
-// }
-
-// function onAddToWatchedBtnClick() {
-//    localStorage.setItem('watched', refs.film.textContent);
-//     refs.addToWatchedButton.textContent = 'Remove From Watched';
-//     refs.addToWatchedButton.classList.add('is-addedToWatchedFilms');
-//    const watchedFilm = document.querySelector('.is-addedToWatchedFilms');
-//     watchedFilm.addEventListener('click', onRemoveFromWatchedBtnClick);
-
-// }
-
-// function onRemoveFromWatchedBtnClick() {
-
-//     refs.addToWatchedButton.classList.remove('is-addedToWatchedFilms');
-//     refs.addToWatchedButton.textContent = 'Add to Watched';
-//     localStorage.removeItem('watched');
-// }
-
-// function getStorage() {
-//     let watched = localStorage.getItem('watched');
-//     if (watched === null) {
-//       return  watched = [];
-//     } else {
-//        return watched = JSON.parse(watched);
-//     }
-// }
+// // function getStorage() {
+// //   let watched = localStorage.getItem('watched');
+// //   if (watched === null) {
+// //     return (watched = []);
+// //   } else {
+// //     return (watched = JSON.parse(watched));
+// //   }
+// // }
