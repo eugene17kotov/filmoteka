@@ -26,4 +26,5 @@ export function renderMovieCards(movies) {
   function appendMarkup() {
     gallery.innerHTML = movieGalleryMarkup;
   }
+
 }
