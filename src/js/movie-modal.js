@@ -108,7 +108,7 @@ function modalFilmCart({
   <img 
     src="${BASE_IMG_URL}${poster_path}"
       alt="${title} movie poster}" 
-      width="395" height="574" 
+      width="375" height="478" 
       class="image"
       />`;
 

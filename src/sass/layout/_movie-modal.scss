@@ -47,8 +47,8 @@
   }
 
   @media screen and (min-width: $desk) {
-    width: 395px;
-    height: 574px;
+    width: 375px;
+    height: 478px;
     margin-right: 16px;
   }
 }
@@ -88,7 +88,7 @@
 
   @media screen and (min-width: 768px) {
     width: 704px;
-    height: 654px;
+    height: 552px;
     flex-direction: row;
     padding-top: 40px;
     padding-right: 72px;
@@ -98,7 +98,7 @@
 
   @media screen and (min-width: $desk) {
     width: 806px;
-    height: 654px;
+    height: 558px;
     padding: 40px 12px;
   }
 }
@@ -229,5 +229,7 @@
 }
 
 .js-modal {
-  display: flex;
+  @media screen and (min-width: $tab) {
+    display: flex;
+  }
 }
