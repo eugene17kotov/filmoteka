@@ -36,7 +36,7 @@ export function onBtnQueueClick() {
   }
 
   libraryGallery && onLibraryQueueBtnClick();
-  libraryQueueBtn.focus();
+  libraryQueueBtn && libraryQueueBtn.focus();
 }
 
 libraryQueueBtn &&

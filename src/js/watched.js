@@ -33,7 +33,7 @@ export function onAddToWatchedBtnClick() {
   }
 
   libraryGallery && onWatchedBtnClick();
-  libraryWatchedBtn.focus();
+  libraryWatchedBtn && libraryWatchedBtn.focus();
 }
 
 libraryWatchedBtn &&

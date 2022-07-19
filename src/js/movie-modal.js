@@ -2,6 +2,7 @@ import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
+import { scrollFunction } from './scroll-up';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -23,6 +24,8 @@ const {
   addToWatchedButton,
 } = refs;
 
+const toTopBtn = document.getElementById('myBtn');
+
 function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
   window.addEventListener('keydown', onKeydownEscape);
@@ -34,6 +37,7 @@ function addAllEventListenersModal() {
 function onCloseBtnClick(e) {
   e.preventDefault();
   backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
@@ -43,6 +47,7 @@ function onKeydownEscape(e) {
     return;
   }
   backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
@@ -51,6 +56,7 @@ function onBackdropClick(e) {
     return;
   }
   backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
@@ -76,6 +82,7 @@ function clickOnMovieHandler(e) {
 
   backdrop.classList.remove('is-hidden');
   document.body.classList.toggle('modal-open');
+  toTopBtn.style.display = 'none';
 
   movieId = e.target.dataset.id;
   backdrop.setAttribute('id', movieId);
