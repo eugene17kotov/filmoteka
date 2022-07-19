@@ -47,8 +47,8 @@
   }
 
   @media screen and (min-width: $desk) {
-    width: 395px;
-    height: 574px;
+    width: 375px;
+    height: 478px;
     margin-right: 16px;
   }
 }
@@ -108,7 +108,7 @@ body {
 
   @media screen and (min-width: 768px) {
     width: 704px;
-    height: 654px;
+    height: 552px;
     flex-direction: row;
     padding-top: 40px;
     padding-right: 72px;
@@ -117,8 +117,8 @@ body {
   }
 
   @media screen and (min-width: $desk) {
-    width: 850px;
-    height: 654px;
+    width: 806px;
+    height: 558px;
     padding: 40px 12px;
   }
 }
@@ -211,7 +211,7 @@ body {
   border-radius: 5px;
   background-color: #fff;
   border: 1px solid #000000;
-  transition: color 300ms ease-in, background-color 350ms ease-in;
+  transition: color 400ms ease-in, background-color 400ms ease-in;
 
   &:hover {
     color: #fff;
@@ -253,11 +253,19 @@ body {
   background-color: #ff6b01;
   padding: 3px 8px;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 20px;
+  margin-left: 5px;
 
   font-size: 13px;
   line-height: 1.17;
 }
 
 .js-modal {
-  display: flex;
+  @media screen and (min-width: $tab) {
+    display: flex;
+  }
 }
