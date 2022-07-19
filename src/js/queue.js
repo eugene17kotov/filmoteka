@@ -1,11 +1,11 @@
 const refs = {
-  queueBtn: document.querySelector('button.to-queue'),
+  queueBtn: document.querySelector('.button-to-queue'),
   gallery: document.querySelector('.library-gallery'),
 };
 
 const { queueBtn, gallery } = refs;
 
-queueBtn.addEventListener('click', onBtnQueueClick);
+// queueBtn.addEventListener('click', onBtnQueueClick);
 
 function inLocalStorage(id) {
   if (!localStorage.getItem('queue').contains(id)) {

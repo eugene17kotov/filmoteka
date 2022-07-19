@@ -28,7 +28,7 @@ export const loginMarkup = `<div id="user-login">
 export const registerMarkup = `<div id="user-register">
         <button id="close-backdrop" type="button" >cancel</button>
         <br /><br />
-        <p class="title">to log in enter your emforail and password</p>
+        <p class="title">to log in enter your email and password</p>
         <form id="signup-form">
           <label for="email">enter valid email: </label>
           <input type="email" name="email" required />

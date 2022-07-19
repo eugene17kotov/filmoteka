@@ -5,7 +5,15 @@ import {
   loggedMarkup,
 } from './htmlMarkup';
 
-import { logUser, getCurrentUser, logOut, readNote } from './firebaseAuth';
+import {
+  logUser,
+  getCurrentUser,
+  watchUser,
+  logOut,
+  createNote,
+  readNote,
+  createNewUser,
+} from './firebaseAuth';
 import {} from '@firebase/util';
 
 // hrefs
@@ -22,20 +30,60 @@ async function onLoginBtn(e) {
   //   console.log('password ', password, ' email ', email);
   if (action === 'log') {
     const myUser = await logUser(email, password);
+    console.log('myUser   ');
+    console.log(myUser);
+    console.log(await getCurrentUser());
+
     if (myUser.uid) {
-      console.log('onLoginBtn   ', myUser);
-      console.log('onLoginBtn   ', myUser.uid);
+      // console.log('onLoginBtn   ', myUser);
+      // console.log('onLoginBtn   ', myUser.uid);
 
       cleanLoginModal();
       readNote(myUser);
       const dbNote = await readNote(myUser);
-      console.log('dbNote   ', dbNote);
-      makeLoggedHtml(` user logged as ${dbNote.email} `);
+      // console.log('dbNote   ', dbNote);
+      // add get JSON from DB
+
+      makeLoggedHtml(` user logged as ${myUser.email} `);
     } else {
       document.getElementById('login-error').innerText = ` ${myUser
         .replace('auth/', '')
-        .replaceAll('-', '  ')}, try again! `;
+        .replaceAll('-', '  ')}, check your email and try again or signup! `;
     }
+  } else {
+    // create new user here
+    const createdUser = await createNewUser(email, password);
+    // console.log('createdUser   ', createdUser);
+    if (createdUser.uid) {
+      // const myUser = await logUser(email, password);
+      await createNote(createdUser);
+      cleanLoginModal();
+
+      // login here
+      const myUser = await logUser(email, password);
+
+      // const watchedUser = await watchUser(myUser);
+      // console.log(watchedUser);
+
+      readNote(myUser);
+      const dbNote = await readNote(myUser);
+      console.log('dbNote   ', dbNote);
+      // add get JSON from DB
+
+      makeLoggedHtml(` user logged as ${myUser.email} `);
+    } else {
+      document.getElementById('login-error').innerText = ` ${createdUser
+        .replace('auth/', '')
+        .replaceAll('-', '  ')}, try to signin instead! `;
+    }
+
+    // const myUser = await logUser(email, password);
+    // console.log(myUser, myUser);
+
+    // const currentUser = await getCurrentUser;
+    // console.log('currentUser   ', currentUser);
+
+    // console.log(createdUser === currentUser);
   }
 }
 
@@ -69,11 +117,13 @@ function makeLoggedHtml(loggedUser) {
 }
 
 function onSignButton(e) {
-  const tosignin = document.getElementById('tosignin');
-  tosignin.removeEventListener('click', onSignButton);
+  document
+    .getElementById('tosignin')
+    .removeEventListener('click', onSignButton);
 
-  const tosignup = document.getElementById('tosignup');
-  tosignup.removeEventListener('click', onSignButton);
+  document
+    .getElementById('tosignup')
+    .removeEventListener('click', onSignButton);
 
   if (e.target === tosignin) {
     makeLoginModalHtml();
@@ -81,6 +131,7 @@ function onSignButton(e) {
     closeBackdrop.addEventListener('click', cancelLogin);
     form.addEventListener('submit', onLoginBtn);
   } else {
+    //  qqqqqqqqqqq   qqqq qqqqq
     makeRegisterModalHtml();
     const { closeBackdrop, form } = getElementsLoginModal();
     closeBackdrop.addEventListener('click', cancelLogin);
@@ -101,7 +152,7 @@ function getElementsLoginModal() {
   return { modal, closeBackdrop, signup, signin, form };
 }
 
-export function cleanLoginModal() {
+function cleanLoginModal() {
   const { modal, closeBackdrop, form } = getElementsLoginModal();
 
   closeBackdrop.removeEventListener('click', cancelLogin);

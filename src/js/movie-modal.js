@@ -1,13 +1,10 @@
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 
-
-
-
 const refs = {
   backdrop: document.querySelector('.backdrop'),
   closeBtn: document.querySelector('button[data-dismiss="modal"]'),
-  cardModal : document.querySelector('.gallery'),
+  cardModal: document.querySelector('.gallery'),
   imgContainer: document.querySelector('.js-modal'),
 };
 
@@ -17,7 +14,6 @@ export default function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
-  
 }
 
 function onCloseBtnClick(e) {
@@ -50,67 +46,54 @@ function removeAllEventListenersModal() {
 
 cardModal.addEventListener('click', clickOnMovieHandler);
 
-let movieId
+let movieId;
 // клик
 function clickOnMovieHandler(e) {
   e.preventDefault();
 
-  
-    backdrop.classList.remove('is-hidden')
- if (e.target.nodeName !== 'IMG' && e.target.nodeName !== 'H2') {
-   return;
- }
+  backdrop.classList.remove('is-hidden');
+  if (e.target.nodeName !== 'IMG' && e.target.nodeName !== 'H2') {
+    return;
+  }
 
   movieId = e.target.dataset.id;
- 
- 
+
   fetchById(movieId);
 
   addAllEventListenersModal();
   clearFilmCard();
-
 }
 
-
-
 //Фетч фильма по ID
- function fetchById(movieId) {
-  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`
- getMovies(idURL).then(
-  res => {
+function fetchById(movieId) {
+  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
+  getMovies(idURL).then(res => {
     renderFilmCard(res);
     backdrop.setAttribute('id', movieId);
-    
-  }
-)
- 
+  });
 }
 
 function renderFilmCard(film) {
-
-modalFilmCart(film)
- 
+  modalFilmCart(film);
 }
 
 function clearFilmCard() {
   imgContainer.innerHTML = '';
 }
 
-  const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
-        
+const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
 
-function modalFilmCart({ 
-  title, 
+function modalFilmCart({
+  title,
   original_title,
-  vote_average, 
-  vote_count, 
-  popularity, 
-  genres, 
+  vote_average,
+  vote_count,
+  popularity,
+  genres,
   overview,
-  poster_path, } ) {
-
-    
-    const markup = `
+  poster_path,
+}) {
+  const markup = `
       <div class="image-container">
     <img 
     src="${BASE_IMG_URL}${poster_path}"
@@ -151,9 +134,5 @@ function modalFilmCart({
     </div>
       `;
 
-
-  
-      imgContainer.insertAdjacentHTML('afterbegin', markup);
-
-  }
-  
+  imgContainer.insertAdjacentHTML('afterbegin', markup);
+}

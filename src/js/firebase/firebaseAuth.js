@@ -28,26 +28,44 @@ export function connectToBD() {
   return getDatabase(app);
 }
 
-// auth
-export async function logUser(email, password) {
+// create new user
+
+export async function createNewUser(email, password) {
   const auth = getAuth();
-  return await signInWithEmailAndPassword(auth, email, password)
+  return await createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      console.log(userCredential);
-      // Signed in // 112233
+      // Signed in
       const user = userCredential.user;
-      console.log(' logUser  ', user);
+      // ...
       return user;
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
+      // ..
+      // console.log(errorCode);
+      // console.log(errorMessage);
       return errorCode;
-      // document.getElementById('login-error').innerText =
-      //   'check your email and/or password and try again';
-      // document.getElementsByTagName('body')[0].focus();
+    });
+}
+
+// auth
+export async function logUser(email, password) {
+  const auth = getAuth();
+  return await signInWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      // console.log(userCredential);
+      // Signed in // 112233
+      const user = userCredential.user;
+      // console.log(' logUser  ', user);
+      return user;
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // console.log(errorCode);
+      // console.log(errorMessage);
+      return errorCode;
     });
 }
 
@@ -72,7 +90,7 @@ export function watchUser() {
   const auth = getAuth();
   onAuthStateChanged(auth, user => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
+      // User is signed in, seeregister docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       // ...
@@ -98,14 +116,25 @@ export async function logOut() {
 
 // CRUD
 
-// function createNote() {}
-//
+export async function createNote(user) {
+  const database = getDatabase();
+  await set(ref(database, 'galleries/' + user.uid), {
+    userID: user.uid,
+    email: user.email,
+    timeStamp: Date.now(),
+    created: Date(),
+  });
+}
+
+// function readeNote()
 export async function readNote(user) {
   const dbRef = ref(getDatabase());
-  return await get(child(dbRef, `users/${user.uid}`))
+  return await get(child(dbRef, `galleries/${user.uid}`))
     .then(snapshot => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
+        const data = snapshot.val();
+        console.log(data);
+        return data;
       } else {
         console.log('No data available');
       }
