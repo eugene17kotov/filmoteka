@@ -106,6 +106,22 @@ function createLibraryMovieMarkup(movie) {
 
   const queueGenres = getQueueMovieGenresList(genres);
 
+  if (poster_path === null) {
+    return `<li>
+            <a class="gallery__link" href="#">
+              <img class="gallery__image" data-id="${id}" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
+
+            <div class="info">
+              <p class="info__item">${title}</p>
+              <div class="info-detail">
+                <p class="info-detail__item">${queueGenres}</p>
+                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
+              </div>
+            </div>
+            </a>
+          </li>`;
+  }
+  
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
