@@ -47,6 +47,8 @@ async function onLoginBtn(e) {
         localStorage.setItem('queue', queue);
       }
 
+      getCurrentUser();
+
       makeLoggedHtml(` user logged as ${myUser.email} `);
     } else {
       document.getElementById('login-error').innerText = ` ${myUser
