@@ -1,0 +1,18 @@
+.text {
+    font-size: 32px;
+}
+
+.selector {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+    border: 1px solid rgb(3, 37, 65);
+    border-radius: 30px;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
