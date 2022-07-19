@@ -21,30 +21,13 @@
   visibility: hidden;
   pointer-events: none;
   opacity: 0;
-}
 
-.modal-team__close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  border: none;
-  background-color: transparent;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: color 300ms $cubic;
-  color: #000000;
-
-  &:hover {
-    color: #ff6b01;
+  & .modal-team {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0.3;
+    transform: translate(-75%, -90%) scale(3);
   }
-}
-
-.modal-team__close-icon {
-  fill: currentColor;
 }
 
 .modal-team {
@@ -90,11 +73,28 @@
     visibility 800ms $cubic, box-shadow 600ms $cubic;
 }
 
-.backdrop-team--is-hidden .modal-team {
-  visibility: hidden;
-  pointer-events: none;
-  opacity: 0.3;
-  transform: translate(-75%, -90%) scale(3);
+.modal-team__close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  border: none;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 300ms $cubic;
+  color: #000000;
+
+  &:hover {
+    color: #ff6b01;
+  }
+}
+
+.modal-team__close-icon {
+  fill: currentColor;
 }
 
 .team {

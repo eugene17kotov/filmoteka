@@ -1,32 +1,53 @@
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
+import { onBtnQueueClick } from './queue';
+import { onAddToWatchedBtnClick } from './watched';
+import { scrollFunction } from './scroll-up';
 
 const refs = {
-  backdrop: document.querySelector('.backdrop'),
+  backdrop: document.querySelector('.movie-backdrop'),
   closeBtn: document.querySelector('button[data-dismiss="modal"]'),
-  cardModal: document.querySelector('.gallery'),
-  imgContainer: document.querySelector('.js-modal'),
+  cardModal: document.querySelector('ul[data-point="galery"]'),
+  queueBtn: document.querySelector('.to-queue'),
+  imgRef: document.querySelector('.image-container'),
+  contentRef: document.querySelector('.content-markup'),
+  addToWatchedButton: document.querySelector('.to-watched'),
 };
 
-const { backdrop, closeBtn, cardModal, imgContainer } = refs;
+const {
+  backdrop,
+  closeBtn,
+  cardModal,
+  queueBtn,
+  imgRef,
+  contentRef,
+  addToWatchedButton,
+} = refs;
 
-export default function addAllEventListenersModal() {
+const toTopBtn = document.getElementById('myBtn');
+
+function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
+  queueBtn.addEventListener('click', onBtnQueueClick);
+  addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
 }
 
 function onCloseBtnClick(e) {
   e.preventDefault();
   backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
 function onKeydownEscape(e) {
   e.preventDefault();
-  if (e.key === 'Escape') {
-    backdrop.classList.add('is-hidden');
+  if (e.code !== 'Escape') {
+    return;
   }
+  backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
@@ -35,6 +56,7 @@ function onBackdropClick(e) {
     return;
   }
   backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
@@ -42,43 +64,49 @@ function removeAllEventListenersModal() {
   closeBtn.removeEventListener('click', onCloseBtnClick);
   window.removeEventListener('keydown', onKeydownEscape);
   backdrop.removeEventListener('click', onBackdropClick);
+  queueBtn.removeEventListener('click', onBtnQueueClick);
+  addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
+  document.body.classList.toggle('modal-open');
 }
 
-cardModal.addEventListener('click', clickOnMovieHandler);
+cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 
 let movieId;
+
 // клик
 function clickOnMovieHandler(e) {
   e.preventDefault();
 
-  backdrop.classList.remove('is-hidden');
-  if (e.target.nodeName !== 'IMG' && e.target.nodeName !== 'H2') {
+  if (e.target.nodeName !== 'IMG') {
     return;
   }
 
+  backdrop.classList.remove('is-hidden');
+  document.body.classList.toggle('modal-open');
+  toTopBtn.style.display = 'none';
+
   movieId = e.target.dataset.id;
+  backdrop.setAttribute('id', movieId);
 
   fetchById(movieId);
 
   addAllEventListenersModal();
-  clearFilmCard();
+
+  whichBtnShow(movieId);
+  whichBtnShowInWatchedFilms(movieId);
 }
 
 //Фетч фильма по ID
 function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
+
   getMovies(idURL).then(res => {
     renderFilmCard(res);
-    backdrop.setAttribute('id', movieId);
   });
 }
 
 function renderFilmCard(film) {
   modalFilmCart(film);
-}
-
-function clearFilmCard() {
-  imgContainer.innerHTML = '';
 }
 
 const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
@@ -93,18 +121,25 @@ function modalFilmCart({
   overview,
   poster_path,
 }) {
-  const markup = `
-      <div class="image-container">
-    <img 
+  let imageMarkup = `
+  <img 
     src="${BASE_IMG_URL}${poster_path}"
       alt="${title} movie poster}" 
-      width="240" height="357" 
+      width="375" height="478" 
       class="image"
-      />
-    </div>
-    <div class="content">
-    <h2 class="title">${title}</h2>
-    <div class="properties">
+      />`;
+  if (poster_path === null) {
+    imageMarkup = `
+  <img 
+    src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster"
+      alt="${title} movie poster}" 
+      width="395" height="574" 
+      class="image"
+      />`;
+  }
+  const markup = `
+  <h2 class="title">${title}</h2>
+  <div class="properties">
       <div class="titles">
           <p class="property">Vote / Votes</p>
           <p class="property">Popularity</p>
@@ -118,21 +153,48 @@ function modalFilmCart({
           <p class="value">${getGenresNames(genres)}</p>
           
       </div>
-    </div>
-    <div class="about">
+  </div>
+  <div class="about">
       <p class="title">About</p>
       <div class="about-container">
-          <p class="text">${overview}</p>
-          
-          </div>
-            </div>
-            <div class="buttons">
-                <button class="button to-watched">add to Watched</button>
-                <button class="button to-queue">add to queue</button>
-            </div>
-        </div>
-    </div>
+          <p class="text">${overview}</p>          
+      </div>
+  </div>
       `;
 
-  imgContainer.insertAdjacentHTML('afterbegin', markup);
+  imgRef.innerHTML = imageMarkup;
+  contentRef.innerHTML = markup;
+}
+
+function clearModalContent() {
+  imgRef.innerHTML = '';
+  contentRef.innerHTML = '';
+}
+
+function whichBtnShow(id) {
+  const localstorage = localStorage.getItem('queue');
+
+  if (localstorage === null) {
+    queueBtn.textContent = 'Add to queue';
+    return;
+  }
+  if (JSON.parse(localstorage.includes(id))) {
+    queueBtn.textContent = 'Remove from queue';
+  } else {
+    queueBtn.textContent = 'Add to queue';
+  }
+}
+
+function whichBtnShowInWatchedFilms(id) {
+  const localstorageWatched = localStorage.getItem('watched');
+
+  if (localstorageWatched === null) {
+    addToWatchedButton.textContent = 'Add to watched';
+    return;
+  }
+  if (JSON.parse(localstorageWatched.includes(id))) {
+    addToWatchedButton.textContent = 'Remove from watched';
+  } else {
+    addToWatchedButton.textContent = 'Add to watched';
+  }
 }
