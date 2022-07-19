@@ -10,6 +10,11 @@ const database = connectToBD();
 // localStorage.getItem('watched') !== null)
 // localStorage.getItem('queue') !== null)
 
+//  saveData(key, value) {
+//     const dataToSave = JSON.stringify(value);
+//     localStorage.setItem(key, JSON.stringify(value));
+//   },
+
 // main enterance
 makeLogRegHtml();
 

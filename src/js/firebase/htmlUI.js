@@ -19,15 +19,12 @@ import {} from '@firebase/util';
 // hrefs
 const hrefAuthHeaderHtml = document.getElementById('auth-header');
 const hrefModalHtml = document.getElementById('auth-modal');
-// const loginForm = document.getElementById('login-form');
 
 async function onLoginBtn(e) {
-  //   console.log('onLoginBtn');
   e.preventDefault();
   const password = e.target.password.value;
   const email = e.target.email.value;
   const action = e.target.fire.value;
-  //   console.log('password ', password, ' email ', email);
   if (action === 'log') {
     const myUser = await logUser(email, password);
     console.log('myUser   ');
@@ -35,14 +32,20 @@ async function onLoginBtn(e) {
     console.log(await getCurrentUser());
 
     if (myUser.uid) {
-      // console.log('onLoginBtn   ', myUser);
-      // console.log('onLoginBtn   ', myUser.uid);
-
       cleanLoginModal();
       readNote(myUser);
       const dbNote = await readNote(myUser);
-      // console.log('dbNote   ', dbNote);
+      console.log('dbNote   ', dbNote);
+      const watched = dbNote.watched;
+      const queue = dbNote.queue;
+
       // add get JSON from DB
+      if (watched) {
+        localStorage.setItem('watched', watched);
+      }
+      if (queue) {
+        localStorage.setItem('queue', queue);
+      }
 
       makeLoggedHtml(` user logged as ${myUser.email} `);
     } else {
@@ -51,24 +54,20 @@ async function onLoginBtn(e) {
         .replaceAll('-', '  ')}, check your email and try again or signup! `;
     }
   } else {
-    // create new user here
+    // create a new user here
     const createdUser = await createNewUser(email, password);
     // console.log('createdUser   ', createdUser);
     if (createdUser.uid) {
-      // const myUser = await logUser(email, password);
-      await createNote(createdUser);
-      cleanLoginModal();
-
       // login here
       const myUser = await logUser(email, password);
+      const queue = localStorage.getItem('queue') || [];
+      const watched = localStorage.getItem('watched') || [];
+      console.log(myUser);
+      console.log(queue);
+      console.log(watched);
 
-      // const watchedUser = await watchUser(myUser);
-      // console.log(watchedUser);
-
-      readNote(myUser);
-      const dbNote = await readNote(myUser);
-      console.log('dbNote   ', dbNote);
-      // add get JSON from DB
+      await createNote(createdUser, queue, watched);
+      cleanLoginModal();
 
       makeLoggedHtml(` user logged as ${myUser.email} `);
     } else {
@@ -76,14 +75,6 @@ async function onLoginBtn(e) {
         .replace('auth/', '')
         .replaceAll('-', '  ')}, try to signin instead! `;
     }
-
-    // const myUser = await logUser(email, password);
-    // console.log(myUser, myUser);
-
-    // const currentUser = await getCurrentUser;
-    // console.log('currentUser   ', currentUser);
-
-    // console.log(createdUser === currentUser);
   }
 }
 
