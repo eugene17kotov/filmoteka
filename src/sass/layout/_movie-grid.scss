@@ -28,6 +28,7 @@
 
 .gallery__link {
   position: relative;
+  cursor: default;
 }
 
 .gallery__image {
@@ -35,6 +36,7 @@
   width: 100%;
   object-fit: cover;
   border-radius: 5px;
+  cursor: pointer;
 
   transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 500ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -67,6 +69,8 @@
 }
 
 .info__item {
+  font-style: normal;
+  font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
@@ -74,6 +78,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  cursor: text;
 
   @include desk {
     font-size: 20px;
@@ -92,11 +97,28 @@
   line-height: 1.33;
   color: #ff6b08;
   margin-right: 5px;
+  margin-top: 5px;
+  cursor: text;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   @include desk {
     font-size: 20px;
     line-height: 1.2;
   }
+}
+
+.info-detail__item:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.info-detail__item:not(:first-child) {
+  display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .info-detail__item:not(:last-child) {
