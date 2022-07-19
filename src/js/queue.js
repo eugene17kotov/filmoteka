@@ -4,11 +4,38 @@ import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 
 const refsModal = {
   queueBtn: document.querySelector('.to-queue'),
-  library: document.querySelector('.library-gallery'),
   bg: document.querySelector('.backdrop'),
 };
 
-const { queueBtn, library, bg } = refsModal;
+const { queueBtn, bg } = refsModal;
+
+const libraryGallery = document.querySelector('.library-gallery');
+const libraryTextContainer = document.querySelector('.if-have-no-movies');
+const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
+const libraryWatchedBtn = document.querySelector(
+  'button[data-action="watched"]'
+);
+
+if (libraryGallery) {
+  libraryWatchedBtn.addEventListener('click', () => {
+    libraryWatchedBtn.classList.add('active');
+    libraryQueueBtn.classList.remove('active');
+  });
+
+  libraryQueueBtn.addEventListener('click', () => {
+    libraryWatchedBtn.classList.remove('active');
+    libraryQueueBtn.classList.add('active');
+  });
+}
+
+libraryQueueBtn &&
+  libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
+
+if (libraryGallery) libraryGallery.innerHTML = '';
+
+const queueMovieId = localStorage.getItem('queue');
+fetchQueue(queueMovieId);
+checkFilms();
 
 const localstorage = {
   loadData(key) {
@@ -56,28 +83,37 @@ function inLocalStorage(value) {
   return true;
 }
 
+function checkFilms() {
+  if (libraryGallery) {
+    if (libraryGallery.innerHTML === '') {
+      libraryTextContainer.innerHTML = `<p class="library-text">You have not added any movies</p>`;
+    } else {
+      libraryTextContainer.innerHTML = '';
+    }
+  }
+}
+
 export function onBtnQueueClick() {
   const id = bg.id;
+  const queueMovieId = localStorage.getItem('queue');
 
   if (!inLocalStorage(id)) {
     queueBtn.textContent = 'Remove from queue';
     localstorage.setFilm('queue', id);
+    checkFilms();
   } else {
     queueBtn.textContent = 'Add to queue';
     localstorage.removeFilm('queue', id);
+
+    location.reload();
+    libraryGallery.innerHTML = '';
+    fetchQueue(queueMovieId);
   }
 }
 
-const libraryTextContainer = document.querySelector('.if-have-no-movies');
-const libraryGallery = document.querySelector('.library-gallery');
-const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
-
-libraryQueueBtn &&
-  libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
-
-const queueMovieId = localStorage.getItem('queue');
-
 function onLibraryQueueBtnClick() {
+  const queueMovieId = localStorage.getItem('queue');
+
   if (queueMovieId === null) {
     const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
     libraryTextContainer.insertAdjacentHTML('afterbegin', noMoviesMarkup);
@@ -106,6 +142,7 @@ function fetchById(movieId) {
 
 function renderMovieCardsLibrary(movie) {
   const movieGalleryMarkup = createLibraryMovieMarkup(movie);
+  libraryTextContainer.innerHTML = '';
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
 }
