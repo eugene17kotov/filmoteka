@@ -8,10 +8,13 @@ const bg = document.querySelector('.backdrop');
 const libraryTextContainer = document.querySelector('.library-text');
 const libraryGallery = document.querySelector('.library-gallery');
 const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
+const libraryWatchedBtn = document.querySelector(
+  'button[data-action="watched"]'
+);
 let queueMovieId = localStorage.getItem('queue');
 let parseQueueMovieId = JSON.parse(queueMovieId);
 
-libraryQueueBtn && libraryQueueBtn.focus();
+libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 libraryQueueBtn && onLibraryQueueBtnClick();
 
 function inLocalStorage(value) {
@@ -27,22 +30,29 @@ function inLocalStorage(value) {
 export function onBtnQueueClick() {
   const id = bg.id;
 
+  if (localStorage.getItem('queue') === null) {
+    localStorage.setItem('queue', '[]');
+  }
+
   if (!inLocalStorage(id)) {
     queueBtn.textContent = 'Remove from queue';
+    queueBtn.classList.add('is-active');
     localstorage.setFilm('queue', id);
   } else {
     queueBtn.textContent = 'Add to queue';
+    queueBtn.classList.remove('is-active');
     localstorage.removeFilm('queue', id);
   }
 
   libraryGallery && onLibraryQueueBtnClick();
-  libraryQueueBtn && libraryQueueBtn.focus();
 }
 
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
 function onLibraryQueueBtnClick() {
+  libraryWatchedBtn.classList.remove('library__item-btn--active');
+  libraryQueueBtn.classList.add('library__item-btn--active');
   queueMovieId = localStorage.getItem('queue');
   parseQueueMovieId = JSON.parse(queueMovieId);
 
