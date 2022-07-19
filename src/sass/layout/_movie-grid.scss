@@ -97,12 +97,28 @@
   line-height: 1.33;
   color: #ff6b08;
   margin-right: 5px;
+  margin-top: 5px;
   cursor: text;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   @include desk {
     font-size: 20px;
     line-height: 1.2;
   }
+}
+
+.info-detail__item:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.info-detail__item:not(:first-child) {
+  display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .info-detail__item:not(:last-child) {
