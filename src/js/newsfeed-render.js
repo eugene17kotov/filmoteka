@@ -56,7 +56,7 @@ function createNewsCardMarkup(newsItem) {
                 <h2 class="news-item-title">${title}</h2>
                 <p class="news-item-description"><b>Overview: </b>${description}</p>
                 <p class="news-item-content">${content}</p>
-                <a class="news-item-btn" href="${url}" target="_blank"><button type="button">Read more</button></a>
+                <a class="news-item-btn" href="${url}" target="_blank"><button type="button" class="news-btn">Read more</button></a>
                 <p class="news-item-source"><b>Source: </b>${sourceName}</p>
                 <p class="news-item-author"><b>Author: </b>${author}</p>
                 <p class="news-item-date"><b>Published At: </b>${publishedAt}</p>

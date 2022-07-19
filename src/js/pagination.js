@@ -2,6 +2,7 @@ import {getMovies} from "./api/fetch-movie";
 import {renderMovieCards} from "./render-movie-cards";
 
 const paginationWrapRef = document.querySelector(".pagination-wrap");
+const loader = document.querySelector(".backdrop-loader");
 
 export function renderPagination(currentPage, totalPages) {
     let buttons = [];
@@ -86,8 +87,11 @@ function pageButtonPressed(event) {
     const lastUrl = localStorage.getItem("LAST_REQUESTED_URL");
     const newUrl = `${lastUrl}&page=${page}`;
 
+    loader.classList.remove('backdrop-loader--is-hidden');
+
     getMovies(newUrl)
-    .then (response => {
+        .then(response => {
+        loader.classList.add('backdrop-loader--is-hidden');
         renderMovieCards(response.results);
         renderPagination(response.page, response.total_pages);
     })
