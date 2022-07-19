@@ -3,6 +3,7 @@ import './sass/main.scss';
 
 // Scripts
 import './js/search';
+import './js/filter';
 import './js/render-movie-cards';
 import './js/movie-modal';
 import './js/pagination';

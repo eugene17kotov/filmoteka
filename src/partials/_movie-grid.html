@@ -1,6 +1,24 @@
 <section class="section">
   <h2 class="title visually-hidden">Home</h2>
   <div class="container">
+    <div class="filter">
+      <p class="text">Trending</p>
+      <div class="selector-wrap">
+        <div class="selector">
+          <div class="anchor selected">
+            <h3 class="title">
+              <button class="no-click" data-panel="trending_scroller" data-group="today">Today</button>
+            </h3>
+            <div class="background__filter"></div>
+          </div>
+          <div class="anchor">
+            <h3 class="title">
+              <button class="no-click" data-panel="trending_scroller" data-group="week">This Week</button>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
     <ul data-point="galery" class="gallery"></ul>
   </div>
 
