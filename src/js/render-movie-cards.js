@@ -25,6 +25,4 @@ export function renderMovieCards(movies) {
   function appendMarkup() {
     gallery.innerHTML = movieGalleryMarkup;
   }
-
-  //.insertAdjacentHTML('beforeend', movieGalleryMarkup);   //Viktor: we need replace card, not append!
 }

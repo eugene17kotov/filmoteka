@@ -1,6 +1,7 @@
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
+import {onAddToWatchedBtnClick}from './watched';
 
 const refs = {
   backdrop: document.querySelector('.backdrop'),
@@ -10,6 +11,7 @@ const refs = {
   queueBtn: document.querySelector('.to-queue'),
   imgRef: document.querySelector('.image-container'),
   contentRef: document.querySelector('.content-markup'),
+  addToWatchedButton: document.querySelector('.to-watched'),
 };
 
 const {
@@ -20,6 +22,7 @@ const {
   queueBtn,
   imgRef,
   contentRef,
+  addToWatchedButton,
 } = refs;
 
 function addAllEventListenersModal() {
@@ -27,6 +30,7 @@ function addAllEventListenersModal() {
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
   queueBtn.addEventListener('click', onBtnQueueClick);
+   addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick)
 }
 
 function onCloseBtnClick(e) {
@@ -57,6 +61,7 @@ function removeAllEventListenersModal() {
   window.removeEventListener('keydown', onKeydownEscape);
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
+  addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
@@ -80,6 +85,7 @@ function clickOnMovieHandler(e) {
   addAllEventListenersModal();
 
   whichBtnShow(movieId);
+  whichBtnShowInWatchedFilms(movieId);
 }
 
 //Фетч фильма по ID
@@ -167,5 +173,18 @@ function whichBtnShow(id) {
     queueBtn.textContent = 'Remove from queue';
   } else {
     queueBtn.textContent = 'Add to queue';
+  }
+}
+ function whichBtnShowInWatchedFilms(id) {
+  const localstorageWatched = localStorage.getItem('watched');
+
+  if (localstorageWatched === null) {
+    addToWatchedButton.textContent = 'Add to watched';
+    return;
+  }
+  if (JSON.parse(localstorageWatched.includes(id))) {
+    addToWatchedButton.textContent = 'Remove from watched';
+  } else {
+    addToWatchedButton.textContent = 'Add to watched';
   }
 }

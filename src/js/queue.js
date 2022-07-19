@@ -68,7 +68,8 @@ export function onBtnQueueClick() {
   }
 }
 
-const libraryTextContainer = document.querySelector('.if-have-no-movies');
+// const libraryTextContainer = document.querySelector('.if-have-no-movies');
+const libraryTextContainer = document.querySelector('.library-text');
 const libraryGallery = document.querySelector('.library-gallery');
 const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
 
@@ -76,10 +77,10 @@ libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
 const queueMovieId = localStorage.getItem('queue');
+const parseQueueMovieId = JSON.parse(queueMovieId);
 
 function onLibraryQueueBtnClick() {
-  console.log(queueMovieId);
-  if (queueMovieId === null || JSON.parse(queueMovieId === [])) {
+  if (queueMovieId === null) {
     const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
     libraryTextContainer.innerHTML = noMoviesMarkup;
     return;
