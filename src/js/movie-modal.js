@@ -1,13 +1,12 @@
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
-import {onAddToWatchedBtnClick}from './watched';
+import { onAddToWatchedBtnClick } from './watched';
 
 const refs = {
-  backdrop: document.querySelector('.backdrop'),
+  backdrop: document.querySelector('.movie-backdrop'),
   closeBtn: document.querySelector('button[data-dismiss="modal"]'),
   cardModal: document.querySelector('ul[data-point="galery"]'),
-  imgContainer: document.querySelector('.js-modal'),
   queueBtn: document.querySelector('.to-queue'),
   imgRef: document.querySelector('.image-container'),
   contentRef: document.querySelector('.content-markup'),
@@ -18,7 +17,6 @@ const {
   backdrop,
   closeBtn,
   cardModal,
-  imgContainer,
   queueBtn,
   imgRef,
   contentRef,
@@ -30,7 +28,7 @@ function addAllEventListenersModal() {
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
   queueBtn.addEventListener('click', onBtnQueueClick);
-   addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick)
+  addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
 }
 
 function onCloseBtnClick(e) {
@@ -41,9 +39,10 @@ function onCloseBtnClick(e) {
 
 function onKeydownEscape(e) {
   e.preventDefault();
-  if (e.key === 'Escape') {
-    backdrop.classList.add('is-hidden');
+  if (e.code !== 'Escape') {
+    return;
   }
+  backdrop.classList.add('is-hidden');
   removeAllEventListenersModal();
 }
 
@@ -61,6 +60,7 @@ function removeAllEventListenersModal() {
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
+  document.body.classList.toggle('modal-open');
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
@@ -70,10 +70,12 @@ let movieId;
 function clickOnMovieHandler(e) {
   e.preventDefault();
 
-  backdrop.classList.remove('is-hidden');
-  if (e.target.nodeName !== 'IMG' && e.target.nodeName !== 'H2') {
+  if (e.target.nodeName !== 'IMG') {
     return;
   }
+
+  backdrop.classList.remove('is-hidden');
+  document.body.classList.toggle('modal-open');
 
   movieId = e.target.dataset.id;
   backdrop.setAttribute('id', movieId);
@@ -147,6 +149,11 @@ function modalFilmCart({
   contentRef.innerHTML = markup;
 }
 
+function clearModalContent() {
+  imgRef.innerHTML = '';
+  contentRef.innerHTML = '';
+}
+
 function whichBtnShow(id) {
   const localstorage = localStorage.getItem('queue');
 
@@ -160,7 +167,8 @@ function whichBtnShow(id) {
     queueBtn.textContent = 'Add to queue';
   }
 }
- function whichBtnShowInWatchedFilms(id) {
+
+function whichBtnShowInWatchedFilms(id) {
   const localstorageWatched = localStorage.getItem('watched');
 
   if (localstorageWatched === null) {

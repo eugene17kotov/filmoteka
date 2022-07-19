@@ -32,7 +32,7 @@ export function createMovieMarkup(movie) {
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
             
             <div class="info">
-              <p class="info__item">${title}</p>
+              <h3 class="info__item">${title}</h3>
               <div class="info-detail">
                 <p class="info-detail__item">${movieGenresList}</p>
                 <p class="info-detail__item">${year}</p>

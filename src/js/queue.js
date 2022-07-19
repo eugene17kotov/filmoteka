@@ -1,50 +1,18 @@
 import { getMovies } from './api/fetch-movie';
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 // import { renderPagination } from './pagination.js';
+import { localstorage } from './localstorage.js';
 
-const refsModal = {
-  queueBtn: document.querySelector('.to-queue'),
-  library: document.querySelector('.library-gallery'),
-  bg: document.querySelector('.backdrop'),
-};
+const queueBtn = document.querySelector('.to-queue');
+const bg = document.querySelector('.backdrop');
+const libraryTextContainer = document.querySelector('.library-text');
+const libraryGallery = document.querySelector('.library-gallery');
+const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
+let queueMovieId = localStorage.getItem('queue');
+let parseQueueMovieId = JSON.parse(queueMovieId);
 
-const { queueBtn, library, bg } = refsModal;
-
-const localstorage = {
-  loadData(key) {
-    const localStorageData = localStorage.getItem(key);
-    return JSON.parse(localStorageData);
-  },
-
-  saveData(key, value) {
-    const dataToSave = JSON.stringify(value);
-    localStorage.setItem(key, dataToSave);
-  },
-
-  setFilm(key, value) {
-    const currentCollection = this.getMovies(key);
-    currentCollection.push(value);
-    this.saveData(key, currentCollection);
-  },
-
-  removeFilm(key, value) {
-    const films = this.getMovies(key);
-    if (films.includes(value)) {
-      films.splice(films.indexOf(value), 1);
-      this.saveData(key, films);
-    } else return;
-  },
-
-  getMovies(key) {
-    const movies = this.loadData(key);
-    if (!movies) {
-      this.saveData(key, []);
-      return [];
-    } else {
-      return movies;
-    }
-  },
-};
+libraryQueueBtn && libraryQueueBtn.focus();
+libraryQueueBtn && onLibraryQueueBtnClick();
 
 function inLocalStorage(value) {
   if (localStorage.getItem('queue') !== null) {
@@ -66,29 +34,45 @@ export function onBtnQueueClick() {
     queueBtn.textContent = 'Add to queue';
     localstorage.removeFilm('queue', id);
   }
-}
 
-// const libraryTextContainer = document.querySelector('.if-have-no-movies');
-const libraryTextContainer = document.querySelector('.library-text');
-const libraryGallery = document.querySelector('.library-gallery');
-const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
+  libraryGallery && onLibraryQueueBtnClick();
+  libraryQueueBtn.focus();
+}
 
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
-const queueMovieId = localStorage.getItem('queue');
-const parseQueueMovieId = JSON.parse(queueMovieId);
-
 function onLibraryQueueBtnClick() {
+  queueMovieId = localStorage.getItem('queue');
+  parseQueueMovieId = JSON.parse(queueMovieId);
+
+  clearGallery();
+
   if (queueMovieId === null) {
-    const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
-    libraryTextContainer.innerHTML = noMoviesMarkup;
+    getPlugVisible();
     return;
+  } else if (parseQueueMovieId.length === 0) {
+    getPlugVisible();
+    return;
+  } else if (!libraryTextContainer.classList.contains('visually-hidden')) {
+    getPlugHidden();
   }
 
+  fetchQueue(queueMovieId);
+}
+
+function clearGallery() {
+  libraryGallery.innerHTML = '';
+}
+
+function getPlugVisible() {
   libraryGallery.innerHTML = '';
 
-  fetchQueue(queueMovieId);
+  libraryTextContainer.classList.remove('visually-hidden');
+}
+
+function getPlugHidden() {
+  libraryTextContainer.classList.add('visually-hidden');
 }
 
 function fetchQueue(queueMovieId) {

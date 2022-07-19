@@ -1,53 +1,15 @@
-// import fetchMovie from './api/fetch-movie';
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 // import { renderPagination } from './pagination.js';
 import { getMovies } from './api/fetch-movie';
-// import { createMovieMarkup } from './create-movie-markup';
-//////////////////////////////////////////////////////////
-const refs = {
-  addToWatchedButton: document.querySelector('.to-watched'),
-  //   library: document.querySelector('.library-gallery'),
-  bg: document.querySelector('.backdrop'),
-  //   modal: document.querySelector('.js-modal'),
-};
+import { localstorage } from './localstorage.js';
 
-const { addToWatchedButton, library, bg, modal } = refs;
-///////////////////ADD TO WATCHED/////////////////////////////////
-const localstorage = {
-  loadData(key) {
-    const localStorageData = localStorage.getItem(key);
-    return JSON.parse(localStorageData);
-  },
-
-  saveData(key, value) {
-    const dataToSave = JSON.stringify(value);
-    localStorage.setItem(key, dataToSave);
-  },
-
-  setFilm(key, value) {
-    const currentCollection = this.getMovies(key);
-    currentCollection.push(value);
-    this.saveData(key, currentCollection);
-  },
-
-  removeFilm(key, value) {
-    const films = this.getMovies(key);
-    if (films.includes(value)) {
-      films.splice(films.indexOf(value), 1);
-      this.saveData(key, films);
-    } else return;
-  },
-
-  getMovies(key) {
-    const movies = this.loadData(key);
-    if (!movies) {
-      this.saveData(key, []);
-      return [];
-    } else {
-      return movies;
-    }
-  },
-};
+const addToWatchedButton = document.querySelector('.to-watched');
+const bg = document.querySelector('.backdrop');
+const libraryTextContainer = document.querySelector('.library-text');
+const libraryGallery = document.querySelector('.library-gallery');
+const libraryWatchedBtn = document.querySelector(
+  'button[data-action="watched"]'
+);
 
 function inLocalStorage(value) {
   if (localStorage.getItem('watched') !== null) {
@@ -69,29 +31,48 @@ export function onAddToWatchedBtnClick() {
     addToWatchedButton.textContent = 'Add to watched';
     localstorage.removeFilm('watched', id);
   }
-}
 
-const libraryTextContainer = document.querySelector('.if-have-no-movies');
-const libraryGallery = document.querySelector('.library-gallery');
-const libraryWatchedBtn = document.querySelector(
-  'button[data-action="watched"]'
-);
+  libraryGallery && onWatchedBtnClick();
+  libraryWatchedBtn.focus();
+}
 
 libraryWatchedBtn &&
   libraryWatchedBtn.addEventListener('click', onWatchedBtnClick);
 
-const watchedMovieId = localStorage.getItem('watched');
+let watchedMovieId;
+let parseWatchedMovieId;
 
 function onWatchedBtnClick() {
+  watchedMovieId = localStorage.getItem('watched');
+  parseWatchedMovieId = JSON.parse(watchedMovieId);
+
+  clearGallery();
+
   if (watchedMovieId === null) {
-    const noMoviesMarkup = `<p class="library-text">You have not added any movies</p>`;
-    libraryTextContainer.innerHTML = noMoviesMarkup;
+    getPlugVisible();
     return;
+  } else if (parseWatchedMovieId.length === 0) {
+    getPlugVisible();
+    return;
+  } else if (!libraryTextContainer.classList.contains('visually-hidden')) {
+    getPlugHidden();
   }
 
+  fetchWatched(watchedMovieId);
+}
+
+function clearGallery() {
+  libraryGallery.innerHTML = '';
+}
+
+function getPlugVisible() {
   libraryGallery.innerHTML = '';
 
-  fetchWatched(watchedMovieId);
+  libraryTextContainer.classList.remove('visually-hidden');
+}
+
+function getPlugHidden() {
+  libraryTextContainer.classList.add('visually-hidden');
 }
 
 function fetchWatched(watchedMovieId) {
