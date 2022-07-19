@@ -163,13 +163,12 @@ body {
   font-weight: 500;
   margin-top: 20px;
   margin-bottom: 8px;
-  color: #000000;
+  
 }
 
 .about .text {
   font-size: 12px;
   font-weight: 500;
-  color: #000000;
   line-height: calc(20 / 12);
 }
 
@@ -194,7 +193,7 @@ body {
 .modal .value {
   font-size: 12px;
   font-weight: 500;
-  color: #000000;
+  
 }
 
 .modal .property:not(:last-child),
@@ -263,7 +262,7 @@ body {
 
 .modal .second-mark {
   padding: 1px 4px;
-  background-color: #f7f7f7;
+  // background-color: #f7f7f7;
   border-radius: 5px;
 }
 
