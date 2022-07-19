@@ -25,5 +25,11 @@
 <symbol id="icon-close" fill="transparent" viewBox="0 0 32 32">
 <path stroke="currentColor" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.1333" d="M8.533 8.533l14.933 14.933M8.533 23.467l14.933-14.933"></path>
 </symbol>
+<symbol id="icon-menu" viewBox="0 0 32 32">
+<path d="M6.4 11.734v-2.134h19.2v2.134h-19.2zM6.4 17.066h19.2v-2.133h-19.2v2.133zM6.4 22.4h19.2v-2.134h-19.2v2.134z"></path>
+</symbol>
+<symbol id="menu_40px" viewBox="0 0 32 32">
+<path d="M6.4 11.734v-2.134h19.2v2.134h-19.2zM6.4 17.066h19.2v-2.133h-19.2v2.133zM6.4 22.4h19.2v-2.134h-19.2v2.134z"></path>
+</symbol>
 </defs>
 </svg>
