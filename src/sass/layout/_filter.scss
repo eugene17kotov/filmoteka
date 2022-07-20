@@ -1,9 +1,11 @@
-.text {
+.filter .text {
     font-size: 24px;
     margin-right: 20px;
+
+    @media screen and (max-width: 767px){
+        margin-bottom: 12px;
+    }
 }
-
-
 
 .selector {
     display: flex;
@@ -15,14 +17,26 @@
 }
 
 .filter {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    @media screen and (min-width: $tab){
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
     margin-bottom: 20px;
 }
 
+.filter.is-hidden {
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
 .anchor .no-click {
-    transition: color 250ms $cubic;
+    transition: -webkit-text-fill-color 250ms $cubic;
     font-weight: 500;
     color: rgb(3, 37, 65);
     border: none;
@@ -37,6 +51,7 @@
     padding: 4px 20px;
     margin-bottom: 0;
     white-space: nowrap;
+
 }
 
 .anchor {
@@ -48,9 +63,11 @@
 
 .anchor.selected .no-click {
     font-size: 16px;
-    background: linear-gradient(to right, #fbfbff 0%, #ffa000 36%, #ff7e08 100%);
-    background-clip: text;
-    color: transparent;
+    background-image: linear-gradient(to right, #fbfbff 0%, #ffa000 36%, #ff7e08 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent
 }
 
 
@@ -75,4 +92,20 @@
 
 .selector {
     overflow: hidden;
+}
+
+.selector-wrap {
+    @media screen and (max-width: 767px){
+        width: 200px;
+    }
+}
+
+.to-trending__button {
+    color: #fbfbff;
+    background-color: #ff7e08;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
