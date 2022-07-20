@@ -1,9 +1,22 @@
 .filter .text {
     font-size: 24px;
     margin-right: 20px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
 
     @media screen and (max-width: 767px){
+        text-align: center;
         margin-bottom: 12px;
+        margin-right: 0px;
+    }
+
+    @media screen and (min-width: $tab) {
+        text-transform: uppercase;
+    }
+
+    @media screen and (min-width: $desk){
+        font-size: 1.5em;
+        font-weight: 500;
     }
 }
 
@@ -14,16 +27,28 @@
     align-content: center;
     border: 1px solid rgb(3, 37, 65);
     border-radius: 30px;
+
+    @media screen and (max-width: 767px) {
+        justify-content: center;
+    }
 }
 
 .filter {
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 767px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
     @media screen and (min-width: $tab){
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
     }
 
-    margin-bottom: 20px;
+    
 }
 
 .filter.is-hidden {
