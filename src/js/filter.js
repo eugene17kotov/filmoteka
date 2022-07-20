@@ -9,7 +9,6 @@ const refs = {
   gallery: document.querySelector('.gallery'),
 };
 
-const loader = document.querySelector('.backdrop-loader');
 export const { btnToday, filterBg, btnWeek } = refs;
 let anchorNodeToday = btnToday.parentNode.parentNode;
 let anchorNodeWeek = btnWeek.parentNode.parentNode;
@@ -46,7 +45,6 @@ btnWeek.addEventListener('click', () => {
 
 function renderMovies(url) {
   getMovies(url).then(response => {
-    loader.classList.add('backdrop-loader--is-hidden');
     renderMovieCards(response.results);
   });
 }
