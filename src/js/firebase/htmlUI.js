@@ -64,9 +64,9 @@ async function onLoginBtn(e) {
       const myUser = await logUser(email, password);
       const queue = localStorage.getItem('queue') || [];
       const watched = localStorage.getItem('watched') || [];
-      console.log(myUser);
-      console.log(queue);
-      console.log(watched);
+      // console.log(myUser);
+      // console.log(queue);
+      // console.log(watched);
 
       await createNote(createdUser, queue, watched);
       cleanLoginModal();

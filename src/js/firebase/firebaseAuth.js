@@ -116,15 +116,15 @@ export async function logOut() {
 
 // CRUD
 
-export async function createNote(user, watched, queue) {
+export async function createNote(user, queue, watched) {
   const database = getDatabase();
   await set(ref(database, 'galleries/' + user.uid), {
     userID: user.uid,
     email: user.email,
     timeStamp: Date.now(),
     created: Date(),
-    watched,
     queue,
+    watched,
   });
 }
 
