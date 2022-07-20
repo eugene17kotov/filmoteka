@@ -3,6 +3,8 @@ const refs = {
   toggleEl : document.querySelector('#theme-switch-toggle'),
   footerDarktheme : document.querySelector('.footer'),
   movieBackdrop : document.querySelector('.modal'),
+  modalTeam : document.querySelector('.modal-team'),
+  
 };
 
 const {
@@ -10,19 +12,27 @@ const {
   toggleEl,
   footerDarktheme,
   movieBackdrop,
+  modalTeam,
   } = refs;
 
   toggleEl.addEventListener('change', event => {
   if ( bodyEl.classList.contains('dark-theme')) {
      bodyEl.classList.remove('dark-theme');
      bodyEl.classList.add('light-theme');
-    footerDarktheme.classList.remove('dark-theme');
-    movieBackdrop.classList.remove('dark-theme');
+     footerDarktheme.classList.remove('dark-theme');
+     modalTeam.classList.remove('dark-theme');
+     movieBackdrop.classList.remove('dark-theme');
+     
+   
+    
   } else {
      bodyEl.classList.remove('light-theme');
      bodyEl.classList.add('dark-theme');
-    footerDarktheme.classList.add('dark-theme');
-    movieBackdrop.classList.add('dark-theme');
+     footerDarktheme.classList.add('dark-theme');
+     modalTeam.classList.add('dark-theme');
+     movieBackdrop.classList.add('dark-theme');
+     
+  
   }
 });
 
@@ -41,6 +51,8 @@ updataTheme();
 checkboxChecked();
 updataThemeFooter();
 updataThemeMovieBackdrop();
+updataThemeModalTeam();
+
 
 function updataTheme() {
   if (savedTheme) {
@@ -65,3 +77,11 @@ function updataThemeMovieBackdrop() {
     movieBackdrop.classList.add('dark-theme');
   }
 }
+
+function updataThemeModalTeam() {
+  if (savedTheme === 'dark-theme') {
+    modalTeam.classList.add('dark-theme');
+  }
+}
+
+

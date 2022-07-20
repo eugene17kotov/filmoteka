@@ -1,6 +1,6 @@
 
 body.light-theme {
- background-color: #fff;
+ background-color: $bg-color;
   color: $primary-text-color;
 }
 
@@ -26,20 +26,49 @@ footer.light-theme{
  & .about{
   color: $secondary-text-color; 
  }
+
+ & .button {
+  background-color: #9c9898;
+  color: $secondary-text-color; 
+  border: transparent;
+
+  &:hover {
+    color: $secondary-text-color;
+    background-color: $accent-color;
+    border: none;
+  }
+ }
+
+ & .button-close{
+  background-color: $bg-color;
+
+  &:hover {
+    background-color: $accent-color;
+  }
+ }
+
+ 
 }
 
 body.dark-theme, footer.dark-theme {
   background-color: #4b4a4a;
    color: $secondary-text-color;  
 
+
+   & .gallery__image:focus,
+   & .gallery__image:hover{
+    transform: scale(1.02);
+    box-shadow:  rgba(243, 103, 9, 0.25) 0px 0.0625em 0.0625em, rgba(245, 229, 3, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+   }
+
     & .pagination-button {
     background-color: #696666;
     color: lightgrey;
   }
-  & .arrow-right {
+   & .arrow-right {
     stroke: darkgrey
   }
-  & .pagination--current {
+   & .pagination--current {
     background-color: $accent-color;
   }
   
@@ -56,10 +85,57 @@ body.dark-theme, footer.dark-theme {
   & .footer-link:hover {
     color: $accent-color;
   }
+
+  & .pagination-button{
+    color: $secondary-text-color;
+  }
 }
 
 .footer.dark-theme{
   background-color: #0808084d;
+}
+
+.modal-team.dark-theme{
+  background-color: #4b4a4a;
+  color: $secondary-text-color; 
+  box-shadow: 0px 4px 16px rgba(201, 63, 22, 0.25), rgba(17, 17, 26, 0.05) 0px 8px 32px;
+
+
+& .image{
+  border-radius: 50px;
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+  box-shadow 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.0);
+    box-shadow: 0px 0px 16px rgba(201, 63, 22, 0.25), rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  }
+}
+
+  & .modal-team__close-btn{
+    color: $secondary-text-color;
+
+    &:hover,
+    &:focus {
+      color: $accent-color;
+    }
+  }
+
+  & .team__item{
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover,
+    &:focus {
+      transform: scale(1.05);
+      box-shadow: 0px 0px 16px rgba(201, 63, 22, 0.25), rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    }
+
+    & .team__link{
+      color: $secondary-text-color;
+    }
+  }
 }
 
 .toolbar {
@@ -67,8 +143,8 @@ body.dark-theme, footer.dark-theme {
   justify-content: flex-end;
   padding: 16px 24px;
   position: absolute;
+  top: 185px;
   right: 0;
-  top: 0px;
 }
 .theme-switch {
   display: flex;
@@ -76,7 +152,7 @@ body.dark-theme, footer.dark-theme {
 }
 
 .theme-switch__icon {
-  color: currentColor;
+  color: $accent-color;
   height: 15px;
   width: 15px;
   margin-right: 8px;
@@ -114,7 +190,7 @@ body.dark-theme, footer.dark-theme {
   height: 100%;
   color: transparent;
   user-select: none;
-  background-color: #333;
+  background-color: rgb(173, 127, 127);
   border-radius: inherit;
   z-index: 1;
   cursor: pointer;
@@ -122,7 +198,7 @@ body.dark-theme, footer.dark-theme {
 
 .theme-switch__marker {
   position: relative;
-  background-color: #fff;
+  background-color: $bg-color;
   width: 13px;
   height: 13px;
   border-radius: 50%;
