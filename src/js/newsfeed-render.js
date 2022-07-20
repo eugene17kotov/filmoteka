@@ -4,10 +4,12 @@ const regex = /[0-9]/g;
 const today = new Date().toISOString().slice(0, 10).match(regex).join('');
 const lastWeeksDate = getLastWeeksDate().match(regex).join('');
 let page = 0;
+let newsCountBySearch = 0;
+let newsCountStartOnPage = 0;
 const NEWS_URL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=movie&begin_date=${lastWeeksDate}&end_date=${today}&fq=Movies&page=${page}&sort=relevance&api-key=7V2Mdku3K6jAwbEoNcKctzHC7q7RRQcQ`;
 const BASE_NEWS_IMG_URL = 'https://static01.nyt.com/';
 
-async function getNewsFeed(url) {
+async function getNewsFeed(url, page) {
   try {
     const result = await axios.get(url);
 
@@ -19,6 +21,11 @@ async function getNewsFeed(url) {
 
 getNewsFeed(NEWS_URL).then(newsArticles => {
   renderNews(newsArticles.docs);
+
+  newsCountBySearch = newsArticles.meta.hits;
+  newsCountStartOnPage = newsArticles.meta.offset + 10;
+
+  console.log(newsArticles.meta.hits);
 });
 
 function renderNews(news) {
@@ -70,3 +77,40 @@ function getLastWeeksDate() {
     .toISOString()
     .slice(0, 10);
 }
+
+const scrollGuardRef = document.querySelector('.scroll-guard');
+
+const options = {
+  rootMargin: '100px',
+  threshold: 1.0,
+};
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    // if (newsCountBySearch >= newsCountStartOnPage) {
+    //   // setTimeout(() => {
+    //   //   endScrollMessage();
+    //   // }, 1000);
+    //   return;
+    // }
+
+    if (entry.isIntersecting) {
+      console.log(page);
+      page += 1;
+      console.log(page);
+
+      getNewsFeed(NEWS_URL, page).then(newsArticles => {
+        renderNews(newsArticles.docs);
+
+        newsCountBySearch = newsArticles.meta.hits;
+        newsCountStartOnPage = newsArticles.meta.offset + 10;
+
+        console.log(newsArticles.meta.hits);
+        console.log(newsArticles.meta.hits);
+      });
+      // fetchOnScroll(input, page);
+    }
+  });
+}, options);
+
+observer.observe(scrollGuardRef);
