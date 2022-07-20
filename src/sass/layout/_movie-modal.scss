@@ -232,7 +232,7 @@ body {
   border: 1px solid #000000;
   transition: color 400ms ease-in, background-color 400ms ease-in;
 
-  &:hover {
+  &:hover, &.is-active {
     color: #fff;
     background-color: #ff6b01;
     border: none;

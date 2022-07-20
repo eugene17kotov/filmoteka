@@ -8,10 +8,13 @@ const bg = document.querySelector('.backdrop');
 const libraryTextContainer = document.querySelector('.library-text');
 const libraryGallery = document.querySelector('.library-gallery');
 const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
+const libraryWatchedBtn = document.querySelector(
+  'button[data-action="watched"]'
+);
 let queueMovieId = localStorage.getItem('queue');
 let parseQueueMovieId = JSON.parse(queueMovieId);
 
-libraryQueueBtn && libraryQueueBtn.focus();
+libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 libraryQueueBtn && onLibraryQueueBtnClick();
 
 function inLocalStorage(value) {
@@ -27,22 +30,29 @@ function inLocalStorage(value) {
 export function onBtnQueueClick() {
   const id = bg.id;
 
+  if (localStorage.getItem('queue') === null) {
+    localStorage.setItem('queue', '[]');
+  }
+
   if (!inLocalStorage(id)) {
     queueBtn.textContent = 'Remove from queue';
+    queueBtn.classList.add('is-active');
     localstorage.setFilm('queue', id);
   } else {
     queueBtn.textContent = 'Add to queue';
+    queueBtn.classList.remove('is-active');
     localstorage.removeFilm('queue', id);
   }
 
   libraryGallery && onLibraryQueueBtnClick();
-  libraryQueueBtn && libraryQueueBtn.focus();
 }
 
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
 function onLibraryQueueBtnClick() {
+  libraryWatchedBtn.classList.remove('library__item-btn--active');
+  libraryQueueBtn.classList.add('library__item-btn--active');
   queueMovieId = localStorage.getItem('queue');
   parseQueueMovieId = JSON.parse(queueMovieId);
 
@@ -106,6 +116,22 @@ function createLibraryMovieMarkup(movie) {
 
   const queueGenres = getQueueMovieGenresList(genres);
 
+  if (poster_path === null) {
+    return `<li>
+            <a class="gallery__link" href="#">
+              <img class="gallery__image" data-id="${id}" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
+
+            <div class="info">
+              <p class="info__item">${title}</p>
+              <div class="info-detail">
+                <p class="info-detail__item">${queueGenres}</p>
+                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
+              </div>
+            </div>
+            </a>
+          </li>`;
+  }
+  
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
