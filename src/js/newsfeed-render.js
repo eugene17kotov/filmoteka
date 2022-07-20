@@ -24,12 +24,7 @@ async function getNewsFeed(url, page) {
 
 getNewsFeed(NEWS_URL, page).then(newsArticles => {
   renderNews(newsArticles.docs);
-
-  newsCountBySearch = newsArticles.meta.hits;
-  newsCountStartOnPage = newsArticles.meta.offset + 10;
-
-  console.log('Hits:', newsArticles.meta.hits);
-  console.log('Offset:', newsArticles.meta.offset);
+  updatePageCountVar(newsArticles);
 });
 
 function renderNews(news) {
@@ -80,48 +75,43 @@ function getLastWeeksDate() {
     .slice(0, 10);
 }
 
-const scrollGuardRef = document.querySelector('.scroll-guard');
+// Infinity scroll
 
+const scrollGuardRef = document.querySelector('.scroll-guard');
 const options = {
   rootMargin: '250px',
   threshold: 1.0,
 };
-
-function getStartObserver(entries) {
-  entries.forEach(entry => {
-    if (newsCountBySearch <= newsCountStartOnPage) {
-      const endScrollText =
-        '<p class="end-scroll-text">No more news this week</p>';
-      document.querySelector('.end-scroll-text-container').innerHTML =
-        endScrollText;
-      return;
-    }
-
-    if (entry.isIntersecting) {
-      console.log('Page before:', page);
-      page += 1;
-      console.log('Page after:', page);
-
-      getNewsFeed(NEWS_URL, page).then(newsArticles => {
-        renderNews(newsArticles.docs);
-
-        slowScrollOnAddPhotos();
-
-        newsCountBySearch = newsArticles.meta.hits;
-        newsCountStartOnPage = newsArticles.meta.offset + 10;
-
-        console.log('Hits:', newsArticles.meta.hits);
-        console.log('Offset:', newsArticles.meta.offset);
-      });
-    }
-  });
-}
-
 const observer = new IntersectionObserver(getStartObserver, options);
 
 setTimeout(() => {
   observer.observe(scrollGuardRef);
 }, 1000);
+
+function getStartObserver(entries) {
+  entries.forEach(entry => {
+    if (newsCountBySearch <= newsCountStartOnPage) {
+      return;
+    }
+
+    if (entry.isIntersecting) {
+      page += 1;
+
+      getNewsFeed(NEWS_URL, page).then(newsArticles => {
+        renderNews(newsArticles.docs);
+        updatePageCountVar(newsArticles);
+        slowScrollOnAddPhotos();
+
+        if (newsCountBySearch <= newsCountStartOnPage) {
+          document
+            .querySelector('.end-scroll-text')
+            .classList.remove('is-hidden');
+          return;
+        }
+      });
+    }
+  });
+}
 
 function slowScrollOnAddPhotos() {
   const { height: cardHeight } =
@@ -131,4 +121,9 @@ function slowScrollOnAddPhotos() {
     top: cardHeight * 1,
     behavior: 'smooth',
   });
+}
+
+function updatePageCountVar(newsArticles) {
+  newsCountBySearch = newsArticles.meta.hits;
+  newsCountStartOnPage = newsArticles.meta.offset + 10;
 }
