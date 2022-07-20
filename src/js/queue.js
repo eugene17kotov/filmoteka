@@ -6,7 +6,7 @@ import { localstorage } from './localstorage.js';
 const queueBtn = document.querySelector('.to-queue');
 const bg = document.querySelector('.backdrop');
 const libraryTextContainer = document.querySelector('.library-text');
-const libraryGallery = document.querySelector('.library-gallery');
+export const libraryGallery = document.querySelector('.library-gallery');
 const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
 const libraryWatchedBtn = document.querySelector(
   'button[data-action="watched"]'
@@ -87,20 +87,20 @@ function getPlugHidden() {
 
 function fetchQueue(queueMovieId) {
   const moviesIDInQueue = JSON.parse(queueMovieId);
-
-  moviesIDInQueue.map(movieID => {
+//!add slice method to moviesIDInQueue for showing only 6 cards when function onLibraryQueueBtnClick is executed
+  moviesIDInQueue.slice(0,6).map(movieID => {
     fetchById(movieID).then(res => {
       renderMovieCardsLibrary(res);
     });
   });
 }
 
-function fetchById(movieId) {
+export function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
   return getMovies(idURL);
 }
 
-function renderMovieCardsLibrary(movie) {
+export function renderMovieCardsLibrary(movie) {
   const movieGalleryMarkup = createLibraryMovieMarkup(movie);
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
