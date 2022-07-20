@@ -5,7 +5,7 @@ window.onscroll = function () {
   scrollFunction();
 };
 
-function scrollFunction() {
+export function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     toTopBtn.style.display = 'block';
     toTopBtn.addEventListener('click', topFunction);

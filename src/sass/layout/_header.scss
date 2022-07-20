@@ -1,337 +1,451 @@
 $trans-time: 300ms;
-
+body.header-menu-open {
+  overflow: hidden;
+}
 .header {
-    height: 230px;
-    padding-top: 46px;
-    background-color: $logo-color;
-
+  height: 230px;
+  padding-top: 46px;
+  background-color: $logo-color;
 }
 
 .header--home {
-    @include media-min($mob) {
-        background: url('../images/header-img/header-home-mob-1.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-min($mob) {
+    background: url('../images/header-img/header-home-mob-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-        @include media-2-min($mob) {
-        background: url('../images/header-img/header-home-mob-2.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-2-min($mob) {
+    background: url('../images/header-img/header-home-mob-2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-    @include media-min($tab) {
-        background: url('../images/header-img/header-home-tab-1.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-min($tab) {
+    background: url('../images/header-img/header-home-tab-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-        @include media-2-min($tab) {
-        background: url('../images/header-img/header-home-tab-2.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-2-min($tab) {
+    background: url('../images/header-img/header-home-tab-2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-        @include media-min($desk) {
-        background: url('../images/header-img/header-home-desk-1.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-min($desk) {
+    background: url('../images/header-img/header-home-desk-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-        @include media-2-min($desk) {
-        background: url('../images/header-img/header-home-desk-2.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-2-min($desk) {
+    background: url('../images/header-img/header-home-desk-2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 }
 
 .header--library {
-    @include media-min($mob) {
-        background-image: linear-gradient(to right,
-                    rgba(0, 0, 0, 0.56),
-                    rgba(0, 0, 0, 0.56)),
-                    url('../images/header-img/header-lib-mob-1.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-min($mob) {
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.56),
+        rgba(0, 0, 0, 0.56)
+      ),
+      url('../images/header-img/header-lib-mob-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-        @include media-2-min($mob) {
-        background-image: linear-gradient(to right,
-                    rgba(0, 0, 0, 0.56),
-                    rgba(0, 0, 0, 0.56)),
-                    url('../images/header-img/header-lib-mob-2.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-2-min($mob) {
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.56),
+        rgba(0, 0, 0, 0.56)
+      ),
+      url('../images/header-img/header-lib-mob-2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-        @include media-min($tab) {
-        background-image: linear-gradient(to right,
-                    rgba(0, 0, 0, 0.56),
-                    rgba(0, 0, 0, 0.56)),
-                    url('../images/header-img/header-lib-tab-1.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-min($tab) {
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.56),
+        rgba(0, 0, 0, 0.56)
+      ),
+      url('../images/header-img/header-lib-tab-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-        @include media-2-min($tab) {
-        background-image: linear-gradient(to right,
-                    rgba(0, 0, 0, 0.56),
-                    rgba(0, 0, 0, 0.56)),
-                    url('../images/header-img/header-lib-tab-2.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
+  @include media-2-min($tab) {
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.56),
+        rgba(0, 0, 0, 0.56)
+      ),
+      url('../images/header-img/header-lib-tab-2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 
-        @include media-min($desk) {
-        background-image: linear-gradient(to right,
-                    rgba(0, 0, 0, 0.56),
-                    rgba(0, 0, 0, 0.56)),
-                url('../images/header-img/header-lib-desk-1.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        // background-color: rgba(0, 0, 0, 0.56);
-    }
+  @include media-min($desk) {
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.56),
+        rgba(0, 0, 0, 0.56)
+      ),
+      url('../images/header-img/header-lib-desk-1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    // background-color: rgba(0, 0, 0, 0.56);
+  }
 
-        @include media-2-min($desk) {
-        background-image: linear-gradient(to right,
-                    rgba(0, 0, 0, 0.56),
-                    rgba(0, 0, 0, 0.56)),
-                    url('../images/header-img/header-lib-desk-2.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-    }
-        background: rgba(0, 0, 0, 0.56);
+  @include media-2-min($desk) {
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.56),
+        rgba(0, 0, 0, 0.56)
+      ),
+      url('../images/header-img/header-lib-desk-2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  background: rgba(0, 0, 0, 0.56);
 }
 
 .header__container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
 
-    @include media-min($mob) {
-        width: $mob;
-    }
+  @include media-min($mob) {
+    width: $mob;
+  }
 
-    @include media-min($tab) {
-        width: $tab;
-        padding: 0 32px;
-    }
+  @include media-min($tab) {
+    width: $tab;
+    padding: 0 32px;
+  }
 
-    @include media-min($desk) {
-        width: $desk;
-    }
+  @include media-min($desk) {
+    width: $desk;
+  }
 }
-
+.header__section {
+  @include media-max($mob) {
+    display: inline-flex;
+  }
+}
 .header__nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    &-list {
-        display: flex;
-        list-style: none;
+  &-list {
+    display: none;
+    @include media-min($tab) {
+      display: flex;
+      list-style: none;
     }
+  }
 
-    &-item {
-        position: relative;
+  &-item {
+    position: relative;
 
-        &--active::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0px;
-            width: 100%;
-            height: 3px;
-            background-color: $accent-color;
-        }
+    &--active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0px;
+      width: 100%;
+      height: 3px;
+      background-color: $accent-color;
     }
+  }
 
-    &-item:not(:last-child) {
-        margin-right: 39px;
-    }
+  &-item:not(:last-child) {
+    margin-right: 39px;
+  }
 }
 
 .header__logo {
-    align-items: center;
-    display: flex;
-    color: white;
-    transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
-    &-icon {
-        width: 32px;
-        height: 32px;
-        margin-right: 12px;
-        fill: currentColor;
+  align-items: center;
+  display: flex;
+  color: white;
+  transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+  &-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    fill: currentColor;
 
-        @include media-min($tab) {
-            margin-right: 10px;
-        }
-        
+    @include media-min($tab) {
+      margin-right: 10px;
     }
+  }
 
-    &-name {
-        font-size: 35px;
-        font-weight: 500;
-        color: currentColor;
-       
-        @include media-max($mob-max-width) {
-            display: none;
-        }
+  &-name {
+    font-size: 35px;
+    font-weight: 500;
+    color: currentColor;
+
+    @include media-max($mob-max-width) {
+      display: none;
     }
+  }
 
-    &:hover {
-        color: $accent-color
-    }
-
+  &:hover {
+    color: $accent-color;
+  }
 }
 
 .header__nav-btn {
-    background-color: transparent;
-    border: none;
-    margin: 0px;
-    padding-right: 0px;
-    padding-left: 0px;
-    padding-top: 7px;
-    padding-bottom: 5px;
-    line-height: 1.17;
-    text-transform: uppercase;
-    color: $secondary-text-color;
-    cursor: pointer;
-    font-size: large;
-    font-weight: 500;
+  background-color: transparent;
+  border: none;
+  margin: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  line-height: 1.17;
+  text-transform: uppercase;
+  color: $secondary-text-color;
+  cursor: pointer;
+  font-size: large;
+  font-weight: 500;
 
-    transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header__nav-btn:hover,
 .header__nav-btn:focus {
-    color: $accent-color;
-    
+  color: $accent-color;
 }
 
 .header__filmsearch {
-    position: relative;
-    margin-top: 37px;
+  position: relative;
+  margin-top: 37px;
 }
 
 .header__form {
-    display: flex;
-    justify-content: center;
-    color: white;
+  display: flex;
+  justify-content: center;
+  color: white;
 
-    &-input {
-        background-color: transparent;
-        border-top: none;
-        border-right: none;
-        border-left: none;
-        border-bottom: 0.5px solid $secondary-text-color;
-        padding-top: 0px;
-        padding-left: 0px;
-        padding-right: 20px;
-        padding-bottom: 4px;
-        color: white;
-        outline: none;
-        transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
-
-        &:hover,
-        &:focus {
-            border-bottom: 0.5px solid $accent-color;
-            color: $accent-color;
-
-            &::placeholder {
-                color: currentColor;
-            }       
-        }
-
-        @include media-min-max($mob, $mob-max-width) {
-            width: 278px;
-        }
-
-        width: 336px;
-
-        &::placeholder {
-            font-weight: 400px;
-            font-size: 18px;
-            line-height: 1.14;
-            color: currentColor;
-        }
-    }
-
-    &-input-btn {
-        border: none;
-        background-color: inherit;
-        transform: translateX(-100%);
-        padding: 0px;
-        cursor: pointer;
-        color: white;
-        transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
-
-        &:hover,
-        &:focus {
-            color: $accent-color;
-        }
-    }
-
-    &-input-icon {
-        fill: currentColor;
-    }
-
-}
-
-.library-btn {
-    margin-top: 45px;
-    cursor: pointer;
-    &-list {
-        display: flex;
-        justify-content: center;
-        justify-items: center;
-
-        &__item :first-child {
-                margin-right: 20px;
-        
-                @media screen and(min-width:$tab) {
-                    margin-right: 32px;
-                }
-            }
-    }
-}
-.library__item-btn {
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    width: 130px;
-    height: 44px;
-    cursor: pointer;
-    
-
-    @include media-min($tab) {
-        width: 136px;
-    }
-    border: 1px solid $secondary-text-color;
-    color: $secondary-text-color;
+  &-input {
     background-color: transparent;
-    align-content: center;
-    transition: background-color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
-
-    &--active {
-        background-color: $accent-color;
-        border: $accent-color;
-    }
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 0.5px solid $secondary-text-color;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 20px;
+    padding-bottom: 4px;
+    color: white;
+    outline: none;
+    transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover,
     &:focus {
-        @extend .library__item-btn--active;
+      border-bottom: 0.5px solid $accent-color;
+      color: $accent-color;
+
+      &::placeholder {
+        color: currentColor;
+      }
     }
+
+    @include media-min-max($mob, $mob-max-width) {
+      width: 278px;
+    }
+
+    width: 336px;
+
+    &::placeholder {
+      font-weight: 400px;
+      font-size: 18px;
+      line-height: 1.14;
+      color: currentColor;
+    }
+  }
+
+  &-input-btn {
+    border: none;
+    background-color: inherit;
+    transform: translateX(-100%);
+    padding: 0px;
+    cursor: pointer;
+    color: white;
+    transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover,
+    &:focus {
+      color: $accent-color;
+    }
+  }
+
+  &-input-icon {
+    fill: currentColor;
+  }
+}
+
+.library-btn {
+  margin-top: 45px;
+  &-list {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+
+    &__item :first-child {
+      margin-right: 20px;
+
+      @media screen and(min-width:$tab) {
+        margin-right: 32px;
+      }
+    }
+  }
+}
+.library__item-btn {
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  width: 130px;
+  height: 44px;
+  cursor: pointer;
+
+  @include media-min($tab) {
+    width: 136px;
+  }
+  border: 1px solid $secondary-text-color;
+  color: $secondary-text-color;
+  background-color: transparent;
+  align-content: center;
+  transition: background-color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+
+  &--active {
+    background-color: $accent-color;
+    border: $accent-color;
+  }
+
+  &:hover,
+  &:focus {
+    @extend .library__item-btn--active;
+  }
+}
+
+.header-mob-menu-open-btn {
+  display: inline-flex;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  fill: currentColor;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    fill: $accent-color;
+  }
+
+  @include media-min($tab) {
+    display: none;
+  }
+}
+.menu-btn__icon {
+  color: white;
+  fill: currentColor;
+  width: 32px;
+  height: 32px;
+}
+
+@media screen and(max-width: 768px) {
+  .header-mob-menu {
+    position: fixed;
+    z-index: 1;
+    font-size: larger;
+    font-weight: 600;
+    //   background-image: url(../images/add-giphy.gif);
+    background-image: url(../images/giphy.gif);
+    opacity: 1;
+
+    background-size: cover;
+    color: transparent;
+
+    width: 100%;
+    height: 100%;
+    // max-width: 620px;
+    // min-height: 700px;
+    top: 0;
+    left: 0;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-style: normal;
+
+    transition: background-image 3000ms cubic-bezier(0.4, 0, 0.2, 1);
+    // transition: all 0.8s ease 0s;
+  }
+}
+
+.mob-menu-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header-mob-menu-close-btn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  fill: currentColor;
+
+  &:hover,
+  &:focus {
+    fill: $accent-color;
+  }
+}
+
+.mob-menu__item:not(:last-child) {
+  margin-bottom: 32px;
+}
+
+.mob-menu__link {
+  font-size: 40px;
+  line-height: 47px;
+  letter-spacing: 0.02em;
+  color: #f5ebeb;
+
+  &--current {
+    color: $accent-color;
+  }
+
+  &:hover,
+  &:focus {
+    color: $accent-color;
+    // text-decoration: underline;
+  }
 }

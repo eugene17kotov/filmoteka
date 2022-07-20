@@ -43,7 +43,7 @@ export async function onFormSubmit(e) {
     refs.loader.classList.add('backdrop-loader--is-hidden');
 
     e.target.reset();
-
+    
     renderMovieCards(muvie.results);
     renderPagination(muvie.page, muvie.total_pages);  //Viktor: renderPagination function added 
 }

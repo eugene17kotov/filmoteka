@@ -1,13 +1,13 @@
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
-import {onAddToWatchedBtnClick}from './watched';
+import { onAddToWatchedBtnClick } from './watched';
+import { scrollFunction } from './scroll-up';
 
 const refs = {
-  backdrop: document.querySelector('.backdrop'),
+  backdrop: document.querySelector('.movie-backdrop'),
   closeBtn: document.querySelector('button[data-dismiss="modal"]'),
   cardModal: document.querySelector('ul[data-point="galery"]'),
-  imgContainer: document.querySelector('.js-modal'),
   queueBtn: document.querySelector('.to-queue'),
   imgRef: document.querySelector('.image-container'),
   contentRef: document.querySelector('.content-markup'),
@@ -18,32 +18,36 @@ const {
   backdrop,
   closeBtn,
   cardModal,
-  imgContainer,
   queueBtn,
   imgRef,
   contentRef,
   addToWatchedButton,
 } = refs;
 
+const toTopBtn = document.getElementById('myBtn');
+
 function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
   queueBtn.addEventListener('click', onBtnQueueClick);
-   addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick)
+  addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
 }
 
 function onCloseBtnClick(e) {
   e.preventDefault();
   backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
 function onKeydownEscape(e) {
   e.preventDefault();
-  if (e.key === 'Escape') {
-    backdrop.classList.add('is-hidden');
+  if (e.code !== 'Escape') {
+    return;
   }
+  backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
@@ -52,6 +56,7 @@ function onBackdropClick(e) {
     return;
   }
   backdrop.classList.add('is-hidden');
+  scrollFunction();
   removeAllEventListenersModal();
 }
 
@@ -61,19 +66,24 @@ function removeAllEventListenersModal() {
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
+  document.body.classList.toggle('modal-open');
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 
 let movieId;
+
 // клик
 function clickOnMovieHandler(e) {
   e.preventDefault();
 
-  backdrop.classList.remove('is-hidden');
-  if (e.target.nodeName !== 'IMG' && e.target.nodeName !== 'H2') {
+  if (e.target.nodeName !== 'IMG') {
     return;
   }
+
+  backdrop.classList.remove('is-hidden');
+  document.body.classList.toggle('modal-open');
+  toTopBtn.style.display = 'none';
 
   movieId = e.target.dataset.id;
   backdrop.setAttribute('id', movieId);
@@ -84,11 +94,25 @@ function clickOnMovieHandler(e) {
 
   whichBtnShow(movieId);
   whichBtnShowInWatchedFilms(movieId);
+
+  // add/remove is-active class on buttons
+  if (addToWatchedButton.textContent.toLowerCase() === 'add to watched') {
+    addToWatchedButton.classList.remove('is-active');
+  } else {
+    addToWatchedButton.classList.add('is-active');
+  }
+
+  if (queueBtn.textContent.toLowerCase() === 'add to queue') {
+    queueBtn.classList.remove('is-active');
+  } else {
+    queueBtn.classList.add('is-active');
+  }
 }
 
 //Фетч фильма по ID
 function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
+
   getMovies(idURL).then(res => {
     renderFilmCard(res);
   });
@@ -110,14 +134,22 @@ function modalFilmCart({
   overview,
   poster_path,
 }) {
-  const imageMarkup = `
+  let imageMarkup = `
   <img 
     src="${BASE_IMG_URL}${poster_path}"
+      alt="${title} movie poster}" 
+      width="375" height="478" 
+      class="image"
+      />`;
+  if (poster_path === null) {
+    imageMarkup = `
+  <img 
+    src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster"
       alt="${title} movie poster}" 
       width="395" height="574" 
       class="image"
       />`;
-
+  }
   const markup = `
   <h2 class="title">${title}</h2>
   <div class="properties">
@@ -147,6 +179,11 @@ function modalFilmCart({
   contentRef.innerHTML = markup;
 }
 
+function clearModalContent() {
+  imgRef.innerHTML = '';
+  contentRef.innerHTML = '';
+}
+
 function whichBtnShow(id) {
   const localstorage = localStorage.getItem('queue');
 
@@ -160,7 +197,8 @@ function whichBtnShow(id) {
     queueBtn.textContent = 'Add to queue';
   }
 }
- function whichBtnShowInWatchedFilms(id) {
+
+function whichBtnShowInWatchedFilms(id) {
   const localstorageWatched = localStorage.getItem('watched');
 
   if (localstorageWatched === null) {
