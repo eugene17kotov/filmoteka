@@ -1,7 +1,6 @@
 import { renderMovieCards } from './render-movie-cards';
 import { getMovies } from './api/fetch-movie';
 import { API_KEY, BASE_URL } from './api/api-vars';
-import { onFormSubmit } from './search';
 
 const refs = {
   btnToday: document.querySelector('button[data-group="today"]'),
@@ -71,6 +70,7 @@ function formSubmitHandler(e) {
 
 function toTrendingBtnClick() {
   page = document.querySelector('.pagination-button--current').dataset.page;
+
   const TREND_URL_WEEK = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
 
   filter.classList.remove('is-hidden');
