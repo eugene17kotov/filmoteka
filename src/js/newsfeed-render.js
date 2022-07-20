@@ -6,12 +6,15 @@ const lastWeeksDate = getLastWeeksDate().match(regex).join('');
 let page = 0;
 let newsCountBySearch = 0;
 let newsCountStartOnPage = 0;
-const NEWS_URL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=movie&begin_date=${lastWeeksDate}&end_date=${today}&fq=Movies&page=${page}&sort=relevance&api-key=7V2Mdku3K6jAwbEoNcKctzHC7q7RRQcQ`;
+let NEWS_URL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=movie&begin_date=${lastWeeksDate}&end_date=${today}&fq=Movies&sort=relevance&api-key=7V2Mdku3K6jAwbEoNcKctzHC7q7RRQcQ`;
 const BASE_NEWS_IMG_URL = 'https://static01.nyt.com/';
+const newsfeedGallery = document.querySelector('.newsfeed');
 
 async function getNewsFeed(url, page) {
+  const urlWithPagePagination = `${url}&page=${page}`;
+
   try {
-    const result = await axios.get(url);
+    const result = await axios.get(urlWithPagePagination);
 
     return result.data.response;
   } catch (error) {
@@ -19,21 +22,20 @@ async function getNewsFeed(url, page) {
   }
 }
 
-getNewsFeed(NEWS_URL).then(newsArticles => {
+getNewsFeed(NEWS_URL, page).then(newsArticles => {
   renderNews(newsArticles.docs);
 
   newsCountBySearch = newsArticles.meta.hits;
   newsCountStartOnPage = newsArticles.meta.offset + 10;
 
-  console.log(newsArticles.meta.hits);
+  console.log('Hits:', newsArticles.meta.hits);
+  console.log('Offset:', newsArticles.meta.offset);
 });
 
 function renderNews(news) {
   const newsFeedMarkup = news.map(item => createNewsCardMarkup(item)).join('');
 
-  document
-    .querySelector('.newsfeed')
-    .insertAdjacentHTML('beforeend', newsFeedMarkup);
+  newsfeedGallery.insertAdjacentHTML('beforeend', newsFeedMarkup);
 }
 
 function createNewsCardMarkup(newsItem) {
@@ -81,36 +83,52 @@ function getLastWeeksDate() {
 const scrollGuardRef = document.querySelector('.scroll-guard');
 
 const options = {
-  rootMargin: '100px',
+  rootMargin: '250px',
   threshold: 1.0,
 };
 
-const observer = new IntersectionObserver(entries => {
+function getStartObserver(entries) {
   entries.forEach(entry => {
-    // if (newsCountBySearch >= newsCountStartOnPage) {
-    //   // setTimeout(() => {
-    //   //   endScrollMessage();
-    //   // }, 1000);
-    //   return;
-    // }
+    if (newsCountBySearch <= newsCountStartOnPage) {
+      const endScrollText =
+        '<p class="end-scroll-text">No more news this week</p>';
+      document.querySelector('.end-scroll-text-container').innerHTML =
+        endScrollText;
+      return;
+    }
 
     if (entry.isIntersecting) {
-      console.log(page);
+      console.log('Page before:', page);
       page += 1;
-      console.log(page);
+      console.log('Page after:', page);
 
       getNewsFeed(NEWS_URL, page).then(newsArticles => {
         renderNews(newsArticles.docs);
 
+        slowScrollOnAddPhotos();
+
         newsCountBySearch = newsArticles.meta.hits;
         newsCountStartOnPage = newsArticles.meta.offset + 10;
 
-        console.log(newsArticles.meta.hits);
-        console.log(newsArticles.meta.hits);
+        console.log('Hits:', newsArticles.meta.hits);
+        console.log('Offset:', newsArticles.meta.offset);
       });
-      // fetchOnScroll(input, page);
     }
   });
-}, options);
+}
 
-observer.observe(scrollGuardRef);
+const observer = new IntersectionObserver(getStartObserver, options);
+
+setTimeout(() => {
+  observer.observe(scrollGuardRef);
+}, 1000);
+
+function slowScrollOnAddPhotos() {
+  const { height: cardHeight } =
+    newsfeedGallery.firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 1,
+    behavior: 'smooth',
+  });
+}
