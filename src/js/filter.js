@@ -18,7 +18,6 @@ let page = 1;
 
 btnToday.addEventListener('click', () => {
   page = document.querySelector('.pagination-button--current').dataset.page;
-  console.log(page);
   const TREND_URL_DAY = `${BASE_URL}/trending/movie/day?api_key=${API_KEY}`;
   if (anchorNodeToday.classList.contains('.selected')) {
     return;
@@ -33,7 +32,6 @@ btnToday.addEventListener('click', () => {
 
 btnWeek.addEventListener('click', () => {
   page = document.querySelector('.pagination-button--current').dataset.page;
-  console.log(page);
   const TREND_URL_WEEK = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
   if (anchorNodeWeek.classList.contains('.selected')) {
     return;
