@@ -70,13 +70,19 @@
   @media screen and (min-width: $tab) {
     width: 264px;
     height: 374px;
+<<<<<<< HEAD
     
+=======
+>>>>>>> dev
   }
 
   @media screen and (min-width: $desk) {
     width: 375px;
     height: 545px;
+<<<<<<< HEAD
     
+=======
+>>>>>>> dev
   }
 }
 
@@ -87,6 +93,7 @@ body {
 }
 
 .movie-backdrop {
+  z-index: 998;
   position: fixed;
   top: 0;
   left: 0;
@@ -113,6 +120,7 @@ body {
 }
 
 .movie-modal {
+  z-index: 999;
   display: flex;
   width: 280px;
   height: 95vh;
@@ -291,4 +299,3 @@ body {
   font-size: 13px;
   line-height: 1.17;
 }
-
