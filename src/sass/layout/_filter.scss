@@ -91,6 +91,12 @@
     #ffa000 36%,
     #ff7e08 100%
   );
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
 }
 
 .background__filter {
