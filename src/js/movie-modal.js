@@ -52,7 +52,6 @@ function onKeydownEscape(e) {
 }
 
 function onBackdropClick(e) {
-  
   if (!e.target.classList.contains('backdrop')) {
     return;
   }
@@ -95,21 +94,32 @@ function clickOnMovieHandler(e) {
 
   whichBtnShow(movieId);
   whichBtnShowInWatchedFilms(movieId);
+
+  // add/remove is-active class on buttons
+  if (addToWatchedButton.textContent.toLowerCase() === 'add to watched') {
+    addToWatchedButton.classList.remove('is-active');
+  } else {
+    addToWatchedButton.classList.add('is-active');
+  }
+
+  if (queueBtn.textContent.toLowerCase() === 'add to queue') {
+    queueBtn.classList.remove('is-active');
+  } else {
+    queueBtn.classList.add('is-active');
+  }
 }
 
 //Фетч фильма по ID
 function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
- 
+
   getMovies(idURL).then(res => {
     renderFilmCard(res);
-   
   });
 }
 
 function renderFilmCard(film) {
   modalFilmCart(film);
- 
 }
 
 const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
@@ -124,8 +134,6 @@ function modalFilmCart({
   overview,
   poster_path,
 }) {
-  
-  
   let imageMarkup = `
   <img 
     src="${BASE_IMG_URL}${poster_path}"
@@ -133,7 +141,7 @@ function modalFilmCart({
       width="375" height="478" 
       class="image"
       />`;
-if (poster_path === null) {
+  if (poster_path === null) {
     imageMarkup = `
   <img 
     src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster"
