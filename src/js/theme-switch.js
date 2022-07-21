@@ -45,12 +45,12 @@ toggleEl.addEventListener('change', event => {
   localStorage.setItem('theme', bodyEl.classList);
 });
 
-isToggleChecked();
 updataTheme();
 checkboxChecked();
 updataThemeFooter();
 updataThemeMovieBackdrop();
 updataThemeModalTeam();
+isToggleChecked();
 
 function updataTheme() {
   if (savedTheme) {
@@ -82,14 +82,14 @@ function updataThemeModalTeam() {
   }
 }
 
-function isToggleChecked() {
-  console.log(toggleEl.getAttribute('checked'));
+// function isToggleChecked() {
+//   console.log(toggleEl.getAttribute('checked'));
 
-  // if (toggleEl.getAttribute('checked')) {
-  //   moon.style.color = '#ff6b08';
-  //   sun.style.color = '#ffffff';
-  // } else {
-  //   sun.style.color = '#ff6b08';
-  //   moon.style.color = '#ffffff';
-  // }
-}
+//   if (toggleEl.getAttribute('checked')) {
+//     moon.style.color = '#ff6b08';
+//     sun.style.color = '#ffffff';
+//   } else {
+//     sun.style.color = '#ff6b08';
+//     moon.style.color = '#ffffff';
+//   }
+// }

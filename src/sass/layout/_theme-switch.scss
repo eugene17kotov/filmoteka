@@ -145,8 +145,14 @@ footer.dark-theme {
 
 .theme-switch {
   position: absolute;
+  top: 185px;
+  right: 2px;
+}
+
+.theme-switch {
+  // position: absolute;
   right: 20px;
-  bottom: -40px;
+  // bottom: -40px;
   display: flex;
   align-items: center;
 
