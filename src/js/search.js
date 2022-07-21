@@ -2,59 +2,77 @@ import { API_KEY, SEARCH_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
 import { renderPagination } from './pagination'; //Viktor;
 import { renderMovieCards } from './render-movie-cards';
+import { filter, toTrendingBtn } from './filter';
+import debounce from 'lodash.debounce';
 
 const refs = {
-    form: document.querySelector('.header__form'),
-    gallery: document.querySelector('.gallery'),
-    loader: document.querySelector(".backdrop-loader"),
+  form: document.querySelector('.header__form'),
+  input: document.querySelector('.header__form-input'),
+  gallery: document.querySelector('.gallery'),
+  loader: document.querySelector('.backdrop-loader'),
+};
+const DEBOUNCE_DELAY = 500;
+
+refs.form && refs.form.addEventListener('submit', onFormSubmit);
+refs.input &&
+  refs.input.addEventListener('input', debounce(onInputText, DEBOUNCE_DELAY));
+
+async function onInputText(e) {
+  searchText = e.target.value.trim();
+
+  if (searchText === '') {
+    return;
+  }
+
+  filter.classList.add('is-hidden');
+  toTrendingBtn.classList.remove('is-hidden');
+
+  refs.loader.classList.remove('backdrop-loader--is-hidden');
+
+  clearGallery();
+
+  const muvie = await searchMovies(searchText);
+
+  refs.loader.classList.add('backdrop-loader--is-hidden');
+
+  renderMovieCards(muvie.results);
+  renderPagination(muvie.page, muvie.total_pages);
 }
-if (refs.form) {
-    refs.form.addEventListener('submit', onFormSubmit);
-}
 
-
-
-// export function searchMovies(movie, pageNumber) {
-//     return getMovies(
-//         `${SEARCH_URL}?api_key=${API_KEY}&query=${movie}&page=${pageNumber}`
-//     ); 
-// }
-
-//Viktor rewrited function: save searchUrl to localStorage for using in pagination;
 export function searchMovies(searchText) {
-    const searchUrl = `${SEARCH_URL}&query=${searchText}`;
-    localStorage.setItem('LAST_REQUESTED_URL', searchUrl)
-    return getMovies(searchUrl); 
+  const searchUrl = `${SEARCH_URL}&query=${searchText}`;
+  localStorage.setItem('LAST_REQUESTED_URL', searchUrl);
+  return getMovies(searchUrl);
 }
 
 let searchText = '';
 
 export async function onFormSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    refs.loader.classList.remove('backdrop-loader--is-hidden');
-    
-    clearGallery();
-    
-    searchText = e.currentTarget.query.value.trim();
-    
-    const muvie = await searchMovies(searchText);
+  searchText = e.currentTarget.query.value.trim();
 
-    refs.loader.classList.add('backdrop-loader--is-hidden');
+  if (searchText === '') {
+    return;
+  }
 
-    e.target.reset();
-    
-    renderMovieCards(muvie.results);
-    renderPagination(muvie.page, muvie.total_pages);  //Viktor: renderPagination function added 
+  filter.classList.add('is-hidden');
+  toTrendingBtn.classList.remove('is-hidden');
+
+  refs.loader.classList.remove('backdrop-loader--is-hidden');
+
+  clearGallery();
+
+  const muvie = await searchMovies(searchText);
+
+  refs.loader.classList.add('backdrop-loader--is-hidden');
+
+  e.target.reset();
+
+  renderMovieCards(muvie.results);
+  renderPagination(muvie.page, muvie.total_pages);
 }
 
 function clearGallery() {
-    refs.gallery.innerHTML = '';
+  refs.gallery.innerHTML = '';
 }
-
-
-
-
-
-
-

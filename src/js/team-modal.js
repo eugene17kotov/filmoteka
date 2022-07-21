@@ -17,7 +17,7 @@ function onGoitteamClick(e) {
   e.preventDefault();
 
   backdropTeamRef.classList.remove('backdrop-team--is-hidden');
-  document.body.classList.toggle('modal-open');
+  document.body.classList.add('modal-open');
 
   addAllEventListeners();
 }
@@ -58,7 +58,7 @@ function closingModalStaff() {
   closeBtnRef.removeEventListener('click', onCloseBtnClick);
 
   backdropTeamRef.classList.add('backdrop-team--is-hidden');
-  document.body.classList.toggle('modal-open');
+  document.body.classList.remove('modal-open');
 }
 
 function toggleListenerByIntersection(entries) {
