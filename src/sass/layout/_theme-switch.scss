@@ -1,79 +1,76 @@
-
 body.light-theme {
- background-color: $bg-color;
+  background-color: $bg-color;
   color: $primary-text-color;
 }
 
-
-
-footer.light-theme{
-  color:  #545454;
-
+footer.light-theme {
+  color: #545454;
 }
 
-.modal.dark-theme{
+.modal.dark-theme {
   background-color: #4b4a4a;
-  color: $secondary-text-color; 
+  color: $secondary-text-color;
 
- & .content-markup{
-  color: $secondary-text-color; 
- }
-
- & .property{
-  color: $secondary-text-color; 
- }
-
- & .about{
-  color: $secondary-text-color; 
- }
-
- & .button {
-  background-color: #9c9898;
-  color: $secondary-text-color; 
-  border: transparent;
-
-  &:hover {
+  & .content-markup {
     color: $secondary-text-color;
-    background-color: $accent-color;
-    border: none;
   }
- }
 
- & .button-close{
-  background-color: $bg-color;
-
-  &:hover {
-    background-color: $accent-color;
+  & .property {
+    color: $secondary-text-color;
   }
- }
 
- 
+  & .about {
+    color: $secondary-text-color;
+  }
+
+  & .button {
+    background-color: #9c9898;
+    color: $secondary-text-color;
+    border: transparent;
+
+    &:hover,
+    &.is-active {
+      color: $secondary-text-color;
+      background-color: $accent-color;
+      border: none;
+    }
+  }
+
+  & .button-close {
+    background-color: $bg-color;
+
+    &:hover {
+      background-color: $accent-color;
+    }
+  }
 }
 
-body.dark-theme, footer.dark-theme {
+body.dark-theme,
+footer.dark-theme {
   background-color: #4b4a4a;
-   color: $secondary-text-color;  
+  color: $secondary-text-color;
 
-
-   & .gallery__image:focus,
-   & .gallery__image:hover{
+  & .gallery__image:focus,
+  & .gallery__image:hover {
     transform: scale(1.02);
-    box-shadow:  rgba(243, 103, 9, 0.25) 0px 0.0625em 0.0625em, rgba(245, 229, 3, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-   }
+    box-shadow: rgba(243, 103, 9, 0.25) 0px 0.0625em 0.0625em,
+      rgba(245, 229, 3, 0.25) 0px 0.125em 0.5em,
+      rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+  }
 
-    & .pagination-button {
+  & .pagination-button {
     background-color: #696666;
     color: lightgrey;
   }
-   & .arrow-right {
-    stroke: darkgrey
+  & .arrow-right {
+    stroke: darkgrey;
   }
-   & .pagination--current {
+  & .pagination--current {
     background-color: $accent-color;
   }
-  
+
   & .card__title {
-    color: $secondary-text-color
+    color: $secondary-text-color;
   }
 
   & .card__text {
@@ -86,34 +83,35 @@ body.dark-theme, footer.dark-theme {
     color: $accent-color;
   }
 
-  & .pagination-button{
+  & .pagination-button {
     color: $secondary-text-color;
   }
 }
 
-.footer.dark-theme{
+.footer.dark-theme {
   background-color: #0808084d;
 }
 
-.modal-team.dark-theme{
+.modal-team.dark-theme {
   background-color: #4b4a4a;
-  color: $secondary-text-color; 
-  box-shadow: 0px 4px 16px rgba(201, 63, 22, 0.25), rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  color: $secondary-text-color;
+  box-shadow: 0px 4px 16px rgba(201, 63, 22, 0.25),
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
 
+  & .image {
+    border-radius: 50px;
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 1000ms cubic-bezier(0.4, 0, 0.2, 1);
 
-& .image{
-  border-radius: 50px;
-  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
-  box-shadow 1000ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover,
-  &:focus {
-    transform: scale(1.0);
-    box-shadow: 0px 0px 16px rgba(201, 63, 22, 0.25), rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    &:hover,
+    &:focus {
+      transform: scale(1);
+      box-shadow: 0px 0px 16px rgba(201, 63, 22, 0.25),
+        rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    }
   }
-}
 
-  & .modal-team__close-btn{
+  & .modal-team__close-btn {
     color: $secondary-text-color;
 
     &:hover,
@@ -122,37 +120,42 @@ body.dark-theme, footer.dark-theme {
     }
   }
 
-  & .team__item{
+  & .team__item {
     transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow 1000ms cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover,
     &:focus {
       transform: scale(1.05);
-      box-shadow: 0px 0px 16px rgba(201, 63, 22, 0.25), rgba(17, 17, 26, 0.05) 0px 8px 32px;
+      box-shadow: 0px 0px 16px rgba(201, 63, 22, 0.25),
+        rgba(17, 17, 26, 0.05) 0px 8px 32px;
     }
 
-    & .team__link{
+    & .team__link {
       color: $secondary-text-color;
     }
   }
 }
 
 .toolbar {
+  // position: relative;
   display: flex;
   justify-content: flex-end;
   padding: 16px 24px;
-  position: absolute;
-  top: 185px;
-  right: 0;
+  // position: absolute;
+  // top: 185px;
+  // right: 0;
 }
 .theme-switch {
+  position: absolute;
+  right: 20px;
+  bottom: -40px;
   display: flex;
   align-items: center;
 }
 
 .theme-switch__icon {
-  color: $accent-color;
+  color: $secondary-text-color;
   height: 15px;
   width: 15px;
   margin-right: 8px;
@@ -165,7 +168,7 @@ body.dark-theme, footer.dark-theme {
   flex-shrink: 0;
   position: relative;
   width: 32px;
-  height: 16px;
+  height: 18px;
   border-radius: 50em;
   padding: 3px 0;
 }
@@ -173,7 +176,7 @@ body.dark-theme, footer.dark-theme {
 .theme-switch__toggle {
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: 0;
   margin: 0;
   padding: 0;
   opacity: 0;
@@ -213,6 +216,10 @@ body.dark-theme, footer.dark-theme {
   background-color: $accent-color;
 }
 
+.theme-switch__toggle:checked + .theme-switch__icon {
+  color: $accent-color;
+}
+
 .theme-switch__toggle:checked ~ .theme-switch__marker {
   transform: translateX(17px);
 }
@@ -221,7 +228,6 @@ body.dark-theme, footer.dark-theme {
 .theme-switch__toggle:active + .theme-switch__track {
   box-shadow: 0 1px 1px transparent;
 }
-
 
 .dark-theme {
   color: lightgrey;
