@@ -10,6 +10,8 @@ footer.light-theme {
 .modal.dark-theme {
   background-color: #4b4a4a;
   color: $secondary-text-color;
+  box-shadow: 0px 4px 16px rgba(201, 63, 22, 0.25),
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
 
   & .content-markup {
     color: $secondary-text-color;
@@ -59,7 +61,7 @@ footer.dark-theme {
 
   & .gallery__image:focus,
   & .gallery__image:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
     box-shadow: rgba(243, 103, 9, 0.25) 0px 0.0625em 0.0625em,
       rgba(245, 229, 3, 0.25) 0px 0.125em 0.5em,
       rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
@@ -119,11 +121,15 @@ footer.dark-theme {
   }
 
   & .modal-team__close-btn {
-    color: $secondary-text-color;
+    color: $primary-text-color;
+    border-radius: 50%;
+    background-color: $bg-color;
+    transition: color 300ms ease-in, background-color 300ms ease-in;
 
     &:hover,
     &:focus {
-      color: $accent-color;
+      color: $secondary-text-color;
+      background-color: $accent-color;
     }
   }
 
