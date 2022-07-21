@@ -10,6 +10,7 @@ const libraryGallery = document.querySelector('.library-gallery');
 const libraryWatchedBtn = document.querySelector(
   'button[data-action="watched"]'
 );
+const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
 
 function inLocalStorage(value) {
   if (localStorage.getItem('watched') !== null) {
@@ -24,16 +25,21 @@ function inLocalStorage(value) {
 export function onAddToWatchedBtnClick() {
   const id = bg.id;
 
+  if (localStorage.getItem('watched') === null) {
+    localStorage.setItem('watched', '[]');
+  }
+
   if (!inLocalStorage(id)) {
     addToWatchedButton.textContent = 'Remove from watched';
     localstorage.setFilm('watched', id);
+    addToWatchedButton.classList.add('is-active');
   } else {
     addToWatchedButton.textContent = 'Add to watched';
     localstorage.removeFilm('watched', id);
+    addToWatchedButton.classList.remove('is-active');
   }
 
   libraryGallery && onWatchedBtnClick();
-  libraryWatchedBtn && libraryWatchedBtn.focus();
 }
 
 libraryWatchedBtn &&
@@ -43,6 +49,8 @@ let watchedMovieId;
 let parseWatchedMovieId;
 
 function onWatchedBtnClick() {
+  libraryQueueBtn.classList.remove('library__item-btn--active');
+  libraryWatchedBtn.classList.add('library__item-btn--active');
   watchedMovieId = localStorage.getItem('watched');
   parseWatchedMovieId = JSON.parse(watchedMovieId);
 
@@ -106,6 +114,22 @@ function createLibraryMovieMarkup(movie) {
 
   const queueGenres = getQueueMovieGenresList(genres);
 
+  if (poster_path === null) {
+    return `<li>
+            <a class="gallery__link" href="#">
+              <img class="gallery__image" data-id="${id}" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
+
+            <div class="info">
+              <p class="info__item">${title}</p>
+              <div class="info-detail">
+                <p class="info-detail__item">${queueGenres}</p>
+                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
+              </div>
+            </div>
+            </a>
+          </li>`;
+  }
+  
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">

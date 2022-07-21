@@ -241,7 +241,7 @@ body {
   border: 1px solid #000000;
   transition: color 400ms ease-in, background-color 400ms ease-in;
 
-  &:hover {
+  &:hover, &.is-active {
     color: $secondary-text-color;
     background-color: $accent-color;
     border: none;
