@@ -11,33 +11,6 @@ const refs = {
   gallery: document.querySelector('.gallery'),
   loader: document.querySelector('.backdrop-loader'),
 };
-const DEBOUNCE_DELAY = 500;
-
-refs.form && refs.form.addEventListener('submit', onFormSubmit);
-refs.input &&
-  refs.input.addEventListener('input', debounce(onInputText, DEBOUNCE_DELAY));
-
-async function onInputText(e) {
-  searchText = e.target.value.trim();
-
-  if (searchText === '') {
-    return;
-  }
-
-  filter.classList.add('is-hidden');
-  toTrendingBtn.classList.remove('is-hidden');
-
-  refs.loader.classList.remove('backdrop-loader--is-hidden');
-
-  clearGallery();
-
-  const muvie = await searchMovies(searchText);
-
-  refs.loader.classList.add('backdrop-loader--is-hidden');
-
-  renderMovieCards(muvie.results);
-  renderPagination(muvie.page, muvie.total_pages);
-}
 
 export function searchMovies(searchText) {
   const searchUrl = `${SEARCH_URL}&query=${searchText}`;
@@ -46,6 +19,8 @@ export function searchMovies(searchText) {
 }
 
 let searchText = '';
+
+// Search by submit
 
 export async function onFormSubmit(e) {
   e.preventDefault();
@@ -75,4 +50,34 @@ export async function onFormSubmit(e) {
 
 function clearGallery() {
   refs.gallery.innerHTML = '';
+}
+
+// Search by input
+
+const DEBOUNCE_DELAY = 500;
+
+refs.form && refs.form.addEventListener('submit', onFormSubmit);
+refs.input &&
+  refs.input.addEventListener('input', debounce(onInputText, DEBOUNCE_DELAY));
+
+async function onInputText(e) {
+  searchText = e.target.value.trim();
+
+  if (searchText === '') {
+    return;
+  }
+
+  filter.classList.add('is-hidden');
+  toTrendingBtn.classList.remove('is-hidden');
+
+  refs.loader.classList.remove('backdrop-loader--is-hidden');
+
+  clearGallery();
+
+  const muvie = await searchMovies(searchText);
+
+  refs.loader.classList.add('backdrop-loader--is-hidden');
+
+  renderMovieCards(muvie.results);
+  renderPagination(muvie.page, muvie.total_pages);
 }
