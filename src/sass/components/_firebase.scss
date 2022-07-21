@@ -1,0 +1,37 @@
+.fbs-header {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: -10px 10px;
+    border: 2px solid #15ff00;
+    // position: absolute;
+    // top: 10px;
+    // right: 10px;
+    
+    @include media-min($mob) {
+        width: $mob;
+    }
+
+    @include media-min($tab) {
+        width: $tab;
+        padding: 0 32px;
+    }
+
+    @include media-min($desk) {
+        width: $desk;
+    }
+}
+.fbs-header__section {
+        display: flex;
+            justify-content: right;
+            justify-items: center;
+}
+.fbs-header-btn {
+    cursor: pointer;
+    &:first-child {
+            margin-right: 20px;
+    }
+    &:hover,
+    &:focus {
+        background-color: $accent-color;
+    }
+}

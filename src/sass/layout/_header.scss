@@ -6,6 +6,7 @@ body.header-menu-open {
   height: 230px;
   padding-top: 46px;
   background-color: $logo-color;
+  position: relative;
 }
 
 .header--home {
@@ -230,12 +231,12 @@ body.header-menu-open {
   font-weight: 500;
 
   transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover,
+  &:focus {
+    color: $accent-color;
+  }
 }
 
-.header__nav-btn:hover,
-.header__nav-btn:focus {
-  color: $accent-color;
-}
 
 .header__filmsearch {
   position: relative;

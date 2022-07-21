@@ -1,7 +1,7 @@
-export const logregMarkup = `<div id="login-status">
-        <button id="tosignin"  type="button">signin</button>
-        <span> or </span>
-        <button id="tosignup"  type="button">signup</button>
+export const logregMarkup = `<div id="login-status" class="fbs-header__section">
+        <button id="tosignin"  type="button" class="fbs-header-btn">signin</button>
+        <span>  </span>
+        <button id="tosignup"  type="button" class="fbs-header-btn">signup</button>
       </div>`;
 
 export const loggedMarkup = `<div id="login-status">
