@@ -1,41 +1,43 @@
-// логика: когда observer срабатывает запускается проверка сколько элементов уже есть на странице, сколько есть в локал стораж и соответственно подгружается указанное количество с локал стораджа и проверка снова повторяется когда обсервер снова срабатвает //
 import {libraryGallery} from "./queue";
-import {fetchById} from "./queue";
+import {fetchByIds} from "./queue";
 import {renderMovieCardsLibrary} from "./queue";
 
-
-
-const options = {
-  rootMargin: "10%",
+export const options = {
+  rootMargin: "20%",
   threshold: 1.0
 }
 
-const observer = new IntersectionObserver(paginateFromLocalStorage, options);
+const observer = new IntersectionObserver(scrollPagination, options);
 
-observer.observe(document.querySelector(".scroll-guard"));
+export function startPaginationObserver() {
+  observer.observe(document.querySelector(".scroll-guard"));
+}
 
-function paginateFromLocalStorage(entries) {
+export function stopPaginationObserver() {
+  observer.unobserve(document.querySelector(".scroll-guard"));
+}
+
+function scrollPagination(entries) {
   entries.forEach(entry => {
     if(entry.isIntersecting) {
-      
-      addNewEl();
+      addNewCards();
     }
   })
 }
-const actualArray = libraryGallery.querySelectorAll('li');
-console.log(actualArray.length);
-const parsedObject = JSON.parse(localStorage.getItem("queue"));
-console.log(parsedObject.length);
 
-function addNewEl () {
-  if ( actualArray.length < parsedObject.length ) {
-    console.log(actualArray.length);
-    parsedObject.slice(actualArray.length, 6).map(movieID => {
-      // console.log(movieID)
-      fetchById(movieID)
-      .then(res => {
-        renderMovieCardsLibrary(res);
-      });
-    });
+
+function addNewCards () {
+  const activeButton = document.querySelector(".library__item-btn--active");
+  const actualArray = libraryGallery.querySelectorAll("li");
+  const parsedObject = JSON.parse(localStorage.getItem(activeButton.dataset['action']));
+  
+  if (parsedObject && actualArray.length < parsedObject.length) {
+    fetchByIds(parsedObject.slice(actualArray.length, actualArray.length + 3)).then(movies => {
+      movies.forEach(movie => renderMovieCardsLibrary(movie));
+    })
+  }
+
+  if (parsedObject === null || actualArray.length === parsedObject.length) {
+      observer.unobserve(document.querySelector(".scroll-guard"));
   }
 }
