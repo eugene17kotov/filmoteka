@@ -14,8 +14,10 @@ const libraryWatchedBtn = document.querySelector(
 let queueMovieId = localStorage.getItem('queue');
 let parseQueueMovieId = JSON.parse(queueMovieId);
 
-libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
+libraryQueueBtn &&
+  libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 libraryQueueBtn && onLibraryQueueBtnClick();
+libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 
 function inLocalStorage(value) {
   if (localStorage.getItem('queue') !== null) {
@@ -46,9 +48,6 @@ export function onBtnQueueClick() {
 
   libraryGallery && onLibraryQueueBtnClick();
 }
-
-libraryQueueBtn &&
-  libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
 function onLibraryQueueBtnClick() {
   libraryWatchedBtn.classList.remove('library__item-btn--active');
@@ -131,7 +130,7 @@ function createLibraryMovieMarkup(movie) {
             </a>
           </li>`;
   }
-  
+
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
