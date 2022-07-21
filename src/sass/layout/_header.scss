@@ -4,11 +4,14 @@ body.header-menu-open {
 }
 .header {
   height: 230px;
-  padding-top: 46px;
   background-color: $logo-color;
   position: relative;
 }
 
+.header--home,
+.header--library {
+  padding-top: 46px; 
+} 
 .header--home {
   @include media-min($mob) {
     background: url('../images/header-img/header-home-mob-1.jpg');
