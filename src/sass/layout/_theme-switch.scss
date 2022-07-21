@@ -138,24 +138,25 @@ footer.dark-theme {
 }
 
 .toolbar {
-  // position: relative;
   display: flex;
   justify-content: flex-end;
   padding: 16px 24px;
-  // position: absolute;
-  // top: 185px;
-  // right: 0;
 }
+
 .theme-switch {
   position: absolute;
   right: 20px;
   bottom: -40px;
   display: flex;
   align-items: center;
+
+  @media screen and (min-width: 1280px) {
+    bottom: -30px;
+  }
 }
 
 .theme-switch__icon {
-  color: $secondary-text-color;
+  color: $accent-color;
   height: 15px;
   width: 15px;
   margin-right: 8px;
@@ -214,10 +215,6 @@ footer.dark-theme {
 
 .theme-switch__toggle:checked + .theme-switch__track {
   background-color: $accent-color;
-}
-
-.theme-switch__toggle:checked + .theme-switch__icon {
-  color: $accent-color;
 }
 
 .theme-switch__toggle:checked ~ .theme-switch__marker {
