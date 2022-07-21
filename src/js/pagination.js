@@ -75,11 +75,19 @@ function createButton(pageNum, isButtonClickable = true, additionalClass = null)
 
     if (isButtonClickable) {
         newButton.addEventListener("click", pageButtonPressed);
+        newButton.addEventListener("click", topFunction);
     } else {
         newButton.classList.add("pagination-button--current");
     }
 
     return newButton;
+}
+
+function topFunction() {
+ window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  }); 
 }
 
 function pageButtonPressed(event) {
