@@ -1,8 +1,17 @@
 const teamRef = document.querySelector('.footer__link');
 const backdropTeamRef = document.querySelector('.backdrop-team');
 const closeBtnRef = document.querySelector('.modal-team__close-btn');
+const scrollGuardRef = document.querySelector('.scroll-guard');
+const options = {
+  rootMargin: '100px',
+  threshold: 1.0,
+};
+const isTeamListenerActive = teamRef.dataset.event;
 
-teamRef.addEventListener('click', onGoitteamClick);
+const observer = new IntersectionObserver(
+  toggleListenerByIntersection,
+  options
+);
 
 function onGoitteamClick(e) {
   e.preventDefault();
@@ -10,9 +19,7 @@ function onGoitteamClick(e) {
   backdropTeamRef.classList.remove('backdrop-team--is-hidden');
   document.body.classList.toggle('modal-open');
 
-  document.addEventListener('keydown', onEscClick);
-  backdropTeamRef.addEventListener('click', onBackdropClick);
-  closeBtnRef.addEventListener('click', onCloseBtnClick);
+  addAllEventListeners();
 }
 
 function onEscClick(event) {
@@ -22,10 +29,7 @@ function onEscClick(event) {
     return;
   }
 
-  backdropTeamRef.classList.add('backdrop-team--is-hidden');
-  document.body.classList.toggle('modal-open');
-
-  removeAllEventListenersTeamModal();
+  closingModalStaff();
 }
 
 function onBackdropClick(event) {
@@ -33,23 +37,44 @@ function onBackdropClick(event) {
     return;
   }
 
-  backdropTeamRef.classList.add('backdrop-team--is-hidden');
-  document.body.classList.toggle('modal-open');
-
-  removeAllEventListenersTeamModal();
+  closingModalStaff();
 }
 
 function onCloseBtnClick(event) {
   event.preventDefault();
 
-  backdropTeamRef.classList.add('backdrop-team--is-hidden');
-  document.body.classList.toggle('modal-open');
-
-  removeAllEventListenersTeamModal();
+  closingModalStaff();
 }
 
-function removeAllEventListenersTeamModal() {
+function addAllEventListeners() {
+  document.addEventListener('keydown', onEscClick);
+  backdropTeamRef.addEventListener('click', onBackdropClick);
+  closeBtnRef.addEventListener('click', onCloseBtnClick);
+}
+
+function closingModalStaff() {
   document.removeEventListener('keydown', onEscClick);
   backdropTeamRef.removeEventListener('click', onBackdropClick);
   closeBtnRef.removeEventListener('click', onCloseBtnClick);
+
+  backdropTeamRef.classList.add('backdrop-team--is-hidden');
+  document.body.classList.toggle('modal-open');
 }
+
+function toggleListenerByIntersection(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      teamRef.addEventListener('click', onGoitteamClick);
+      teamRef.dataset.event = 'true';
+    }
+
+    if (!entry.isIntersecting) {
+      teamRef.removeEventListener('click', onGoitteamClick);
+      teamRef.dataset.event = 'false';
+    }
+  });
+}
+
+setTimeout(() => {
+  observer.observe(scrollGuardRef);
+}, 1000);
