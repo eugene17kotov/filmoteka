@@ -7,3 +7,9 @@
         padding-bottom: 60px;
     }
 }
+
+.section.main {
+    @include tab {
+        padding-top: 20px;
+    }
+}

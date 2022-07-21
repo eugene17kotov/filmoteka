@@ -1,6 +1,32 @@
-<section class="section">
+<section class="section main">
   <h2 class="title visually-hidden">Home</h2>
   <div class="container">
+    <div class="filter">
+      <p class="text">Trending</p>
+      <div class="selector-wrap">
+        <div class="selector">
+          <div class="anchor">
+            <h3 class="title">
+              <button class="no-click" data-panel="trending_scroller" data-group="today">Today</button>
+            </h3>
+            <div class="background__filter to-right"></div>
+          </div>
+          <div class="anchor selected">
+            <h3 class="title">
+              <button class="no-click" data-panel="trending_scroller" data-group="week">This Week</button>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="to-trending">
+      <button class="to-trending__button is-hidden">        
+        <svg class = "icon-arrow" width="14" height="14">
+          <use href="./images/symbol-defs.svg#icon-arrow">
+        </svg>
+        Back to Trending
+      </button>
+    </div>
     <ul data-point="galery" class="gallery"></ul>
   </div>
 
