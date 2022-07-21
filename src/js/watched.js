@@ -51,6 +51,7 @@ let parseWatchedMovieId;
 function onWatchedBtnClick() {
   libraryQueueBtn.classList.remove('library__item-btn--active');
   libraryWatchedBtn.classList.add('library__item-btn--active');
+
   watchedMovieId = localStorage.getItem('watched');
   parseWatchedMovieId = JSON.parse(watchedMovieId);
 
@@ -129,7 +130,7 @@ function createLibraryMovieMarkup(movie) {
             </a>
           </li>`;
   }
-  
+
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">

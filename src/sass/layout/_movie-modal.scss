@@ -60,13 +60,11 @@
   @media screen and (min-width: $tab) {
     width: 264px;
     height: 374px;
-    // margin-right: 68px;
   }
 
   @media screen and (min-width: $desk) {
     width: 375px;
     height: 545px;
-    // margin-right: 16px;
   }
 }
 
@@ -77,6 +75,7 @@ body {
 }
 
 .movie-backdrop {
+  z-index: 998;
   position: fixed;
   top: 0;
   left: 0;
@@ -126,7 +125,7 @@ body {
     max-height: 552px;
     flex-direction: row;
     padding-top: 40px;
-    padding-right: 72px;
+    padding-right: 40px;
     padding-bottom: 40px;
     padding-left: 36px;
   }
@@ -135,7 +134,8 @@ body {
     width: 806px;
     height: auto;
     max-height: 625px;
-    padding: 40px 12px;
+    padding-right: 40px;
+    padding-left: 20px;
   }
 }
 
@@ -227,12 +227,18 @@ body {
   border-radius: 5px;
   background-color: #fff;
   border: 1px solid #000000;
-  transition: color 400ms ease-in, background-color 400ms ease-in;
+  box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
+  transition: box-shadow 400ms ease-in, color 400ms ease-in,
+    background-color 400ms ease-in;
 
-  &:hover, &.is-active {
+  &:hover,
+  &.is-active {
     color: #fff;
     background-color: #ff6b01;
     border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   }
 
   @media screen and (min-width: $tab) {
@@ -279,6 +285,3 @@ body {
   font-size: 13px;
   line-height: 1.17;
 }
-
-// .js-modal {
-// }

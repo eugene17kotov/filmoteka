@@ -35,6 +35,8 @@
               <svg
                 class="menu-btn__icon"
                 aria-label="Включение моб. меню heder"
+                width="32"
+                height="32"
               >
                 <use href="./././images/symbol-defs.svg#icon-menu"></use>
               </svg>
@@ -102,17 +104,22 @@
         <h2 class="title visually-hidden">Newsfeed</h2>
         <div class="container">
           <ul class="newsfeed"></ul>
+          <p class="end-scroll-text is-hidden">No more news this time</p>
         </div>
       </section>
     </main>
 
     <!-- Footer section -->
     <include src="./partials/_footer.html"></include>
+
     <!-- Team modal -->
     <include src="./partials/_team-modal.html"></include>
 
     <!-- Scroll up -->
     <include src="./partials/_scroll-up.html"></include>
+
+    <!-- Infinity scroll anchor -->
+    <div class="scroll-guard"></div>
 
     <!-- JS -->
     <script src="./newsfeed.js" type="module"></script>
