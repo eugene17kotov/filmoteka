@@ -50,6 +50,13 @@ footer.dark-theme {
   background-color: #4b4a4a;
   color: $secondary-text-color;
 
+  & .theme-switch__icon.moon {
+    color: $accent-color;
+  }
+  & .theme-switch__icon.sun {
+    color: #ffffff;
+  }
+
   & .gallery__image:focus,
   & .gallery__image:hover {
     transform: scale(1.02);
@@ -137,36 +144,32 @@ footer.dark-theme {
   }
 }
 
-.toolbar {
-  display: flex;
-  justify-content: flex-end;
-  padding: 16px 24px;
-}
-
 .theme-switch {
+  color: #ffffff;
   position: absolute;
-  top: 185px;
-  right: 2px;
-}
-
-.theme-switch {
-  // position: absolute;
   right: 20px;
-  // bottom: -40px;
+  bottom: -40px;
   display: flex;
   align-items: center;
 
-  @media screen and (min-width: 1280px) {
-    bottom: -30px;
+  &.home {
+    bottom: -60px;
   }
 }
 
 .theme-switch__icon {
-  color: $accent-color;
   height: 15px;
   width: 15px;
   margin-right: 8px;
   margin-left: 8px;
+
+  &.moon {
+    color: #ffffff;
+  }
+
+  &.sun {
+    color: $accent-color;
+  }
 }
 
 .theme-switch__control {

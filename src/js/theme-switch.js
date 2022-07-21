@@ -43,6 +43,11 @@ const savedTheme = localStorage.getItem('theme');
 
 toggleEl.addEventListener('change', event => {
   localStorage.setItem('theme', bodyEl.classList);
+  updataTheme();
+  checkboxChecked();
+  updataThemeFooter();
+  updataThemeMovieBackdrop();
+  updataThemeModalTeam();
 });
 
 updataTheme();
@@ -50,7 +55,6 @@ checkboxChecked();
 updataThemeFooter();
 updataThemeMovieBackdrop();
 updataThemeModalTeam();
-isToggleChecked();
 
 function updataTheme() {
   if (savedTheme) {
@@ -67,6 +71,7 @@ function checkboxChecked() {
 function updataThemeFooter() {
   if (savedTheme === 'dark-theme') {
     footerDarktheme.classList.add('dark-theme');
+    footerDarktheme.style.backgroundColor = '#0808084d';
   }
 }
 
@@ -81,15 +86,3 @@ function updataThemeModalTeam() {
     modalTeam.classList.add('dark-theme');
   }
 }
-
-// function isToggleChecked() {
-//   console.log(toggleEl.getAttribute('checked'));
-
-//   if (toggleEl.getAttribute('checked')) {
-//     moon.style.color = '#ff6b08';
-//     sun.style.color = '#ffffff';
-//   } else {
-//     sun.style.color = '#ff6b08';
-//     moon.style.color = '#ffffff';
-//   }
-// }
