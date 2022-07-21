@@ -3,6 +3,7 @@ import { getMovies } from './api/fetch-movie.js';
 import { renderPagination } from './pagination'; //Viktor;
 import { renderMovieCards } from './render-movie-cards';
 import { filter, toTrendingBtn } from './filter';
+import { debounce } from './debounce';
 
 const refs = {
   form: document.querySelector('.header__form'),
@@ -53,7 +54,7 @@ function clearGallery() {
 
 // Search by input
 
-const DEBOUNCE_DELAY = 500;
+const DEBOUNCE_DELAY = 600;
 
 refs.form && refs.form.addEventListener('submit', onFormSubmit);
 refs.input &&
@@ -79,18 +80,4 @@ async function onInputText(e) {
 
   renderMovieCards(muvie.results);
   renderPagination(muvie.page, muvie.total_pages);
-}
-
-function debounce(f, ms) {
-  let isCooldown = false;
-
-  return function () {
-    if (isCooldown) return;
-
-    f.apply(this, arguments);
-
-    isCooldown = true;
-
-    setTimeout(() => (isCooldown = false), ms);
-  };
 }
