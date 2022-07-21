@@ -143,12 +143,22 @@ footer.dark-theme {
   justify-content: flex-end;
   padding: 16px 24px;
   position: absolute;
-  top: 185px;
-  right: 2px;
 
+  @include media-min($mob){
+    top: 175px;
+    right: -25px;
+  }
 
+ 
 
-}
+  @include media-min($desk){
+    top: 185px;
+    right: 2px;
+  }
+
+  
+  }
+
 
 .theme-switch {
   // position: absolute;
