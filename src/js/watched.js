@@ -47,7 +47,7 @@ export function onAddToWatchedBtnClick() {
   // auth
   // const auth = getAuth();
   // const user = auth.currentUser;
-  debugger;
+  // debugger;
   const currentUser = getAuth().currentUser;
   console.log(currentUser);
   if (currentUser !== null) {

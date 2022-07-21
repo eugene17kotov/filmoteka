@@ -7,6 +7,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  setPersistence,
+  browserSessionPersistence,
 } from 'firebase/auth';
 
 //
@@ -32,6 +34,10 @@ export function connectToBD() {
 
 export async function createNewUser(email, password) {
   const auth = getAuth();
+  // firebase.auth.Auth.Persistence.LOCAL;
+  // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+  // setPersistence(auth, browserSessionPersistence);
+  setPersistence(auth, browserLocalPersistence);
   return await createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       // Signed in
@@ -52,6 +58,7 @@ export async function createNewUser(email, password) {
 // auth
 export async function logUser(email, password) {
   const auth = getAuth();
+  setPersistence(auth, browserSessionPersistence);
   return await signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       // console.log(userCredential);
@@ -70,29 +77,29 @@ export async function logUser(email, password) {
 }
 
 // current user
-export async function getCurrentUser() {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  return user;
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    // ...
-  } else {
-    // No user is signed in.
-  }
-}
+// export async function getCurrentUser() {
+//   const auth = getAuth();
+//   const user = auth.currentUser;
+//   return user;
+//   if (user) {
+//     // User is signed in, see docs for a list of available properties
+//     // https://firebase.google.com/docs/reference/js/firebase.User
+//     // ...
+//   } else {
+//     // No user is signed in.
+//   }
+// }
 
 //
 //
 
-export function watchUser() {
+export async function watchUser(user) {
   const auth = getAuth();
-  onAuthStateChanged(auth, user => {
+  return await onAuthStateChanged(auth, user => {
     if (user) {
       // User is signed in, seeregister docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
+      return user.uid;
       // ...
     } else {
       // User is signed out
@@ -119,10 +126,10 @@ export async function logOut() {
 export async function createNote(user, queue, watched) {
   const database = getDatabase();
   await set(ref(database, 'galleries/' + user.uid), {
-    userID: user.uid,
-    email: user.email,
-    timeStamp: Date.now(),
-    created: Date(),
+    // userID: user.uid,
+    // email: user.email,
+    // timeStamp: Date.now(),
+    // created: Date(),
     queue,
     watched,
   });
@@ -135,7 +142,7 @@ export async function readNote(user) {
     .then(snapshot => {
       if (snapshot.exists()) {
         const data = snapshot.val();
-        console.log(data);
+        // console.log(data);
         return data;
       } else {
         console.log('No data available');

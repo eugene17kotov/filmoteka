@@ -1,3 +1,5 @@
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 import {
   logregMarkup,
   registerMarkup,
@@ -7,13 +9,21 @@ import {
 
 import {
   logUser,
-  getCurrentUser,
+  // getCurrentUser,
   watchUser,
   logOut,
   createNote,
   readNote,
   createNewUser,
 } from './firebaseAuth';
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  currentUser,
+  setCurrentUser,
+} from 'firebase/auth';
+
 import {} from '@firebase/util';
 
 // hrefs
@@ -27,13 +37,29 @@ async function onLoginBtn(e) {
   const action = e.target.fire.value;
   if (action === 'log') {
     const myUser = await logUser(email, password);
-    console.log('myUser   ');
-    console.log(myUser);
-    console.log(await getCurrentUser());
+
+    // console.log('myUser   '); getAuth
+    // console.log(myUser);
+    // console.log(await getCurrentUser());
 
     if (myUser.uid) {
       cleanLoginModal();
-      readNote(myUser);
+
+      const auth = getAuth();
+      onAuthStateChanged(auth, myUser => {
+        if (myUser) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = myUser.uid;
+          console.log(uid);
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
+
+      // readNote(myUser);
       const dbNote = await readNote(myUser);
       console.log('dbNote   ', dbNote);
       const watched = dbNote.watched;
@@ -47,7 +73,7 @@ async function onLoginBtn(e) {
         localStorage.setItem('queue', queue);
       }
 
-      getCurrentUser();
+      // getCurrentUser();
 
       makeLoggedHtml(` user logged as ${myUser.email} `);
     } else {
@@ -103,7 +129,7 @@ export function makeLogRegHtml() {
   signup.addEventListener('click', onSignButton);
 }
 
-function makeLoggedHtml(loggedUser) {
+export function makeLoggedHtml(loggedUser) {
   hrefAuthHeaderHtml.innerHTML = loggedMarkup;
   document.getElementById('logged-user').innerText = loggedUser;
   document.getElementById('logout').addEventListener('click', onLogoutBtn);

@@ -45,6 +45,20 @@ export function onBtnQueueClick() {
   }
 
   libraryGallery && onLibraryQueueBtnClick();
+
+  // auth
+  // const auth = getAuth();
+  // const user = auth.currentUser;
+  // debugger;
+  const currentUser = getAuth().currentUser;
+  console.log(currentUser);
+  if (currentUser !== null) {
+    const queue = localStorage.getItem('queue') || [];
+    const watched = localStorage.getItem('watched') || [];
+    console.log(queue);
+    console.log(watched);
+    createNote(currentUser, queue, watched);
+  }
 }
 
 libraryQueueBtn &&
@@ -131,7 +145,7 @@ function createLibraryMovieMarkup(movie) {
             </a>
           </li>`;
   }
-  
+
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
