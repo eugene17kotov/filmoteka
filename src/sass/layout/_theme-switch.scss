@@ -142,14 +142,18 @@ footer.dark-theme {
   display: flex;
   justify-content: flex-end;
   padding: 16px 24px;
-  // position: absolute;
-  // top: 185px;
-  // right: 0;
-}
-.theme-switch {
   position: absolute;
+  top: 185px;
+  right: 2px;
+
+
+
+}
+
+.theme-switch {
+  // position: absolute;
   right: 20px;
-  bottom: -40px;
+  // bottom: -40px;
   display: flex;
   align-items: center;
 }
