@@ -8,7 +8,15 @@ const refs = {
   moon: document.querySelector('.moon'),
 };
 
-const { bodyEl, toggleEl, footerDarktheme, movieBackdrop, modalTeam } = refs;
+const {
+  bodyEl,
+  toggleEl,
+  footerDarktheme,
+  movieBackdrop,
+  modalTeam,
+  sun,
+  moon,
+} = refs;
 
 toggleEl.addEventListener('change', event => {
   if (bodyEl.classList.contains('dark-theme')) {
@@ -37,6 +45,7 @@ toggleEl.addEventListener('change', event => {
   localStorage.setItem('theme', bodyEl.classList);
 });
 
+isToggleChecked();
 updataTheme();
 checkboxChecked();
 updataThemeFooter();
@@ -71,4 +80,16 @@ function updataThemeModalTeam() {
   if (savedTheme === 'dark-theme') {
     modalTeam.classList.add('dark-theme');
   }
+}
+
+function isToggleChecked() {
+  console.log(toggleEl.getAttribute('checked'));
+
+  // if (toggleEl.getAttribute('checked')) {
+  //   moon.style.color = '#ff6b08';
+  //   sun.style.color = '#ffffff';
+  // } else {
+  //   sun.style.color = '#ff6b08';
+  //   moon.style.color = '#ffffff';
+  // }
 }
