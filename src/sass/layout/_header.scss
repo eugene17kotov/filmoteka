@@ -386,7 +386,7 @@ body.header-menu-open {
 @media screen and(max-width: 768px) {
   .header-mob-menu {
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     font-size: larger;
     font-weight: 600;
     //   background-image: url(../images/add-giphy.gif);

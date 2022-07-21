@@ -60,13 +60,11 @@
   @media screen and (min-width: $tab) {
     width: 264px;
     height: 374px;
-    // margin-right: 68px;
   }
 
   @media screen and (min-width: $desk) {
     width: 375px;
     height: 545px;
-    // margin-right: 16px;
   }
 }
 
@@ -77,6 +75,7 @@ body {
 }
 
 .movie-backdrop {
+  z-index: 998;
   position: fixed;
   top: 0;
   left: 0;
@@ -103,6 +102,7 @@ body {
 }
 
 .movie-modal {
+  z-index: 999;
   display: flex;
   width: 280px;
   height: 95vh;
@@ -286,6 +286,3 @@ body {
   font-size: 13px;
   line-height: 1.17;
 }
-
-// .js-modal {
-// }
