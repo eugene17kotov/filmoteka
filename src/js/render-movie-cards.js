@@ -8,7 +8,7 @@ const gallery = document.querySelector('.gallery');
   const trendMoviesList = await getMovies(TREND_URL);
 
   renderMovieCards(trendMoviesList.results);
-
+  gallery.insertAdjacentHTML('beforeEnd', adCard);
   // Viktor:need to save last url to localstorage
   localStorage.setItem('LAST_REQUESTED_URL', TREND_URL);
   // Viktor:render pagination buttons
@@ -26,3 +26,9 @@ export function renderMovieCards(movies) {
     gallery.innerHTML = movieGalleryMarkup;
   }
 }
+
+const adCard = `<li style="pointer-events:none">
+            <a class="gallery__link" href="#">
+              <img class="gallery__image" data-id="" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="" loading="lazy">
+            </a>
+          </li>`;
