@@ -96,13 +96,16 @@ function getPlugHidden() {
 
 function fetchWatched(watchedMovieId) {
   const moviesIDInWatched = JSON.parse(watchedMovieId);
+
+  const TEMPVAR = moviesIDInWatched.map(film => film.id);
+
   //!Viktor: add slice method to moviesIDInWatched for showing only 6 cards when function  onWatchedBtnClick is executed and rewrite fetchById func to fetchByIds
   // moviesIDInWatched.slice(0, 6).map(movieID => {
   //   fetchById(movieID).then(res => {
   //     renderMovieCardsLibrary(res);
   //   });
   // });
-  fetchByIds(moviesIDInWatched.slice(0, 6)).then(movies => {
+  fetchByIds(TEMPVAR.slice(0, 6)).then(movies => {
     movies.forEach(movie => renderMovieCardsLibrary(movie));
     startPaginationObserver();
   });

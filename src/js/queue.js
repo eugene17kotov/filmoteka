@@ -99,13 +99,16 @@ function getPlugHidden() {
 
 function fetchQueue(queueMovieId) {
   const moviesIDInQueue = JSON.parse(queueMovieId);
+
+  const TEMPVAR = moviesIDInQueue.map(film => film.id);
+
   //!VIktor: added slice method to moviesIDInQueue for showing only 6 cards when function onLibraryQueueBtnClick is executed
   // moviesIDInQueue.slice(0, 6).map(movieID => {
   //   fetchById(movieID).then(res => {
   //     renderMovieCardsLibrary(res);
   //   });
   // });
-  fetchByIds(moviesIDInQueue.slice(0, 6)).then(movies => {
+  fetchByIds(TEMPVAR.slice(0, 6)).then(movies => {
     movies.forEach(movie => renderMovieCardsLibrary(movie));
     startPaginationObserver();
   });
