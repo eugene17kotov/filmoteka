@@ -1,8 +1,12 @@
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 import { getMovies } from './api/fetch-movie';
 import { localstorage } from './localstorage.js';
+import { muvieObject } from './movie-modal';
 import { fetchByIds } from './queue.js';
-import { startPaginationObserver, stopPaginationObserver } from './infinity-scroll';
+import {
+  startPaginationObserver,
+  stopPaginationObserver,
+} from './infinity-scroll';
 import { createLibraryMovieMarkup } from './queue';
 
 const addToWatchedButton = document.querySelector('.to-watched');
@@ -25,25 +29,26 @@ function inLocalStorage(value) {
 }
 
 export function onAddToWatchedBtnClick() {
-  const id = bg.id;
-
   if (localStorage.getItem('watched') === null) {
     localStorage.setItem('watched', '[]');
   }
 
-  if (!inLocalStorage(id)) {
+  if (!inLocalStorage(muvieObject.id)) {
     addToWatchedButton.textContent = 'Remove from watched';
-    localstorage.setFilm('watched', id);
+    localstorage.setFilm('watched', muvieObject);
     addToWatchedButton.classList.add('is-active');
   } else {
     addToWatchedButton.textContent = 'Add to watched';
-    localstorage.removeFilm('watched', id);
+    localstorage.removeFilm('watched', muvieObject);
     addToWatchedButton.classList.remove('is-active');
   }
-//!VIktor: add check if button is active to prevent changing library tabs 
-  if( libraryGallery && libraryWatchedBtn.classList.contains('library__item-btn--active') ) {
+  //!VIktor: add check if button is active to prevent changing library tabs
+  if (
+    libraryGallery &&
+    libraryWatchedBtn.classList.contains('library__item-btn--active')
+  ) {
     onWatchedBtnClick();
-  } 
+  }
 }
 
 libraryWatchedBtn &&
@@ -91,16 +96,19 @@ function getPlugHidden() {
 
 function fetchWatched(watchedMovieId) {
   const moviesIDInWatched = JSON.parse(watchedMovieId);
+
+  const TEMPVAR = moviesIDInWatched.map(film => film.id);
+
   //!Viktor: add slice method to moviesIDInWatched for showing only 6 cards when function  onWatchedBtnClick is executed and rewrite fetchById func to fetchByIds
-  // moviesIDInWatched.slice(0, 6).map(movieID => { 
+  // moviesIDInWatched.slice(0, 6).map(movieID => {
   //   fetchById(movieID).then(res => {
   //     renderMovieCardsLibrary(res);
   //   });
   // });
-  fetchByIds(moviesIDInWatched.slice(0, 6)).then(movies => {
+  fetchByIds(TEMPVAR.slice(0, 6)).then(movies => {
     movies.forEach(movie => renderMovieCardsLibrary(movie));
     startPaginationObserver();
-  })
+  });
 }
 
 // function fetchById(movieId) {
