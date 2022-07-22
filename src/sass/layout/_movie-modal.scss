@@ -1,3 +1,22 @@
+// Hide Scrollbar
+
+// ::-webkit-scrollbar {
+//   width: 0;
+// }
+
+body.modal-open {
+  overflow: hidden;
+
+  // @media screen and (min-width: 1280px) {
+  //   & .main,
+  //   .header,
+  //   .footer,
+  //   .pagination-wrap {
+  //     padding-right: 22px;
+  //   }
+  // }
+}
+
 .button-close {
   position: absolute;
   top: 8px;
@@ -68,62 +87,59 @@
   }
 }
 
-body {
-  &.modal-open {
-    overflow: hidden;
-  }
-}
-
 .movie-backdrop {
+  overflow-y: auto;
   z-index: 998;
   position: fixed;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.25);
-  visibility: visible;
   opacity: 1;
-  width: 100vw;
-  height: 100vh;
 
-  transition: opacity 350ms ease-in, visibility 350ms ease-in;
+  padding: 20px 0;
+  width: 100%;
+  height: 100%;
+
+  transition: opacity 500ms $cubic, visibility 500ms $cubic,
+    background-color 500ms $cubic;
 }
 
-.movie-backdrop.is-hidden {
-  pointer-events: none;
-  visibility: hidden;
+.movie-backdrop--is-hidden {
   opacity: 0;
-}
-
-.movie-backdrop.is-hidden .movie-modal {
-  visibility: hidden;
   pointer-events: none;
-  opacity: 0.3;
-  transform: translate(-50%, -50%) scale(0.3);
+  visibility: hidden;
+
+  & .modal {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
 }
 
-.movie-modal {
-  z-index: 999;
+.modal {
+  position: relative;
   display: flex;
   width: 280px;
-  height: 95vh;
-  overflow-y: auto;
   padding: 48px 20px 40px;
   flex-direction: column;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  margin-right: auto;
+  margin-left: auto;
   background-color: #fff;
 
   visibility: visible;
-  opacity: 1;
 
   border-radius: 15px;
 
-  transition: transform 400ms ease-in, opacity 400ms ease-in,
-    visibility 400ms ease-in;
+  transition: transform 500ms $cubic, opacity 500ms $cubic,
+    visibility 500ms $cubic;
 
   @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+
     width: 704px;
     height: auto;
     max-height: 552px;
