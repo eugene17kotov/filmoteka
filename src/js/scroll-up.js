@@ -14,7 +14,7 @@ export function scrollFunction() {
   }
 }
 
-function topFunction() {
+export function topFunction() {
   window.scrollTo({
     top: 0,
     behavior: 'smooth',

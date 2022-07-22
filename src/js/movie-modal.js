@@ -36,7 +36,7 @@ function addAllEventListenersModal() {
 
 function onCloseBtnClick(e) {
   e.preventDefault();
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
@@ -46,16 +46,16 @@ function onKeydownEscape(e) {
   if (e.code !== 'Escape') {
     return;
   }
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
 
 function onBackdropClick(e) {
-  if (!e.target.classList.contains('backdrop')) {
+  if (!e.target.classList.contains('movie-backdrop')) {
     return;
   }
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
@@ -74,21 +74,21 @@ cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 let movieId;
 
 // клик
- function clickOnMovieHandler(e) {
+function clickOnMovieHandler(e) {
   e.preventDefault();
 
   if (e.target.nodeName !== 'IMG') {
     return;
   }
 
-  backdrop.classList.remove('is-hidden');
-  // document.body.classList.toggle('modal-open');
+  backdrop.classList.remove('movie-backdrop--is-hidden');
+  document.body.classList.toggle('modal-open');
   toTopBtn.style.display = 'none';
 
   movieId = e.target.dataset.id;
   backdrop.setAttribute('id', movieId);
 
- fetchById(movieId);
+  fetchById(movieId);
 
   addAllEventListenersModal();
 
@@ -124,7 +124,6 @@ function renderFilmCard(film) {
 
 const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
 
-
 function modalFilmCart({
   title,
   original_title,
@@ -135,7 +134,6 @@ function modalFilmCart({
   overview,
   poster_path,
 }) {
-
   let roundPopularity = Math.round(popularity);
   let imageMarkup = `
   <img 
