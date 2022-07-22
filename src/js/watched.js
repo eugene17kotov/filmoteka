@@ -2,9 +2,15 @@ import { getAuth } from 'firebase/auth';
 import { createNote } from './firebase/firebaseAuth.js';
 
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
-// import { renderPagination } from './pagination.js';
 import { getMovies } from './api/fetch-movie';
 import { localstorage } from './localstorage.js';
+import { muvieObject } from './movie-modal';
+import { fetchByIds } from './queue.js';
+import {
+  startPaginationObserver,
+  stopPaginationObserver,
+} from './infinity-scroll';
+import { createLibraryMovieMarkup } from './queue';
 
 const addToWatchedButton = document.querySelector('.to-watched');
 const bg = document.querySelector('.backdrop');
@@ -26,31 +32,33 @@ function inLocalStorage(value) {
 }
 
 export function onAddToWatchedBtnClick() {
-  const id = bg.id;
-
   if (localStorage.getItem('watched') === null) {
     localStorage.setItem('watched', '[]');
   }
 
-  if (!inLocalStorage(id)) {
+  if (!inLocalStorage(muvieObject.id)) {
     addToWatchedButton.textContent = 'Remove from watched';
-    localstorage.setFilm('watched', id);
+    localstorage.setFilm('watched', muvieObject);
     addToWatchedButton.classList.add('is-active');
   } else {
     addToWatchedButton.textContent = 'Add to watched';
-    localstorage.removeFilm('watched', id);
+    localstorage.removeFilm('watched', muvieObject);
     addToWatchedButton.classList.remove('is-active');
   }
-
-  libraryGallery && onWatchedBtnClick();
-  libraryWatchedBtn && libraryWatchedBtn.focus();
-
   // auth
   const currentUser = getAuth().currentUser;
   if (currentUser !== null) {
     const queue = localStorage.getItem('queue') || [];
     const watched = localStorage.getItem('watched') || [];
     createNote(currentUser, queue, watched);
+  }
+
+  //!VIktor: add check if button is active to prevent changing library tabs
+  if (
+    libraryGallery &&
+    libraryWatchedBtn.classList.contains('library__item-btn--active')
+  ) {
+    onWatchedBtnClick();
   }
 }
 
@@ -61,8 +69,10 @@ let watchedMovieId;
 let parseWatchedMovieId;
 
 function onWatchedBtnClick() {
+  stopPaginationObserver();
   libraryQueueBtn.classList.remove('library__item-btn--active');
   libraryWatchedBtn.classList.add('library__item-btn--active');
+
   watchedMovieId = localStorage.getItem('watched');
   parseWatchedMovieId = JSON.parse(watchedMovieId);
 
@@ -98,70 +108,27 @@ function getPlugHidden() {
 function fetchWatched(watchedMovieId) {
   const moviesIDInWatched = JSON.parse(watchedMovieId);
 
-  moviesIDInWatched.map(movieID => {
-    fetchById(movieID).then(res => {
-      renderMovieCardsLibrary(res);
-    });
+  const TEMPVAR = moviesIDInWatched.map(film => film.id);
+
+  //!Viktor: add slice method to moviesIDInWatched for showing only 6 cards when function  onWatchedBtnClick is executed and rewrite fetchById func to fetchByIds
+  // moviesIDInWatched.slice(0, 6).map(movieID => {
+  //   fetchById(movieID).then(res => {
+  //     renderMovieCardsLibrary(res);
+  //   });
+  // });
+  fetchByIds(TEMPVAR.slice(0, 6)).then(movies => {
+    movies.forEach(movie => renderMovieCardsLibrary(movie));
+    startPaginationObserver();
   });
 }
 
-function fetchById(movieId) {
-  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
-  return getMovies(idURL);
-}
+// function fetchById(movieId) {
+//   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
+//   return getMovies(idURL);
+// }
 
 function renderMovieCardsLibrary(movie) {
   const movieGalleryMarkup = createLibraryMovieMarkup(movie);
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
-}
-
-function createLibraryMovieMarkup(movie) {
-  const { title, genres, release_date, poster_path, vote_average, id } = movie;
-
-  let year = '';
-  if (typeof release_date !== 'undefined' && release_date.length > 4) {
-    year = release_date.slice(0, 4);
-  }
-
-  const queueGenres = getQueueMovieGenresList(genres);
-
-  if (poster_path === null) {
-    return `<li>
-            <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="${id}" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
-
-            <div class="info">
-              <p class="info__item">${title}</p>
-              <div class="info-detail">
-                <p class="info-detail__item">${queueGenres}</p>
-                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-              </div>
-            </div>
-            </a>
-          </li>`;
-  }
-
-  return `<li>
-            <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
-
-            <div class="info">
-              <p class="info__item">${title}</p>
-              <div class="info-detail">
-                <p class="info-detail__item">${queueGenres}</p>
-                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-              </div>
-            </div>
-            </a>
-          </li>`;
-}
-
-function getQueueMovieGenresList(genres) {
-  let genresNames = genres.map(genre => genre.name);
-  if (genresNames.length > 3) {
-    genresNames = genresNames.slice(0, 2);
-    genresNames.push('Other');
-  }
-  return genresNames.join(', ');
 }
