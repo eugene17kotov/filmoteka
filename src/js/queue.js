@@ -1,12 +1,17 @@
-import { getMovies } from './api/fetch-movie';
+import axios from 'axios';
+
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
-// import { renderPagination } from './pagination.js';
 import { localstorage } from './localstorage.js';
+import { muvieObject } from './movie-modal';
+import {
+  startPaginationObserver,
+  stopPaginationObserver,
+} from './infinity-scroll';
 
 const queueBtn = document.querySelector('.to-queue');
 const bg = document.querySelector('.backdrop');
 const libraryTextContainer = document.querySelector('.library-text');
-const libraryGallery = document.querySelector('.library-gallery');
+export const libraryGallery = document.querySelector('.library-gallery');
 const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
 const libraryWatchedBtn = document.querySelector(
   'button[data-action="watched"]'
@@ -14,8 +19,10 @@ const libraryWatchedBtn = document.querySelector(
 let queueMovieId = localStorage.getItem('queue');
 let parseQueueMovieId = JSON.parse(queueMovieId);
 
-libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
+libraryQueueBtn &&
+  libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 libraryQueueBtn && onLibraryQueueBtnClick();
+libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 
 function inLocalStorage(value) {
   if (localStorage.getItem('queue') !== null) {
@@ -27,33 +34,38 @@ function inLocalStorage(value) {
   return true;
 }
 
-export function onBtnQueueClick() {
-  const id = bg.id;
-
+export async function onBtnQueueClick() {
   if (localStorage.getItem('queue') === null) {
     localStorage.setItem('queue', '[]');
   }
 
-  if (!inLocalStorage(id)) {
+  if (!inLocalStorage(muvieObject.id)) {
     queueBtn.textContent = 'Remove from queue';
     queueBtn.classList.add('is-active');
-    localstorage.setFilm('queue', id);
+    localstorage.setFilm('queue', muvieObject);
   } else {
     queueBtn.textContent = 'Add to queue';
     queueBtn.classList.remove('is-active');
-    localstorage.removeFilm('queue', id);
+    localstorage.removeFilm('queue', muvieObject);
   }
-
-  libraryGallery && onLibraryQueueBtnClick();
+  //!VIktor: add check if button is active to prevent changing library tabs
+  if (
+    libraryGallery &&
+    libraryQueueBtn.classList.contains('library__item-btn--active')
+  ) {
+    onLibraryQueueBtnClick();
+  }
 }
 
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
 function onLibraryQueueBtnClick() {
+  stopPaginationObserver();
   libraryWatchedBtn.classList.remove('library__item-btn--active');
   libraryQueueBtn.classList.add('library__item-btn--active');
   queueMovieId = localStorage.getItem('queue');
+
   parseQueueMovieId = JSON.parse(queueMovieId);
 
   clearGallery();
@@ -88,25 +100,43 @@ function getPlugHidden() {
 function fetchQueue(queueMovieId) {
   const moviesIDInQueue = JSON.parse(queueMovieId);
 
-  moviesIDInQueue.map(movieID => {
-    fetchById(movieID).then(res => {
-      renderMovieCardsLibrary(res);
-    });
+  const TEMPVAR = moviesIDInQueue.map(film => film.id);
+
+  //!VIktor: added slice method to moviesIDInQueue for showing only 6 cards when function onLibraryQueueBtnClick is executed
+  // moviesIDInQueue.slice(0, 6).map(movieID => {
+  //   fetchById(movieID).then(res => {
+  //     renderMovieCardsLibrary(res);
+  //   });
+  // });
+  fetchByIds(TEMPVAR.slice(0, 6)).then(movies => {
+    movies.forEach(movie => renderMovieCardsLibrary(movie));
+    startPaginationObserver();
   });
 }
 
-function fetchById(movieId) {
-  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
-  return getMovies(idURL);
+export async function fetchByIds(Ids) {
+  let movies = [];
+  for (let i = 0; i < Ids.length; i += 1) {
+    const idURL = `${ID_URL}${Ids[i]}?api_key=${API_KEY}&language=en-US`;
+    const response = await axios.get(`${idURL}`);
+    movies.push(response.data);
+    // getMovies(idURL).then(movie => movies.push(movie));
+  }
+  return movies;
 }
+//! VIktor:Replace fetchById func with fetchByIds cause we need to get from backend
+// export function fetchById(movieId) {
+//   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
+//   return getMovies(idURL);
+// }
 
-function renderMovieCardsLibrary(movie) {
+export function renderMovieCardsLibrary(movie) {
   const movieGalleryMarkup = createLibraryMovieMarkup(movie);
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
 }
 
-function createLibraryMovieMarkup(movie) {
+export function createLibraryMovieMarkup(movie) {
   const { title, genres, release_date, poster_path, vote_average, id } = movie;
 
   let year = '';
@@ -116,25 +146,15 @@ function createLibraryMovieMarkup(movie) {
 
   const queueGenres = getQueueMovieGenresList(genres);
 
-  if (poster_path === null) {
-    return `<li>
-            <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="${id}" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
+  //!Viktor: rewrite createLibraryMovieMarkup func, add poster_path verification and delete useless markup
+  poster_src =
+    poster_path === null
+      ? 'https://dummyimage.com/395x574/000/fff.jpg&text=no+poster'
+      : `${BASE_IMG_URL}${poster_path}`;
 
-            <div class="info">
-              <p class="info__item">${title}</p>
-              <div class="info-detail">
-                <p class="info-detail__item">${queueGenres}</p>
-                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-              </div>
-            </div>
-            </a>
-          </li>`;
-  }
-  
   return `<li>
             <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
+              <img class="gallery__image" data-id="${id}" src="${poster_src}" alt="${title} movie poster" loading="lazy">
 
             <div class="info">
               <p class="info__item">${title}</p>
