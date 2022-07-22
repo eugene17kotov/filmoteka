@@ -3,6 +3,7 @@ import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
+import axios from 'axios';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -24,6 +25,7 @@ const {
   addToWatchedButton,
 } = refs;
 
+export let movieObject = {};
 const toTopBtn = document.getElementById('myBtn');
 
 function addAllEventListenersModal() {
@@ -74,7 +76,7 @@ cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 let movieId;
 
 // клик
-function clickOnMovieHandler(e) {
+async function clickOnMovieHandler(e) {
   e.preventDefault();
 
   if (e.target.nodeName !== 'IMG') {
@@ -110,12 +112,16 @@ function clickOnMovieHandler(e) {
 }
 
 //Фетч фильма по ID
-function fetchById(movieId) {
+async function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
 
   getMovies(idURL).then(res => {
     renderFilmCard(res);
+    console.log(res);
+    movieObject = res;
   });
+  // const response = await axios.get(`${idURL}`);
+  // return response.data;
 }
 
 function renderFilmCard(film) {

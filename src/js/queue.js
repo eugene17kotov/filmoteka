@@ -2,6 +2,7 @@ import { getMovies } from './api/fetch-movie';
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 // import { renderPagination } from './pagination.js';
 import { localstorage } from './localstorage.js';
+import { movieObject } from './movie-modal';
 
 const queueBtn = document.querySelector('.to-queue');
 const bg = document.querySelector('.backdrop');
@@ -18,11 +19,11 @@ libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 libraryQueueBtn && onLibraryQueueBtnClick();
 
 function inLocalStorage(value) {
-  console.log(value)
-  console.log(localStorage.getItem('queue'))
+  console.log(value);
+  console.log(localStorage.getItem('queue'));
   if (localStorage.getItem('queue') !== null) {
     if (!JSON.parse(localStorage.getItem('queue').includes(value))) {
-      console.log((localStorage.getItem('queue').includes(value)))
+      console.log(localStorage.getItem('queue').includes(value));
       return false;
     }
     return true;
@@ -31,23 +32,23 @@ function inLocalStorage(value) {
 }
 
 export async function onBtnQueueClick() {
-  const id = bg.id;
-  const queueMovies = await fetchById(id);
-  
-  
-  
+  // const id = bg.id;
+  // const queueMovies = await fetchById(id);
+
   if (localStorage.getItem('queue') === null) {
     localStorage.setItem('queue', '[]');
   }
 
-  if (!inLocalStorage(queueMovies.id)) {
+  console.log(movieObject);
+
+  if (!inLocalStorage(movieObject.id)) {
     queueBtn.textContent = 'Remove from queue';
     queueBtn.classList.add('is-active');
-    localstorage.setFilm('queue', queueMovies);
+    localstorage.setFilm('queue', movieObject);
   } else {
     queueBtn.textContent = 'Add to queue';
     queueBtn.classList.remove('is-active');
-    localstorage.removeFilm('queue', queueMovies);
+    localstorage.removeFilm('queue', movieObject);
   }
 
   libraryGallery && onLibraryQueueBtnClick();
@@ -92,13 +93,10 @@ function getPlugHidden() {
 }
 
 function fetchQueue(queueMovieId) {
-  
   const moviesIDInQueue = JSON.parse(queueMovieId);
 
   moviesIDInQueue.map(movieID => {
-    
     fetchById(movieID.id).then(res => {
-     
       renderMovieCardsLibrary(res);
     });
   });
@@ -110,14 +108,12 @@ function fetchById(movieId) {
 }
 
 function renderMovieCardsLibrary(movie) {
-  
   const movieGalleryMarkup = createLibraryMovieMarkup(movie);
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
 }
 
 function createLibraryMovieMarkup(movie) {
-  
   const { title, genres, release_date, poster_path, vote_average, id } = movie;
 
   let year = '';
@@ -142,7 +138,7 @@ function createLibraryMovieMarkup(movie) {
             </a>
           </li>`;
   }
-  
+
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
@@ -159,7 +155,6 @@ function createLibraryMovieMarkup(movie) {
 }
 
 function getQueueMovieGenresList(genres) {
-  
   let genresNames = genres.map(genre => genre.name);
   if (genresNames.length > 3) {
     genresNames = genresNames.slice(0, 2);
