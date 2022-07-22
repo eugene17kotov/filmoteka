@@ -1,8 +1,13 @@
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
-// import { renderPagination } from './pagination.js';
 import { getMovies } from './api/fetch-movie';
 import { localstorage } from './localstorage.js';
 import { muvieObject } from './movie-modal';
+import { fetchByIds } from './queue.js';
+import {
+  startPaginationObserver,
+  stopPaginationObserver,
+} from './infinity-scroll';
+import { createLibraryMovieMarkup } from './queue';
 
 const addToWatchedButton = document.querySelector('.to-watched');
 const bg = document.querySelector('.backdrop');
@@ -24,7 +29,6 @@ function inLocalStorage(value) {
 }
 
 export function onAddToWatchedBtnClick() {
-  
   if (localStorage.getItem('watched') === null) {
     localStorage.setItem('watched', '[]');
   }
@@ -38,8 +42,13 @@ export function onAddToWatchedBtnClick() {
     localstorage.removeFilm('watched', muvieObject);
     addToWatchedButton.classList.remove('is-active');
   }
-
-  libraryGallery && onWatchedBtnClick();
+  //!VIktor: add check if button is active to prevent changing library tabs
+  if (
+    libraryGallery &&
+    libraryWatchedBtn.classList.contains('library__item-btn--active')
+  ) {
+    onWatchedBtnClick();
+  }
 }
 
 libraryWatchedBtn &&
@@ -49,6 +58,7 @@ let watchedMovieId;
 let parseWatchedMovieId;
 
 function onWatchedBtnClick() {
+  stopPaginationObserver();
   libraryQueueBtn.classList.remove('library__item-btn--active');
   libraryWatchedBtn.classList.add('library__item-btn--active');
 
@@ -86,71 +96,25 @@ function getPlugHidden() {
 
 function fetchWatched(watchedMovieId) {
   const moviesIDInWatched = JSON.parse(watchedMovieId);
-
-  moviesIDInWatched.map(movieID => {
-    fetchById(movieID.id).then(res => {
-      renderMovieCardsLibrary(res);
-    });
+  //!Viktor: add slice method to moviesIDInWatched for showing only 6 cards when function  onWatchedBtnClick is executed and rewrite fetchById func to fetchByIds
+  // moviesIDInWatched.slice(0, 6).map(movieID => {
+  //   fetchById(movieID).then(res => {
+  //     renderMovieCardsLibrary(res);
+  //   });
+  // });
+  fetchByIds(moviesIDInWatched.slice(0, 6)).then(movies => {
+    movies.forEach(movie => renderMovieCardsLibrary(movie));
+    startPaginationObserver();
   });
 }
 
-function fetchById(movieId) {
-  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
-  return getMovies(idURL);
-}
+// function fetchById(movieId) {
+//   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
+//   return getMovies(idURL);
+// }
 
 function renderMovieCardsLibrary(movie) {
   const movieGalleryMarkup = createLibraryMovieMarkup(movie);
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
-}
-
-function createLibraryMovieMarkup(movie) {
-  const { title, genres, release_date, poster_path, vote_average, id } = movie;
-
-  let year = '';
-  if (typeof release_date !== 'undefined' && release_date.length > 4) {
-    year = release_date.slice(0, 4);
-  }
-
-  const queueGenres = getQueueMovieGenresList(genres);
-
-  if (poster_path === null) {
-    return `<li>
-            <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="${id}" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
-
-            <div class="info">
-              <p class="info__item">${title}</p>
-              <div class="info-detail">
-                <p class="info-detail__item">${queueGenres}</p>
-                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-              </div>
-            </div>
-            </a>
-          </li>`;
-  }
-
-  return `<li>
-            <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
-
-            <div class="info">
-              <p class="info__item">${title}</p>
-              <div class="info-detail">
-                <p class="info-detail__item">${queueGenres}</p>
-                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-              </div>
-            </div>
-            </a>
-          </li>`;
-}
-
-function getQueueMovieGenresList(genres) {
-  let genresNames = genres.map(genre => genre.name);
-  if (genresNames.length > 3) {
-    genresNames = genresNames.slice(0, 2);
-    genresNames.push('Other');
-  }
-  return genresNames.join(', ');
 }
