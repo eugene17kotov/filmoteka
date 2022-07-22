@@ -3,6 +3,7 @@ import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
+import { loader, startLoader, stopLoader } from './loader';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -66,7 +67,7 @@ function removeAllEventListenersModal() {
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
-  document.body.classList.toggle('modal-open');
+  document.body.classList.remove('modal-open');
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
@@ -81,14 +82,18 @@ async function clickOnMovieHandler(e) {
     return;
   }
 
-  backdrop.classList.remove('movie-backdrop--is-hidden');
-  document.body.classList.toggle('modal-open');
-  toTopBtn.style.display = 'none';
+  startLoader();
 
   movieId = e.target.dataset.id;
   backdrop.setAttribute('id', movieId);
 
-  fetchById(movieId);
+  await fetchById(movieId);
+
+  stopLoader();
+
+  backdrop.classList.remove('movie-backdrop--is-hidden');
+  document.body.classList.add('modal-open');
+  toTopBtn.style.display = 'none';
 
   addAllEventListenersModal();
 
@@ -113,10 +118,13 @@ async function clickOnMovieHandler(e) {
 async function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
 
-  getMovies(idURL).then(res => {
-    renderFilmCard(res);
-    muvieObject = res;
-  });
+  const responce = await getMovies(idURL);
+
+  renderFilmCard(responce);
+
+  muvieObject = responce;
+
+  return responce;
 }
 
 function renderFilmCard(film) {
@@ -135,6 +143,7 @@ function modalFilmCart({
   overview,
   poster_path,
 }) {
+  let roundPopularity = Math.round(popularity);
   let imageMarkup = `
   <img 
     src="${BASE_IMG_URL}${poster_path}"
@@ -162,7 +171,7 @@ function modalFilmCart({
       </div>
       <div class="values">
           <p class="value"><span class="first-mark">${vote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
-          <p class="value">${popularity}</p>
+          <p class="value">${roundPopularity}</p>
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
           
