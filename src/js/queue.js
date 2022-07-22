@@ -7,6 +7,7 @@ import {
   startPaginationObserver,
   stopPaginationObserver,
 } from './infinity-scroll';
+import { loader, startLoader, stopLoader } from './loader';
 
 const queueBtn = document.querySelector('.to-queue');
 const bg = document.querySelector('.backdrop');
@@ -60,7 +61,7 @@ export async function onBtnQueueClick() {
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
-function onLibraryQueueBtnClick() {
+async function onLibraryQueueBtnClick() {
   stopPaginationObserver();
   libraryWatchedBtn.classList.remove('library__item-btn--active');
   libraryQueueBtn.classList.add('library__item-btn--active');
@@ -78,9 +79,11 @@ function onLibraryQueueBtnClick() {
     return;
   } else if (!libraryTextContainer.classList.contains('visually-hidden')) {
     getPlugHidden();
+    startLoader();
   }
 
-  fetchQueue(queueMovieId);
+  await fetchQueue(queueMovieId);
+  stopLoader();
 }
 
 function clearGallery() {

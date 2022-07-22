@@ -8,6 +8,7 @@ import {
   stopPaginationObserver,
 } from './infinity-scroll';
 import { createLibraryMovieMarkup } from './queue';
+import { loader, startLoader, stopLoader } from './loader';
 
 const addToWatchedButton = document.querySelector('.to-watched');
 const bg = document.querySelector('.backdrop');
