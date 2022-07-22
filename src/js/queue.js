@@ -13,8 +13,10 @@ const libraryWatchedBtn = document.querySelector('button[data-action="watched"]'
 let queueMovieId = localStorage.getItem('queue');
 let parseQueueMovieId = JSON.parse(queueMovieId);
 
-libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
+libraryQueueBtn &&
+  libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 libraryQueueBtn && onLibraryQueueBtnClick();
+libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 
 function inLocalStorage(value) {
   if (localStorage.getItem('queue') !== null) {
@@ -132,10 +134,12 @@ export function createLibraryMovieMarkup(movie) {
   }
 
   const queueGenres = getQueueMovieGenresList(genres);
+
 //!Viktor: rewrite createLibraryMovieMarkup func, add poster_path verification and delete useless markup
   poster_src = poster_path === null ? 'https://dummyimage.com/395x574/000/fff.jpg&text=no+poster' 
   : `${BASE_IMG_URL}${poster_path}`;
     
+
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${poster_src}" alt="${title} movie poster" loading="lazy">

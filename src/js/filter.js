@@ -1,6 +1,7 @@
 import { renderMovieCards } from './render-movie-cards';
 import { getMovies } from './api/fetch-movie';
 import { API_KEY, BASE_URL } from './api/api-vars';
+// import { onFormSubmit } from './search';
 
 const refs = {
   btnToday: document.querySelector('button[data-group="today"]'),
@@ -26,7 +27,6 @@ let anchorNodeWeek = btnWeek.parentNode.parentNode;
 
 let page = 1;
 
-form.addEventListener('submit', formSubmitHandler);
 toTrendingBtn.addEventListener('click', toTrendingBtnClick);
 
 btnToday.addEventListener('click', () => {
@@ -61,11 +61,6 @@ function renderMovies(url) {
   getMovies(url).then(response => {
     renderMovieCards(response.results);
   });
-}
-
-function formSubmitHandler(e) {
-  filter.classList.add('is-hidden');
-  toTrendingBtn.classList.remove('is-hidden');
 }
 
 function toTrendingBtnClick() {

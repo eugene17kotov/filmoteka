@@ -56,6 +56,7 @@ function onWatchedBtnClick() {
   stopPaginationObserver();
   libraryQueueBtn.classList.remove('library__item-btn--active');
   libraryWatchedBtn.classList.add('library__item-btn--active');
+
   watchedMovieId = localStorage.getItem('watched');
   parseWatchedMovieId = JSON.parse(watchedMovieId);
 
@@ -112,53 +113,3 @@ function renderMovieCardsLibrary(movie) {
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
 }
-//!!Viktor: comment this function and import it from queue.js decause both are the same
-// function createLibraryMovieMarkup(movie) {
-//   const { title, genres, release_date, poster_path, vote_average, id } = movie;
-
-//   let year = '';
-//   if (typeof release_date !== 'undefined' && release_date.length > 4) {
-//     year = release_date.slice(0, 4);
-//   }
-
-//   const queueGenres = getQueueMovieGenresList(genres);
-
-//   if (poster_path === null) {
-//     return `<li>
-//             <a class="gallery__link" href="#">
-//               <img class="gallery__image" data-id="${id}" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="${title} movie poster" loading="lazy">
-
-//             <div class="info">
-//               <p class="info__item">${title}</p>
-//               <div class="info-detail">
-//                 <p class="info-detail__item">${queueGenres}</p>
-//                 <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-//               </div>
-//             </div>
-//             </a>
-//           </li>`;
-//   }
-  
-//   return `<li>
-//             <a class="gallery__link" href="#">
-//               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
-
-//             <div class="info">
-//               <p class="info__item">${title}</p>
-//               <div class="info-detail">
-//                 <p class="info-detail__item">${queueGenres}</p>
-//                 <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-//               </div>
-//             </div>
-//             </a>
-//           </li>`;
-// }
-
-// function getQueueMovieGenresList(genres) {
-//   let genresNames = genres.map(genre => genre.name);
-//   if (genresNames.length > 3) {
-//     genresNames = genresNames.slice(0, 2);
-//     genresNames.push('Other');
-//   }
-//   return genresNames.join(', ');
-// }
