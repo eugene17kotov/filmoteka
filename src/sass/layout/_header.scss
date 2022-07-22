@@ -162,6 +162,12 @@ body.header-menu-open {
 
   &-list {
     display: none;
+    @include media-max($tab){
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 999;
+    }
     @include media-min($tab) {
       display: flex;
       list-style: none;

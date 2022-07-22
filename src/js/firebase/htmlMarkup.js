@@ -19,7 +19,7 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
           >
             <use
               class="menu-btn__icon--close"
-              href="./././images/symbol-defs.svg#icon-close"
+              href="../../images/symbol-defs.svg#icon-close"
             ></use>
           </svg></button>
 
