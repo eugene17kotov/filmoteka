@@ -10,4 +10,4 @@ import './js/watched';
 import './js/queue';
 import './js/scroll-up';
 import './js/infinity-scroll';
-
+import './js/theme-switch';
