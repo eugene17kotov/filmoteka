@@ -3,6 +3,7 @@ import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
+import { loader, startLoader, stopLoader } from './loader';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -66,7 +67,7 @@ function removeAllEventListenersModal() {
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
-  // document.body.classList.toggle('modal-open');
+  document.body.classList.remove('modal-open');
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
@@ -74,21 +75,25 @@ cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 let movieId;
 
 // клик
-function clickOnMovieHandler(e) {
+async function clickOnMovieHandler(e) {
   e.preventDefault();
 
   if (e.target.nodeName !== 'IMG') {
     return;
   }
 
-  backdrop.classList.remove('movie-backdrop--is-hidden');
-  document.body.classList.toggle('modal-open');
-  toTopBtn.style.display = 'none';
+  startLoader();
 
   movieId = e.target.dataset.id;
   backdrop.setAttribute('id', movieId);
 
-  fetchById(movieId);
+  await fetchById(movieId);
+
+  stopLoader();
+
+  backdrop.classList.remove('movie-backdrop--is-hidden');
+  document.body.classList.add('modal-open');
+  toTopBtn.style.display = 'none';
 
   addAllEventListenersModal();
 
@@ -110,12 +115,17 @@ function clickOnMovieHandler(e) {
 }
 
 //Фетч фильма по ID
-function fetchById(movieId) {
+async function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
 
-  getMovies(idURL).then(res => {
-    renderFilmCard(res);
-  });
+  const responce = await getMovies(idURL);
+
+  renderFilmCard(responce);
+
+  return responce;
+  // getMovies(idURL).then(res => {
+  //   renderFilmCard(res);
+  // });
 }
 
 function renderFilmCard(film) {

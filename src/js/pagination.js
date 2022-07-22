@@ -1,9 +1,9 @@
 import { getMovies } from './api/fetch-movie';
 import { renderMovieCards } from './render-movie-cards';
 import { topFunction } from './scroll-up';
+import { loader, startLoader, stopLoader } from './loader';
 
 const paginationWrapRef = document.querySelector('.pagination-wrap');
-const loader = document.querySelector('.backdrop-loader');
 
 export function renderPagination(currentPage, totalPages) {
   let buttons = [];
@@ -88,17 +88,18 @@ function createButton(
   return newButton;
 }
 
-function pageButtonPressed(event) {
+async function pageButtonPressed(event) {
   const page = event.target.dataset.page;
   const lastUrl = localStorage.getItem('LAST_REQUESTED_URL');
   const newUrl = `${lastUrl}&page=${page}`;
 
-  loader.classList.remove('backdrop-loader--is-hidden');
+  startLoader();
   topFunction();
 
-  getMovies(newUrl).then(response => {
-    loader.classList.add('backdrop-loader--is-hidden');
+  await getMovies(newUrl).then(response => {
     renderMovieCards(response.results);
     renderPagination(response.page, response.total_pages);
   });
+
+  stopLoader();
 }
