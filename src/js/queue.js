@@ -60,6 +60,7 @@ function onLibraryQueueBtnClick() {
   libraryWatchedBtn.classList.remove('library__item-btn--active');
   libraryQueueBtn.classList.add('library__item-btn--active');
   queueMovieId = localStorage.getItem('queue');
+  
   parseQueueMovieId = JSON.parse(queueMovieId);
 
   clearGallery();
