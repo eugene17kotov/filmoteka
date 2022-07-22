@@ -19,8 +19,8 @@ libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 libraryQueueBtn && onLibraryQueueBtnClick();
 
 function inLocalStorage(value) {
-  console.log(value);
-  console.log(localStorage.getItem('queue'));
+  // console.log(value);
+  // console.log(localStorage.getItem('queue'));
   if (localStorage.getItem('queue') !== null) {
     if (!JSON.parse(localStorage.getItem('queue').includes(value))) {
       console.log(localStorage.getItem('queue').includes(value));
@@ -32,14 +32,9 @@ function inLocalStorage(value) {
 }
 
 export async function onBtnQueueClick() {
-  // const id = bg.id;
-  // const queueMovies = await fetchById(id);
-
   if (localStorage.getItem('queue') === null) {
     localStorage.setItem('queue', '[]');
   }
-
-  console.log(movieObject);
 
   if (!inLocalStorage(movieObject.id)) {
     queueBtn.textContent = 'Remove from queue';

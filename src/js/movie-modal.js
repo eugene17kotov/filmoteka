@@ -3,7 +3,6 @@ import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
-import axios from 'axios';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -117,11 +116,9 @@ async function fetchById(movieId) {
 
   getMovies(idURL).then(res => {
     renderFilmCard(res);
-    console.log(res);
+
     movieObject = res;
   });
-  // const response = await axios.get(`${idURL}`);
-  // return response.data;
 }
 
 function renderFilmCard(film) {

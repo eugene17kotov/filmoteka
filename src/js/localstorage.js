@@ -17,8 +17,11 @@ export const localstorage = {
 
   removeFilm(key, value) {
     const films = this.getMovies(key);
-    if (films.includes(value)) {
-      films.splice(films.indexOf(value), 1);
+    const filmsId = films.map(film => film.id);
+
+    if (filmsId.includes(value.id)) {
+      console.log('YES');
+      films.splice(films.indexOf(value.id), 1);
       this.saveData(key, films);
     } else return;
   },
