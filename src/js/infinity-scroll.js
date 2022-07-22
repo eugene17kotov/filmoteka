@@ -3,7 +3,7 @@ import {fetchByIds} from "./queue";
 import {renderMovieCardsLibrary} from "./queue";
 
 export const options = {
-  rootMargin: "20%",
+  rootMargin: "250px",
   threshold: 1.0
 }
 
@@ -21,11 +21,10 @@ function scrollPagination(entries) {
   entries.forEach(entry => {
     if(entry.isIntersecting) {
       addNewCards();
+      slowScrollOnAddCards();
     }
   })
 }
-
-
 function addNewCards () {
   const activeButton = document.querySelector(".library__item-btn--active");
   const actualArray = libraryGallery.querySelectorAll("li");
@@ -40,4 +39,14 @@ function addNewCards () {
   if (parsedObject === null || actualArray.length === parsedObject.length) {
       observer.unobserve(document.querySelector(".scroll-guard"));
   }
+}
+
+function slowScrollOnAddCards() {
+  const { height: cardHeight } =
+    libraryGallery.firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 1,
+    behavior: 'smooth',
+  });
 }
