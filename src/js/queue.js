@@ -2,6 +2,7 @@ import { getMovies } from './api/fetch-movie';
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 // import { renderPagination } from './pagination.js';
 import { localstorage } from './localstorage.js';
+import { muvieObject } from './movie-modal';
 
 const queueBtn = document.querySelector('.to-queue');
 const bg = document.querySelector('.backdrop');
@@ -20,11 +21,10 @@ libraryQueueBtn && onLibraryQueueBtnClick();
 libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 
 function inLocalStorage(value) {
-  console.log(value)
-  console.log(localStorage.getItem('queue'))
+  
   if (localStorage.getItem('queue') !== null) {
     if (!JSON.parse(localStorage.getItem('queue').includes(value))) {
-      console.log((localStorage.getItem('queue').includes(value)))
+      
       return false;
     }
     return true;
@@ -33,23 +33,19 @@ function inLocalStorage(value) {
 }
 
 export async function onBtnQueueClick() {
-  const id = bg.id;
-  const queueMovies = await fetchById(id);
-  
-  
   
   if (localStorage.getItem('queue') === null) {
     localStorage.setItem('queue', '[]');
   }
 
-  if (!inLocalStorage(queueMovies.id)) {
+  if (!inLocalStorage(muvieObject.id)) {
     queueBtn.textContent = 'Remove from queue';
     queueBtn.classList.add('is-active');
-    localstorage.setFilm('queue', queueMovies);
+    localstorage.setFilm('queue', muvieObject);
   } else {
     queueBtn.textContent = 'Add to queue';
     queueBtn.classList.remove('is-active');
-    localstorage.removeFilm('queue', queueMovies);
+    localstorage.removeFilm('queue', muvieObject);
   }
 
   libraryGallery && onLibraryQueueBtnClick();

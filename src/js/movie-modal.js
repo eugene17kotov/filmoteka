@@ -23,7 +23,7 @@ const {
   contentRef,
   addToWatchedButton,
 } = refs;
-
+export let muvieObject = {};
 const toTopBtn = document.getElementById('myBtn');
 
 function addAllEventListenersModal() {
@@ -115,6 +115,7 @@ function fetchById(movieId) {
 
   getMovies(idURL).then(res => {
     renderFilmCard(res);
+    muvieObject = res;
   });
 }
 
