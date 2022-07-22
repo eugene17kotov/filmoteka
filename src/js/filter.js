@@ -63,11 +63,12 @@ function renderMovies(url) {
   });
 }
 
-function toTrendingBtnClick() {
+export function toTrendingBtnClick() {
   page = document.querySelector('.pagination-button--current').dataset.page;
 
   const TREND_URL_WEEK = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
 
+  gallery.classList.add('gallery');
   filter.classList.remove('is-hidden');
   toTrendingBtn.classList.add('is-hidden');
 
