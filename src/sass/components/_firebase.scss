@@ -1,5 +1,5 @@
 body {
-    // position: relative;
+    position: relative;
 }
 .fbs-header {
     max-width: 100%;
@@ -10,7 +10,7 @@ body {
     top: 10px;
     left: 50%;
     transform: translate(-50%, 0%);
-    z-index: 10;
+    z-index: 2;
     
     @include media-min($mob) {
         width: $mob;
@@ -30,16 +30,20 @@ body {
             justify-content: right;
             justify-items: center;
 }
+.fbs-header-btn,
+.fbs-header-span {
+    font-weight: 500;
+    border: none;
+    height: 20px;  
+align-content: center;
+}
 .fbs-header-btn {
+    width: 80px;  
     cursor: pointer;
     border-radius: 14px;
-    // font-size: 14px;
-    font-weight: 700;
-    border: none;
-    width: 100px;
-    height: 28px;
-        align-content: center;
-        transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: rgb(240, 235, 227);
+    color: $accent-color;    
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
     &:first-child {
             margin-right: 20px;
     }
@@ -47,5 +51,173 @@ body {
     &:focus {
         background-color: $accent-color;
         border: $accent-color;
+        color: wheat;
     }
 }
+.fbs-header-span {
+    margin-right: 20px;
+        color: wheat;
+}
+.fbs-sign-menu {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.fbs-mob-menu-close-btn {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    color: rgb(241, 236, 226);
+    fill: currentColor;
+
+    &:hover,
+    &:focus {
+        fill:rgb(241, 236, 226);
+        background-color: $accent-color;
+    }
+}
+.firebase-backdrop{
+        height: 100%;
+        overflow: scroll;
+            padding: 0;
+            margin: 0;
+            font-size: 20px;
+            position: relative;
+}
+.fbs-backdrop {
+    position: fixed;
+    top: 0;
+    // left: 0;
+    overflow-y: scroll;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+  
+    visibility: visible;
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+
+    transition: opacity 350ms ease-in, visibility 350ms ease-in;
+}
+.fbs-modal {
+    //     height: 100%;
+//     min-height: 400px;
+
+        @include media-min($mob) {
+            width: 320px;
+            min-height: 609px;
+        }
+
+        @include media-min($desk) {
+            width: 530px;
+            min-height: 580px;
+        }
+        background: url("../images/add-giphy.gif") repeat left top;
+
+        // background-color: #ffffff;
+        // border-radius: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* transition: transform 500ms; */
+        padding: 40px;
+
+}
+.fbs-modal-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 300ms ease-in;
+
+    &:hover,
+    &:focus {
+        background-color: $accent-color;
+        fill: $accent-hover-color;
+    }
+}
+
+
+.fbs-modal-title {
+    @include font(700, 30px, 35px, 0.03em);
+
+    text-align: center;
+    color: $accent-hover-color;
+    margin-bottom: 12px;
+}
+
+.fbs-modal-form {}
+
+.fbs-modal-form-field {
+    margin-bottom: 10px;
+}
+
+.fbs-modal-label {
+    display: block;
+    @include font(null, 20px, 23px, 0.01em);
+    color: $secondary-text-color;
+    margin-bottom: 30px;
+}
+
+.fbs-modal-label--end {
+    margin-bottom: 20px;
+}
+
+.fbs-modal-label__field {
+    position: relative;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 40px;
+}
+.fbs-modal-label__block {
+    font-size: large;
+    width: 100%;
+    border: 1px solid rgba(33, 33, 33, 0.2);
+    border-radius: 4px;
+    outline: none;
+
+    &::placeholder {
+        @include font(null, 12px, 14px, 0.01em);
+        color: rgba(117, 117, 117, 0.5);
+    }
+
+    &:hover::placeholder,
+    &:focus::placeholder {
+        color: $accent-color;
+    }
+
+    &:hover+.fbs-modal-icon,
+    &:focus+.fbs-modal-icon {
+        fill: $accent-color;
+    }
+}
+
+.fbs-modal-label__block--input {
+    height: 40px;
+    padding-left: 42px;
+}
+.fbs-modal-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: black;
+}
+
+.fbs-modal-btn--submit {
+
+    @include font(700px, 32px, auto, auto);
+}
+

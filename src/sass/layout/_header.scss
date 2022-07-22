@@ -355,6 +355,9 @@ body.header-menu-open {
   }
 }
 
+.header-mob-menu{
+  position: relative;
+}
 .header-mob-menu-open-btn {
   display: inline-flex;
   z-index: 0;
@@ -424,8 +427,8 @@ body.header-menu-open {
   border: none;
   background-color: transparent;
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 35px;
+  right: 25px;
   fill: currentColor;
 
   &:hover,
