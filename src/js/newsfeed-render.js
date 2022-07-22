@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { loader, startLoader, stopLoader } from './loader';
 
 const regex = /[0-9]/g;
 const today = new Date().toISOString().slice(0, 10).match(regex).join('');
@@ -22,8 +23,11 @@ async function getNewsFeed(url, page) {
   }
 }
 
+startLoader();
+
 getNewsFeed(NEWS_URL, page).then(newsArticles => {
   renderNews(newsArticles.docs);
+  stopLoader();
   updatePageCountVar(newsArticles);
 });
 
@@ -97,8 +101,11 @@ function getStartObserver(entries) {
     if (entry.isIntersecting) {
       page += 1;
 
+      startLoader();
+
       getNewsFeed(NEWS_URL, page).then(newsArticles => {
         renderNews(newsArticles.docs);
+        stopLoader();
         updatePageCountVar(newsArticles);
         slowScrollOnAddPhotos();
 

@@ -10,4 +10,5 @@ import './js/movie-modal';
 import './js/pagination';
 import './js/team-modal';
 import './js/scroll-up';
-import './js/firebase/firebase';
+import './js/theme-switch';
+import './js/firebase/index';

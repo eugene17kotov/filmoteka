@@ -24,6 +24,8 @@
     grid-auto-rows: 634px;
     grid-column-gap: 16px;
   }
+
+
 }
 
 .gallery__link {
@@ -74,7 +76,7 @@
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
-  color: #000000;
+  // color: #000000;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

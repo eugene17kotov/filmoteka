@@ -9,3 +9,4 @@ import './js/team-modal';
 import './js/watched';
 import './js/queue';
 import './js/scroll-up';
+import './js/theme-switch';
