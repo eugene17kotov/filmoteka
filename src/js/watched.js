@@ -2,6 +2,7 @@ import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 // import { renderPagination } from './pagination.js';
 import { getMovies } from './api/fetch-movie';
 import { localstorage } from './localstorage.js';
+import { muvieObject } from './movie-modal';
 
 const addToWatchedButton = document.querySelector('.to-watched');
 const bg = document.querySelector('.backdrop');
@@ -23,19 +24,18 @@ function inLocalStorage(value) {
 }
 
 export function onAddToWatchedBtnClick() {
-  const id = bg.id;
-
+  
   if (localStorage.getItem('watched') === null) {
     localStorage.setItem('watched', '[]');
   }
 
-  if (!inLocalStorage(id)) {
+  if (!inLocalStorage(muvieObject.id)) {
     addToWatchedButton.textContent = 'Remove from watched';
-    localstorage.setFilm('watched', id);
+    localstorage.setFilm('watched', muvieObject);
     addToWatchedButton.classList.add('is-active');
   } else {
     addToWatchedButton.textContent = 'Add to watched';
-    localstorage.removeFilm('watched', id);
+    localstorage.removeFilm('watched', muvieObject);
     addToWatchedButton.classList.remove('is-active');
   }
 
@@ -51,6 +51,7 @@ let parseWatchedMovieId;
 function onWatchedBtnClick() {
   libraryQueueBtn.classList.remove('library__item-btn--active');
   libraryWatchedBtn.classList.add('library__item-btn--active');
+
   watchedMovieId = localStorage.getItem('watched');
   parseWatchedMovieId = JSON.parse(watchedMovieId);
 
@@ -87,7 +88,7 @@ function fetchWatched(watchedMovieId) {
   const moviesIDInWatched = JSON.parse(watchedMovieId);
 
   moviesIDInWatched.map(movieID => {
-    fetchById(movieID).then(res => {
+    fetchById(movieID.id).then(res => {
       renderMovieCardsLibrary(res);
     });
   });
@@ -129,7 +130,7 @@ function createLibraryMovieMarkup(movie) {
             </a>
           </li>`;
   }
-  
+
   return `<li>
             <a class="gallery__link" href="#">
               <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">

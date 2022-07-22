@@ -20,7 +20,6 @@ export const localstorage = {
     const filmsId = films.map(film => film.id);
 
     if (filmsId.includes(value.id)) {
-      console.log('YES');
       films.splice(films.indexOf(value.id), 1);
       this.saveData(key, films);
     } else return;

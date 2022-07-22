@@ -23,8 +23,7 @@ const {
   contentRef,
   addToWatchedButton,
 } = refs;
-
-export let movieObject = {};
+export let muvieObject = {};
 const toTopBtn = document.getElementById('myBtn');
 
 function addAllEventListenersModal() {
@@ -37,7 +36,7 @@ function addAllEventListenersModal() {
 
 function onCloseBtnClick(e) {
   e.preventDefault();
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
@@ -47,16 +46,16 @@ function onKeydownEscape(e) {
   if (e.code !== 'Escape') {
     return;
   }
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
 
 function onBackdropClick(e) {
-  if (!e.target.classList.contains('backdrop')) {
+  if (!e.target.classList.contains('movie-backdrop')) {
     return;
   }
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
@@ -82,7 +81,7 @@ async function clickOnMovieHandler(e) {
     return;
   }
 
-  backdrop.classList.remove('is-hidden');
+  backdrop.classList.remove('movie-backdrop--is-hidden');
   document.body.classList.toggle('modal-open');
   toTopBtn.style.display = 'none';
 
@@ -116,8 +115,7 @@ async function fetchById(movieId) {
 
   getMovies(idURL).then(res => {
     renderFilmCard(res);
-
-    movieObject = res;
+    muvieObject = res;
   });
 }
 
