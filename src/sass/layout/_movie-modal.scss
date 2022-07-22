@@ -4,6 +4,19 @@
 //   width: 0;
 // }
 
+body.modal-open {
+  overflow: hidden;
+
+  // @media screen and (min-width: 1280px) {
+  //   & .main,
+  //   .header,
+  //   .footer,
+  //   .pagination-wrap {
+  //     padding-right: 22px;
+  //   }
+  // }
+}
+
 .button-close {
   position: absolute;
   top: 8px;
@@ -74,23 +87,16 @@
   }
 }
 
-body {
-  &.modal-open {
-    overflow: hidden;
-  }
-}
-
 .movie-backdrop {
+  overflow-y: auto;
   z-index: 998;
   position: fixed;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.25);
   opacity: 1;
-<<<<<<< HEAD
-  // overflow-y: auto;
-=======
->>>>>>> 8689aa9abe33e1705ac64074fc0b3013448490b6
+
+  padding: 20px 0;
   width: 100%;
   height: 100%;
 
@@ -112,31 +118,28 @@ body {
 }
 
 .modal {
-  overflow-y: auto;
+  position: relative;
   display: flex;
   width: 280px;
-<<<<<<< HEAD
-  height: 90vh;
-=======
-  height: 95vh;
-  overflow-y: auto;
->>>>>>> 8689aa9abe33e1705ac64074fc0b3013448490b6
   padding: 48px 20px 40px;
   flex-direction: column;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  margin-right: auto;
+  margin-left: auto;
   background-color: #fff;
 
   visibility: visible;
 
   border-radius: 15px;
 
-  transform: translate(-50%, -50%) scale(1);
   transition: transform 500ms $cubic, opacity 500ms $cubic,
     visibility 500ms $cubic;
 
   @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+
     width: 704px;
     height: auto;
     max-height: 552px;
