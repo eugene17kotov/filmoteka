@@ -37,7 +37,7 @@ export async function createNewUser(email, password) {
   // firebase.auth.Auth.Persistence.LOCAL;
   // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
   // setPersistence(auth, browserSessionPersistence);
-  setPersistence(auth, browserLocalPersistence);
+  // setPersistence(auth, browserLocalPersistence);
   return await createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       // Signed in
@@ -114,7 +114,7 @@ export async function logOut() {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
-      console.log('Sign-out successful.');
+      // console.log('Sign-out successful.');
     })
     .catch(error => {
       // An error happened.
@@ -145,12 +145,12 @@ export async function readNote(user) {
         // console.log(data);
         return data;
       } else {
-        console.log('No data available');
+        // console.log('No data available');
       }
       return snapshot.val();
     })
     .catch(error => {
-      console.error(error);
+      // console.error(error);
     });
 }
 //

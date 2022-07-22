@@ -51,7 +51,7 @@ async function onLoginBtn(e) {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/firebase.User
           const uid = myUser.uid;
-          console.log(uid);
+          // console.log(uid);
           // ...
         } else {
           // User is signed out
@@ -61,7 +61,7 @@ async function onLoginBtn(e) {
 
       // readNote(myUser);
       const dbNote = await readNote(myUser);
-      console.log('dbNote   ', dbNote);
+      // console.log('dbNote   ', dbNote);
       const watched = dbNote.watched;
       const queue = dbNote.queue;
 
@@ -115,7 +115,7 @@ async function onLogoutBtn(e) {
 }
 
 function cancelLogin(e) {
-  console.log('cancelLogin');
+  // console.log('cancelLogin');
   cleanLoginModal();
   makeLogRegHtml();
 }

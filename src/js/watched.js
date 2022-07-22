@@ -44,17 +44,12 @@ export function onAddToWatchedBtnClick() {
 
   libraryGallery && onWatchedBtnClick();
   libraryWatchedBtn && libraryWatchedBtn.focus();
+
   // auth
-  // const auth = getAuth();
-  // const user = auth.currentUser;
-  // debugger;
   const currentUser = getAuth().currentUser;
-  console.log(currentUser);
   if (currentUser !== null) {
     const queue = localStorage.getItem('queue') || [];
     const watched = localStorage.getItem('watched') || [];
-    console.log(queue);
-    console.log(watched);
     createNote(currentUser, queue, watched);
   }
 }
