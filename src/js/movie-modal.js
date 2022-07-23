@@ -14,7 +14,6 @@ const refs = {
   imgRef: document.querySelector('.image-container'),
   contentRef: document.querySelector('.content-markup'),
   addToWatchedButton: document.querySelector('.to-watched'),
-  
 };
 
 const {
@@ -25,11 +24,11 @@ const {
   imgRef,
   contentRef,
   addToWatchedButton,
- } = refs;
-
+} = refs;
 
 export let muvieObject = {};
 const toTopBtn = document.getElementById('myBtn');
+const trailerBtn = document.querySelector('.modal-film__play-btn');
 
 function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
@@ -94,6 +93,8 @@ async function clickOnMovieHandler(e) {
   await fetchById(movieId);
 
   stopLoader();
+
+  trailerBtn && trailerBtn.addEventListener('click', trailer(e));
 
   backdrop.classList.remove('movie-backdrop--is-hidden');
   document.body.classList.add('modal-open');
@@ -180,7 +181,8 @@ export function modalFilmCart({
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
           <p class="value"> 
-           <button class = "modal-film__play-btn" type ="button" ></button>
+           <button class="modal-film__play-btn" type="button" ></button>
+           Watch Trailer
         </p>
         
       </div>
@@ -229,9 +231,3 @@ function whichBtnShowInWatchedFilms(id) {
     addToWatchedButton.textContent = 'Add to watched';
   }
 }
-
-
-const trailerBtn = document.querySelector('.modal-film__play-btn');
-
-
-  trailerBtn.addEventListener('click', trailer(e));
