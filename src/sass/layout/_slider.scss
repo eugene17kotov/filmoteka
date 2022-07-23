@@ -1,0 +1,47 @@
+.slider {
+margin-bottom: 20px;
+}
+
+.upcoming-title {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-align: center;
+  margin-bottom: 20px;
+
+    @media screen and (min-width: $tab) {
+    text-transform: uppercase;
+  }
+
+  @media screen and (min-width: $desk) {
+    font-size: 1.5em;
+    font-weight: 500;
+  }
+}
+
+.glide__slide-title {
+padding: 8px 0px;
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 1.33;
+text-transform: uppercase;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+cursor: text;
+
+  @include desk {
+  font-size: 20px;
+  line-height: 1.2;
+  }
+}
+
+.glide__slide-item {
+  border-radius: 10px 10px 5px 5px;
+}
+
+
+
+
+
