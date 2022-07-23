@@ -1,4 +1,4 @@
-import { connectToBD, logUser } from './firebaseAuth';
+ import { connectToBD, logUser } from './firebaseAuth';
 
 //
 

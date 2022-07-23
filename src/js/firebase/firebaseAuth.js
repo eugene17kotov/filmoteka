@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, get, child, onValue } from 'firebase/database';
+ import { initializeApp } from 'firebase/app';
+ import { getDatabase, ref, set, get, child, onValue } from 'firebase/database';
 
 import {
   getAuth,

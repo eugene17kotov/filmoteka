@@ -4,6 +4,7 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { loader, startLoader, stopLoader } from './loader';
+import { trailer } from './trailer';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -13,6 +14,7 @@ const refs = {
   imgRef: document.querySelector('.image-container'),
   contentRef: document.querySelector('.content-markup'),
   addToWatchedButton: document.querySelector('.to-watched'),
+  
 };
 
 const {
@@ -23,7 +25,9 @@ const {
   imgRef,
   contentRef,
   addToWatchedButton,
-} = refs;
+ } = refs;
+
+
 export let muvieObject = {};
 const toTopBtn = document.getElementById('myBtn');
 
@@ -133,7 +137,7 @@ function renderFilmCard(film) {
 
 const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
 
-function modalFilmCart({
+export function modalFilmCart({
   title,
   original_title,
   vote_average,
@@ -168,13 +172,17 @@ function modalFilmCart({
           <p class="property">Popularity</p>
           <p class="property">Original Title</p>
           <p class="property">Genre</p>
+          <p class="property property--trailer">Trailer</p>
       </div>
       <div class="values">
           <p class="value"><span class="first-mark">${vote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
           <p class="value">${roundPopularity}</p>
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
-          
+          <p class="value"> 
+           <button class = "modal-film__play-btn" type ="button" ></button>
+        </p>
+        
       </div>
   </div>
   <div class="about">
@@ -221,3 +229,9 @@ function whichBtnShowInWatchedFilms(id) {
     addToWatchedButton.textContent = 'Add to watched';
   }
 }
+
+
+const trailerBtn = document.querySelector('.modal-film__play-btn');
+
+
+  trailerBtn.addEventListener('click', trailer(e));

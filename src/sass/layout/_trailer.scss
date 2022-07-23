@@ -1,0 +1,37 @@
+
+.modal-film__play-btn {
+cursor: pointer;
+    width: 55px;
+    height: 40px;
+    background: rgba(242, 24, 9, 0.8);
+    border-radius: 25px;
+    position: absolute;
+    border: none;
+    transition: box-shadow .4s cubic-bezier(.55,.055,.675,.19);
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-40%) translateY(-50%);
+      transform-origin: center;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 16px solid #fff;
+      z-index: 100;
+}
+
+&:hover,
+&:focus{
+  box-shadow: 0 0 2px 5px rgba(250, 170, 94, 0.8);
+}
+}
+
+.trailer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

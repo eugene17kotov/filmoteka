@@ -1,5 +1,5 @@
-import {
-  logregMarkup,
+ import {
+   logregMarkup,
   registerMarkup,
   loginMarkup,
   loggedMarkup,
@@ -109,56 +109,56 @@ function makeLoggedHtml(loggedUser) {
   document.getElementById('logout').addEventListener('click', onLogoutBtn);
 }
 
-function onSignButton(e) {
-  document
-    .getElementById('tosignin')
-    .removeEventListener('click', onSignButton);
+ function onSignButton(e) {
+   document
+     .getElementById('tosignin')
+     .removeEventListener('click', onSignButton);
 
-  document
-    .getElementById('tosignup')
-    .removeEventListener('click', onSignButton);
+   document
+     .getElementById('tosignup')
+     .removeEventListener('click', onSignButton);
 
-  if (e.target === tosignin) {
-    makeLoginModalHtml();
-    const { closeBackdrop, form } = getElementsLoginModal();
+   if (e.target === tosignin) {
+     makeLoginModalHtml();
+     const { closeBackdrop, form } = getElementsLoginModal();
+     closeBackdrop.addEventListener('click', cancelLogin);
+     form.addEventListener('submit', onLoginBtn);
+   } else {
+     //  qqqqqqqqqqq   qqqq qqqqq
+     makeRegisterModalHtml();
+     const { closeBackdrop, form } = getElementsLoginModal();
     closeBackdrop.addEventListener('click', cancelLogin);
     form.addEventListener('submit', onLoginBtn);
-  } else {
-    //  qqqqqqqqqqq   qqqq qqqqq
-    makeRegisterModalHtml();
-    const { closeBackdrop, form } = getElementsLoginModal();
-    closeBackdrop.addEventListener('click', cancelLogin);
-    form.addEventListener('submit', onLoginBtn);
-  }
-}
+   }
+ }
 
-// LoginModal part
+//  LoginModal part
 
-function getElementsLoginModal() {
-  const modal = document.getElementById('auth-modal');
-  const closeBackdrop = document.getElementById('close-backdrop');
-  const signup = document.getElementById('signup');
-  const signin = document.getElementById('signin');
-  const form =
-    document.getElementById('login-form') ||
-    document.getElementById('signup-form');
-  return { modal, closeBackdrop, signup, signin, form };
-}
+ function getElementsLoginModal() {
+   const modal = document.getElementById('auth-modal');
+   const closeBackdrop = document.getElementById('close-backdrop');
+   const signup = document.getElementById('signup');
+   const signin = document.getElementById('signin');
+   const form =
+     document.getElementById('login-form') ||
+     document.getElementById('signup-form');
+   return { modal, closeBackdrop, signup, signin, form };
+ }
 
-function cleanLoginModal() {
-  const { modal, closeBackdrop, form } = getElementsLoginModal();
+ function cleanLoginModal() {
+   const { modal, closeBackdrop, form } = getElementsLoginModal();
 
-  closeBackdrop.removeEventListener('click', cancelLogin);
+   closeBackdrop.removeEventListener('click', cancelLogin);
 
-  form.removeEventListener('submit', onLoginBtn);
-  form.reset();
-  modal.innerHTML = '';
-}
+   form.removeEventListener('submit', onLoginBtn);
+   form.reset();
+   modal.innerHTML = '';
+ }
 
-function makeLoginModalHtml() {
+ function makeLoginModalHtml() {
   hrefModalHtml.innerHTML = loginMarkup;
-}
+ }
 
-function makeRegisterModalHtml() {
-  hrefModalHtml.innerHTML = registerMarkup;
-}
+ function makeRegisterModalHtml() {
+   hrefModalHtml.innerHTML = registerMarkup;
+ }
