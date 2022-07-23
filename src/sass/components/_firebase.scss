@@ -1,6 +1,79 @@
 body {
     position: relative;
 }
+#auth-header {
+    color: #ffffff;
+        position: absolute;
+        right: 20px;
+        top: 3px;
+        display: flex;
+        align-items: center;
+    @media only screen and (max-width: 767px) {
+        width: 500px;
+        position: fixed;
+        bottom: 20%;
+        left: 25%;
+        z-index: 9999;
+    }
+}
+.fbs__nav {
+
+    &-list {
+        display: none;
+
+        @include media-max($tab) {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        @include media-min($tab) {
+            display: flex;
+            list-style: none;
+        }
+    }
+
+    &-item {
+        position: relative;
+
+        &--active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0px;
+            width: 100%;
+            height: 3px;
+            background-color: $accent-color;
+        }
+    }
+
+    &-item:not(:last-child) {
+        margin-right: 15px;
+    }
+}
+.fbs__nav-btn {
+    background-color: transparent;
+    border: none;
+    margin: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 7px;
+    padding-bottom: 5px;
+    line-height: 1.17;
+    text-transform: uppercase;
+    color: $secondary-text-color;
+    cursor: pointer;
+    font-size: large;
+    font-weight: 500;
+
+    transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover,
+    &:focus {
+        color: $accent-color;
+    }
+}
 .fbs-header {
     max-width: 100%;
     margin: 0 auto;
@@ -103,27 +176,27 @@ align-content: center;
     height: 100vh;
 
     transition: opacity 350ms ease-in, visibility 350ms ease-in;
+    @media screen and (max-width: 767px) {
+            z-index: 999;
+    }
 }
 .fbs-modal {
-        height: 100%;
-//     min-height: 400px;
-            width: 320px;
-            // min-height: 609px;
+        height: 70%;
+        width: 320px;
  
         @include media-min($tab) {
-            width: 530px;
+            width: 480px;
             min-height: 580px;
         }
-        background: url("../images/add-giphy.gif") repeat left top;
+        background: url("../images/add-giphy.gif") no-repeat left top;
 
-        // background-color: #ffffff;
-        // border-radius: 10px;
+        border-radius: 10px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        /* transition: transform 500ms; */
-        padding: 40px;
+        transition: transform 500ms;
+        padding: 20px;
 
 }
 .fbs-modal-close-btn {
@@ -154,36 +227,48 @@ align-content: center;
     text-align: center;
     color: $accent-hover-color;
     margin-bottom: 12px;
+    
 }
 
-.fbs-modal-form {}
+.fbs-modal-form {
+        width: 450px;
+            min-height: 500px;
+            height: auto;
+            border-radius: 5px;
+            margin: 2% auto;
+            box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+            padding: 2%;
+}
+.fbs-modal-content {
 
+    margin: 0 auto;
+}
 .fbs-modal-form-field {
     margin-bottom: 10px;
 }
 
 .fbs-modal-label {
     display: block;
-    @include font(null, 20px, 23px, 0.01em);
+    @include font(null, 20px, 18px, 0.01em);
     color: $secondary-text-color;
-    margin-bottom: 30px;
+    margin-bottom: 8px;
 }
 
 .fbs-modal-label--end {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .fbs-modal-label__field {
     position: relative;
-    display: block;
+    display: flex;
     margin-top: 4px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .fbs-modal-label__block {
     font-size: large;
     width: 100%;
     border: 1px solid rgba(33, 33, 33, 0.2);
-    border-radius: 4px;
+    border-radius: 30px;
     outline: none;
 
     &::placeholder {
@@ -203,7 +288,7 @@ align-content: center;
 }
 
 .fbs-modal-label__block--input {
-    height: 40px;
+    height:50px;
     padding-left: 42px;
 }
 .fbs-modal-icon {
@@ -215,12 +300,43 @@ align-content: center;
 }
 
 .fbs-modal-btn--submit {
+display: block;
+    padding: 8px;
+    width: 100%;
+    border: 0;
+    border-radius: 30px;
 
-    @include font(900px, 32px, auto, auto);
+    margin-top: 30px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 500;
+    text-shadow: -1px -1px #b86200,
+        0 1px 0 #ecb76b;
+   
+    
+        text-align: center;
+        color: $accent-hover-color;
+        margin-left: auto;
+            margin-right: auto;
+
+    @include font(500, 24px, 30px, 0.03em);
+    text-align: center;
+     transition: color 300ms cubic-bezier(0.4, 0, 0.2, 1);
     &:hover,
     &:focus {
         background-color: $accent-color;
-        // : $accent-hover-color;
+        color: white;
     }
+    color: $accent-hover-color;
+    margin-bottom: 12px;
 }
 
+.fbs-forgot {
+    margin-top: 2em;
+    color: #ffffff;
+    font-size: .5em;
+    text-align: center;
+    float: left;
+    @include font(null, 20px, 18px, 0.01em);
+    text-decoration: underline;
+}
