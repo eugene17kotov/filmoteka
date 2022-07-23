@@ -16,6 +16,7 @@ const refs = {
   toTrendingBtn: document.querySelector('.to-trending__button'),
   filter: document.querySelector('.filter'),
 };
+
 console.log(refs.mainSection)
 export function searchMovies(searchText) {
   const searchUrl = `${SEARCH_URL}&query=${searchText}`;
@@ -29,11 +30,22 @@ let searchText = '';
 
 export async function onFormSubmit(e) {
   e.preventDefault();
-
+  
   searchText = e.currentTarget.query.value.trim();
 
   if (searchText === '') {
     return;
+  }
+
+if (SEARCH_URL !== true) {
+    toTrendingBtn.classList.remove('is-hidden');
+    refs.gallery.classList.remove('gallery');
+    let noMovieToMatch = refs.gallery.innerHTML = '<p class="mainsection-container">Search result not successful. Enter the correct movie name.</p>';
+   const noFilter = refs.filter.classList.add('is-hidden');
+    const paginationWhenMovieIsNotFound = refs.pagination.classList.add('is-hidden');
+    const paginationWhenMovieIsNotFoundd = refs.pagination.classList.remove('pagination-wrap');
+    refs.mainSection.classList.add('mainsection-container');
+    return [noMovieToMatch, paginationWhenMovieIsNotFound,noFilter];
   }
 
   filter.classList.add('is-hidden');
@@ -51,6 +63,9 @@ export async function onFormSubmit(e) {
 
   renderMovieCards(muvie.results);
   renderPagination(muvie.page, muvie.total_pages);
+  const paginationWrapRef = document.querySelector('.pagination-wrap');
+  refs.pagination.classList.add('pagination-wrap');
+  console.log(refs.pagination)
 }
 
 function clearGallery() {
@@ -71,12 +86,13 @@ async function onInputText(e) {
   if (searchText === '') {
     return;
   }
-  if (searchText !== true) {
+  if (SEARCH_URL !== true) {
     toTrendingBtn.classList.remove('is-hidden');
     refs.gallery.classList.remove('gallery');
     let noMovieToMatch = refs.gallery.innerHTML = '<p class="mainsection-container">Search result not successful. Enter the correct movie name.</p>';
-   const noFilter = refs.filter.style.display = "none";
-    const paginationWhenMovieIsNotFound = refs.pagination.style.display = "none";
+   const noFilter = refs.filter.classList.add('is-hidden');
+    const paginationWhenMovieIsNotFound = refs.pagination.classList.add('is-hidden');
+    const paginationWhenMovieIsNotFoundd = refs.pagination.classList.remove('pagination-wrap');
     refs.mainSection.classList.add('mainsection-container');
     return [noMovieToMatch, paginationWhenMovieIsNotFound,noFilter];
   }
@@ -93,5 +109,6 @@ async function onInputText(e) {
   refs.loader.classList.add('backdrop-loader--is-hidden');
 
   renderMovieCards(muvie.results);
+ 
   renderPagination(muvie.page, muvie.total_pages);
 }

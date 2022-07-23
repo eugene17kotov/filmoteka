@@ -12,7 +12,7 @@ const refs = {
   filter: document.querySelector('.filter'),
   toTrendingBtn: document.querySelector('.to-trending__button'),
 };
-
+const paginationWrapRef = document.querySelector('.pagination-wrap');
 export const {
   btnToday,
   filterBg,
@@ -72,7 +72,8 @@ export function toTrendingBtnClick() {
   gallery.classList.add('gallery');
   filter.classList.remove('is-hidden');
   toTrendingBtn.classList.add('is-hidden');
-
+paginationWrapRef.classList.add('pagination-wrap');
+  paginationWrapRef.classList.remove('is-hidden');
   if (anchorNodeWeek.classList.contains('.selected')) {
     return;
   } else {
