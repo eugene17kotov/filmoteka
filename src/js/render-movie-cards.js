@@ -12,7 +12,8 @@ startLoader();
   const trendMoviesList = await getMovies(TREND_URL);
 
   renderMovieCards(trendMoviesList.results);
-  gallery.insertAdjacentHTML('beforeEnd', adCard);
+
+  addAd();
 
   stopLoader();
 
@@ -34,8 +35,18 @@ export function renderMovieCards(movies) {
   }
 }
 
-const adCard = `<li style="pointer-events:none">
-            <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="" src="https://dummyimage.com/395x574/000/fff.jpg&text=no+poster" alt="" loading="lazy">
+export function addAd() {
+  const adCard = `<li class="ad-card">
+            <a class="gallery__link ad-card-link" href="#">
+              <div class="gallery__image ad-card-content-wrapper">
+                <p class="ad-title">Здесь может быть ваша реклама</p>
+                <div class="ad-content">
+                  <p class="ad-text">Продам гараж</br>Недорого</p>
+                  <p class="ad-number">066-222-33-44</br>Саша Репета</p>
+                </div>
+              </div>
             </a>
           </li>`;
+
+  document.querySelector('.gallery').insertAdjacentHTML('beforeEnd', adCard);
+}
