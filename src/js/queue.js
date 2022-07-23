@@ -1,3 +1,7 @@
+import { getAuth } from 'firebase/auth';
+import { createNote } from './firebase/firebaseAuth.js';
+
+import { getMovies } from './api/fetch-movie';
 import axios from 'axios';
 
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
@@ -54,6 +58,22 @@ export async function onBtnQueueClick() {
     libraryQueueBtn.classList.contains('library__item-btn--active')
   ) {
     onLibraryQueueBtnClick();
+  }
+
+  libraryGallery && onLibraryQueueBtnClick();
+
+  // auth
+  // auth
+  // auth
+  // auth
+  // auth
+  // auth
+  const currentUser = getAuth().currentUser;
+
+  if (currentUser !== null) {
+    const queue = localStorage.getItem('queue') || [];
+    const watched = localStorage.getItem('watched') || [];
+    createNote(currentUser, queue, watched);
   }
 }
 

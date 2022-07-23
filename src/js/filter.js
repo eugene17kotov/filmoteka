@@ -1,7 +1,7 @@
 import { renderMovieCards } from './render-movie-cards';
 import { getMovies } from './api/fetch-movie';
 import { API_KEY, BASE_URL } from './api/api-vars';
-// import { onFormSubmit } from './search';
+import { addAd } from './render-movie-cards';
 
 const refs = {
   btnToday: document.querySelector('button[data-group="today"]'),
@@ -60,6 +60,7 @@ btnWeek.addEventListener('click', () => {
 function renderMovies(url) {
   getMovies(url).then(response => {
     renderMovieCards(response.results);
+    addAd();
   });
 }
 
