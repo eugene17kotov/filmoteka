@@ -79,7 +79,7 @@ cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 let movieId;
 
 // клик
-async function clickOnMovieHandler(e) {
+export async function clickOnMovieHandler(e) {
   e.preventDefault();
 
   if (e.target.nodeName !== 'IMG') {
@@ -94,6 +94,14 @@ async function clickOnMovieHandler(e) {
   await fetchById(movieId);
 
   stopLoader();
+
+//трейлер
+  const trailerBtn = document.querySelector('.modal-film__play-btn');
+  // trailerBtn && trailerBtn.addEventListener('click', trailer(e));
+  console.log(trailerBtn);
+
+
+
 
   backdrop.classList.remove('movie-backdrop--is-hidden');
   document.body.classList.add('modal-open');
@@ -231,7 +239,3 @@ function whichBtnShowInWatchedFilms(id) {
 }
 
 
-const trailerBtn = document.querySelector('.modal-film__play-btn');
-
-
-  trailerBtn.addEventListener('click', trailer(e));

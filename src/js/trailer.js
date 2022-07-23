@@ -1,7 +1,18 @@
-import * as basicLightbox from 'basiclightbox';
+import {clickOnMovieHandler} from './movie-modal';
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, API_KEY } from './api/api-vars';
-import { trailer } from './trailer';
+
+const refs = {
+  modalTrailerIfraim: document.querySelector('.modal-video__trailer'),
+  modalTrailer: document.querySelector('.backdrop-video'),
+  closeTrailerBtn: document.querySelector('.modal__close-btn'),
+}
+
+const {
+  modalTrailerIfraim,
+  modalTrailer,
+  closeTrailer,
+} = refs;
 
 //Фетч треллера 
 async function fetchTrailer(movieId) {
@@ -11,45 +22,41 @@ async function fetchTrailer(movieId) {
 
 }
 
-export async function trailer(e) {
-  fetchTrailer(Number(e.target.dataset.id))
-    .then(data => {
-      trailerRender(data);
-    })
-    .catch(console.log);
+function onTreilerBtnClick(e) {
+  modalTrailer.classList.remove('modal-trailer--is-hidden');
+  videoFrameClean();
+  videoFrameCreate();
 }
 
-// const modalTrailer = document.querySelector('.modal');
-// console.log(modalTrailer);
+// `<iframe src="https://www.youtube.com/embed/${e.target.dataset.video}" width="80%" height="70%" frameborder="0"></iframe>`
 
-function trailerRender(data) {
-  const btnModalTrailer = document.querySelector('.modal-film__play-btn');
 
-  const instance = basicLightbox.create(
-    `<div class="modal-trailer__backdrop">
-          <iframe class="iframe" width="640" height="480" frameborder="0" allowfullscreen allow='autoplay'
-            src="https://www.youtube.com/embed/${data.results[0].key}?autoplay=1" >
-          </iframe>
-    </div>`,
-    {
-      onShow: instance => {
-        instance.element().onclick = instance.close;
-        document.addEventListener('keydown', onEscClose);
-      },
-    },
-    {
-      onClose: instance => {
-        document.removeEventListener('keydown', onEscClose);
-        console.log(instance);
-      },
-    },
-  );
-  function onEscClose(event) {
-    if (event.code === 'Escape') {
-      instance.close();
-    }
-  }
-  btnModalTrailer.addEventListener('click', () => {
-    instance.show();
-  });
+const BASE_TREILER_URL = "https://www.youtube.com/embed/";
+
+function videoFrameCreate(key) {
+    
+    const trailer = `
+<iframe 
+    width="560" 
+    height="315" 
+    src="${BASE_TREILER_URL}${key}" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
+ `;
+    modalTrailerIfraim.insertAdjacentHTML('beforeend', trailer)
+};
+
+function videoFrameClean() {
+    modalTrailerIfraim.innerHTML = '';
+};
+
+
+closeTrailer.addEventListener('click', closeModalTrailer);
+
+function closeModalTrailer() {
+  videoFrameClean();
+  modalTrailer.classList.add('modal-trailer--is-hidden');
 }
