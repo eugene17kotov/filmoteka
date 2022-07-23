@@ -1,3 +1,5 @@
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 import {
   logregMarkup,
   registerMarkup,
@@ -7,13 +9,20 @@ import {
 
 import {
   logUser,
-  getCurrentUser,
   watchUser,
   logOut,
   createNote,
   readNote,
   createNewUser,
 } from './firebaseAuth';
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  currentUser,
+  setCurrentUser,
+} from 'firebase/auth';
+
 import {} from '@firebase/util';
 
 // hrefs
@@ -27,27 +36,34 @@ async function onLoginBtn(e) {
   const action = e.target.fire.value;
   if (action === 'log') {
     const myUser = await logUser(email, password);
-    console.log('myUser   ');
-    console.log(myUser);
-    console.log(await getCurrentUser());
 
     if (myUser.uid) {
       cleanLoginModal();
-      readNote(myUser);
+
+      const auth = getAuth();
+      onAuthStateChanged(auth, myUser => {
+        if (myUser) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = myUser.uid;
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
+
       const dbNote = await readNote(myUser);
-      console.log('dbNote   ', dbNote);
+
       const watched = dbNote.watched;
       const queue = dbNote.queue;
 
-      // add get JSON from DB
       if (watched) {
         localStorage.setItem('watched', watched);
       }
       if (queue) {
         localStorage.setItem('queue', queue);
       }
-
-      getCurrentUser();
 
       makeLoggedHtml(` user logged as ${myUser.email} `);
     } else {
@@ -56,17 +72,12 @@ async function onLoginBtn(e) {
         .replaceAll('-', '  ')}, check your email and try again or signup! `;
     }
   } else {
-    // create a new user here
     const createdUser = await createNewUser(email, password);
-    // console.log('createdUser   ', createdUser);
+
     if (createdUser.uid) {
-      // login here
       const myUser = await logUser(email, password);
       const queue = localStorage.getItem('queue') || [];
       const watched = localStorage.getItem('watched') || [];
-      console.log(myUser);
-      console.log(queue);
-      console.log(watched);
 
       await createNote(createdUser, queue, watched);
       cleanLoginModal();
@@ -84,12 +95,10 @@ async function onLogoutBtn(e) {
   e.target.removeEventListener('click', onLogoutBtn);
 
   await logOut();
-  //   getCurrentUser();
   makeLogRegHtml();
 }
 
 function cancelLogin(e) {
-  console.log('cancelLogin');
   cleanLoginModal();
   makeLogRegHtml();
 }
@@ -103,7 +112,7 @@ export function makeLogRegHtml() {
   signup.addEventListener('click', onSignButton);
 }
 
-function makeLoggedHtml(loggedUser) {
+export function makeLoggedHtml(loggedUser) {
   hrefAuthHeaderHtml.innerHTML = loggedMarkup;
   document.getElementById('logged-user').innerText = loggedUser;
   document.getElementById('logout').addEventListener('click', onLogoutBtn);
@@ -124,7 +133,6 @@ function onSignButton(e) {
     closeBackdrop.addEventListener('click', cancelLogin);
     form.addEventListener('submit', onLoginBtn);
   } else {
-    //  qqqqqqqqqqq   qqqq qqqqq
     makeRegisterModalHtml();
     const { closeBackdrop, form } = getElementsLoginModal();
     closeBackdrop.addEventListener('click', cancelLogin);
