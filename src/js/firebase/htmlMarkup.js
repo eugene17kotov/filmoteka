@@ -11,7 +11,7 @@ export const loggedMarkup = `<div id="login-status" class="header__nav-item">
 
 export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
         <div class="fbs-modal">
-<button id="close-backdrop"  type="button" class="fbs-mob-menu-close-btn"><svg
+<button id="close-backdrop"  type="button" class="fbs-modal-close-btn"><svg
             class="menu-btn__icon"
             width="40"
             height="40"
@@ -19,7 +19,7 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
           >
             <use
               class="menu-btn__icon--close"
-              href="../../images/symbol-defs.svg#icon-close"
+              href="/symbol-defs.a8b2e413.svg#icon-close"
             ></use>
           </svg></button>
 
@@ -32,7 +32,7 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
               placeholder="mail@mail.mail"
               class="fbs-modal-label__block fbs-modal-label__block--input"/>
               <svg class="fbs-modal-icon" width="18" height="18">
-                <use href="./images/symbol-defs.svg#email-black-18dp"></use>
+                <use href="/symbol-defs.a8b2e413.svg#email-black-18dp"></use>
               </svg>
           </span>
           <label for="password" class="fbs-modal-label">enter password (min 6 symbols): </label>
@@ -41,7 +41,7 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
               placeholder="(A-Z, a-z, 0-9, !@_-)"
               class="fbs-modal-label__block fbs-modal-label__block--input"/>
               <svg class="fbs-modal-icon" width="18" height="18">
-                <use href="./images/symbol-defs.svg#person-black-18dp"></use>
+                <use href="/symbol-defs.a8b2e413.svg#person-black-18dp"></use>
               </svg>
           </span>
           <button type="submit" id="fire" value="log" class="btn fbs-modal-btn--submit">go!</button>
@@ -52,7 +52,7 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
 
 export const registerMarkup = `<div id="user-register" class="backdrop fbs-backdrop">
           <div class="fbs-modal">
-<button id="close-backdrop" type="button" class="fbs-mob-menu-close-btn"><svg
+<button id="close-backdrop" type="button" class="fbs-modal-close-btn"><svg
             class="menu-btn__icon"
             width="40"
             height="40"
@@ -60,7 +60,7 @@ export const registerMarkup = `<div id="user-register" class="backdrop fbs-backd
           >
             <use
               class="menu-btn__icon--close"
-              href="/src/images/symbol-defs#icon-film.svg"
+              href="/symbol-defs.a8b2e413.svg#icon-close"
             ></use>
           </svg></button>
 
@@ -73,7 +73,7 @@ export const registerMarkup = `<div id="user-register" class="backdrop fbs-backd
               placeholder="mail@mail.mail"
               class="fbs-modal-label__block fbs-modal-label__block--input"/>
               <svg class="fbs-modal-icon" width="18" height="18">
-                <use href="./images/symbol-defs.svg#email-black-18dp"></use>
+                <use href="/symbol-defs.a8b2e413.svg#email-black-18dp"></use>
               </svg>
           </span>
           <label for="password" class="fbs-modal-label">enter password (min 6 symbols): </label>
@@ -82,7 +82,7 @@ export const registerMarkup = `<div id="user-register" class="backdrop fbs-backd
               placeholder="(A-Z, a-z, 0-9, !@_-)"
               class="fbs-modal-label__block fbs-modal-label__block--input"/>
               <svg class="fbs-modal-icon" width="18" height="18">
-                <use href="./images/symbol-defs.svg#person-black-18dp"></use>
+                <use href="/symbol-defs.a8b2e413.svg#person-black-18dp"></use>
               </svg>
           </span>
           <button type="submit" id="fire" value="reg" class="btn fbs-modal-btn--submit">go!</button>

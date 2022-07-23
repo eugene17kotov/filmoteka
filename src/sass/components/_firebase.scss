@@ -90,6 +90,7 @@ align-content: center;
 }
 .fbs-backdrop {
     position: fixed;
+    z-index: 9;
     top: 0;
     // left: 0;
     overflow-y: scroll;
@@ -104,15 +105,12 @@ align-content: center;
     transition: opacity 350ms ease-in, visibility 350ms ease-in;
 }
 .fbs-modal {
-    //     height: 100%;
+        height: 100%;
 //     min-height: 400px;
-
-        @include media-min($mob) {
             width: 320px;
-            min-height: 609px;
-        }
-
-        @include media-min($desk) {
+            // min-height: 609px;
+ 
+        @include media-min($tab) {
             width: 530px;
             min-height: 580px;
         }
@@ -218,6 +216,11 @@ align-content: center;
 
 .fbs-modal-btn--submit {
 
-    @include font(700px, 32px, auto, auto);
+    @include font(900px, 32px, auto, auto);
+    &:hover,
+    &:focus {
+        background-color: $accent-color;
+        // : $accent-hover-color;
+    }
 }
 
