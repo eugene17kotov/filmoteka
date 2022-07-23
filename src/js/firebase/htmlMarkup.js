@@ -40,3 +40,5 @@ export const registerMarkup = `<div id="user-register">
           <p id="login-error"></p>
         </form>
       </div>`;
+
+// import svgClose from '../../images/symbol-defs.svg';
