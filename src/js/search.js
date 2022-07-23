@@ -37,7 +37,7 @@ export async function onFormSubmit(e) {
     return;
   }
 
-if (SEARCH_URL !== true) {
+if (SEARCH_URL === false) {
     toTrendingBtn.classList.remove('is-hidden');
     refs.gallery.classList.remove('gallery');
     let noMovieToMatch = refs.gallery.innerHTML = '<p class="mainsection-container">Search result not successful. Enter the correct movie name.</p>';
@@ -86,7 +86,7 @@ async function onInputText(e) {
   if (searchText === '') {
     return;
   }
-  if (SEARCH_URL !== true) {
+  if (SEARCH_URL === false) {
     toTrendingBtn.classList.remove('is-hidden');
     refs.gallery.classList.remove('gallery');
     let noMovieToMatch = refs.gallery.innerHTML = '<p class="mainsection-container">Search result not successful. Enter the correct movie name.</p>';
