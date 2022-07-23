@@ -20,7 +20,6 @@ onAuthStateChanged(auth, myUser => {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
     const uid = myUser.uid;
-    // console.log(uid);
     makeLoggedHtml(` user logged as ${myUser.email} `);
     // ...
   } else {
@@ -30,5 +29,3 @@ onAuthStateChanged(auth, myUser => {
     makeLogRegHtml();
   }
 });
-
-// // save test object to localStorage

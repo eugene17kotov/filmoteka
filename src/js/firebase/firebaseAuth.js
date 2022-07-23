@@ -30,14 +30,9 @@ export function connectToBD() {
   return getDatabase(app);
 }
 
-// create new user
-
 export async function createNewUser(email, password) {
   const auth = getAuth();
-  // firebase.auth.Auth.Persistence.LOCAL;
-  // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-  // setPersistence(auth, browserSessionPersistence);
-  // setPersistence(auth, browserLocalPersistence);
+
   return await createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       // Signed in
@@ -49,8 +44,7 @@ export async function createNewUser(email, password) {
       const errorCode = error.code;
       const errorMessage = error.message;
       // ..
-      // console.log(errorCode);
-      // console.log(errorMessage);
+
       return errorCode;
     });
 }
@@ -61,37 +55,17 @@ export async function logUser(email, password) {
   setPersistence(auth, browserSessionPersistence);
   return await signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      // console.log(userCredential);
-      // Signed in // 112233
       const user = userCredential.user;
-      // console.log(' logUser  ', user);
+
       return user;
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // console.log(errorCode);
-      // console.log(errorMessage);
+
       return errorCode;
     });
 }
-
-// current user
-// export async function getCurrentUser() {
-//   const auth = getAuth();
-//   const user = auth.currentUser;
-//   return user;
-//   if (user) {
-//     // User is signed in, see docs for a list of available properties
-//     // https://firebase.google.com/docs/reference/js/firebase.User
-//     // ...
-//   } else {
-//     // No user is signed in.
-//   }
-// }
-
-//
-//
 
 export async function watchUser(user) {
   const auth = getAuth();
@@ -114,7 +88,6 @@ export async function logOut() {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
-      // console.log('Sign-out successful.');
     })
     .catch(error => {
       // An error happened.
@@ -126,32 +99,23 @@ export async function logOut() {
 export async function createNote(user, queue, watched) {
   const database = getDatabase();
   await set(ref(database, 'galleries/' + user.uid), {
-    // userID: user.uid,
-    // email: user.email,
-    // timeStamp: Date.now(),
-    // created: Date(),
     queue,
     watched,
   });
 }
 
-// function readeNote()
 export async function readNote(user) {
   const dbRef = ref(getDatabase());
   return await get(child(dbRef, `galleries/${user.uid}`))
     .then(snapshot => {
       if (snapshot.exists()) {
         const data = snapshot.val();
-        // console.log(data);
         return data;
       } else {
-        // console.log('No data available');
       }
       return snapshot.val();
     })
-    .catch(error => {
-      // console.error(error);
-    });
+    .catch(error => {});
 }
 //
 //function updateNote() {}
