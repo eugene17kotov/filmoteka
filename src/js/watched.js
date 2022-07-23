@@ -2,12 +2,11 @@ import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 import { getMovies } from './api/fetch-movie';
 import { localstorage } from './localstorage.js';
 import { muvieObject } from './movie-modal';
-import { fetchByIds } from './queue.js';
 import {
   startPaginationObserver,
   stopPaginationObserver,
 } from './infinity-scroll';
-import { createLibraryMovieMarkup } from './queue';
+import { renderMovieCardsLibrary } from './queue';
 import { loader, startLoader, stopLoader } from './loader';
 
 const addToWatchedButton = document.querySelector('.to-watched');
@@ -43,7 +42,7 @@ export function onAddToWatchedBtnClick() {
     localstorage.removeFilm('watched', muvieObject);
     addToWatchedButton.classList.remove('is-active');
   }
-  //!VIktor: add check if button is active to prevent changing library tabs
+
   if (
     libraryGallery &&
     libraryWatchedBtn.classList.contains('library__item-btn--active')
@@ -55,16 +54,16 @@ export function onAddToWatchedBtnClick() {
 libraryWatchedBtn &&
   libraryWatchedBtn.addEventListener('click', onWatchedBtnClick);
 
-let watchedMovieId;
-let parseWatchedMovieId;
+let watchedMovieId = localStorage.getItem('watched');
+let parseWatchedMovieId = JSON.parse(watchedMovieId);
 
-function onWatchedBtnClick() {
+async function onWatchedBtnClick() {
   stopPaginationObserver();
   libraryQueueBtn.classList.remove('library__item-btn--active');
   libraryWatchedBtn.classList.add('library__item-btn--active');
 
   watchedMovieId = localStorage.getItem('watched');
-  parseWatchedMovieId = JSON.parse(watchedMovieId);
+  parseWatchedMovieId = JSON.parse(watchedMovieId).slice(0, 9);
 
   clearGallery();
 
@@ -78,7 +77,14 @@ function onWatchedBtnClick() {
     getPlugHidden();
   }
 
-  fetchWatched(watchedMovieId);
+  startLoader();
+
+  await renderMovieCardsLibrary(parseWatchedMovieId);
+
+  startPaginationObserver();
+  setTimeout(() => {
+    stopLoader();
+  }, 300);
 }
 
 function clearGallery() {
@@ -93,32 +99,4 @@ function getPlugVisible() {
 
 function getPlugHidden() {
   libraryTextContainer.classList.add('visually-hidden');
-}
-
-function fetchWatched(watchedMovieId) {
-  const moviesIDInWatched = JSON.parse(watchedMovieId);
-
-  const TEMPVAR = moviesIDInWatched.map(film => film.id);
-
-  //!Viktor: add slice method to moviesIDInWatched for showing only 6 cards when function  onWatchedBtnClick is executed and rewrite fetchById func to fetchByIds
-  // moviesIDInWatched.slice(0, 6).map(movieID => {
-  //   fetchById(movieID).then(res => {
-  //     renderMovieCardsLibrary(res);
-  //   });
-  // });
-  fetchByIds(TEMPVAR.slice(0, 6)).then(movies => {
-    movies.forEach(movie => renderMovieCardsLibrary(movie));
-    startPaginationObserver();
-  });
-}
-
-// function fetchById(movieId) {
-//   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
-//   return getMovies(idURL);
-// }
-
-function renderMovieCardsLibrary(movie) {
-  const movieGalleryMarkup = createLibraryMovieMarkup(movie);
-
-  libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
 }

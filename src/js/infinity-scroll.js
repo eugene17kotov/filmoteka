@@ -1,6 +1,8 @@
 import { libraryGallery } from './queue';
-import { fetchByIds } from './queue';
 import { renderMovieCardsLibrary } from './queue';
+import { loader, startLoader, stopLoader } from './loader';
+
+export const scrollGuardRef = document.querySelector('.scroll-guard');
 
 export const options = {
   rootMargin: '250px',
@@ -10,46 +12,50 @@ export const options = {
 const observer = new IntersectionObserver(scrollPagination, options);
 
 export function startPaginationObserver() {
-  observer.observe(document.querySelector('.scroll-guard'));
+  observer.observe(scrollGuardRef);
 }
 
 export function stopPaginationObserver() {
-  observer.unobserve(document.querySelector('.scroll-guard'));
+  observer.unobserve(scrollGuardRef);
 }
 
 function scrollPagination(entries) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       addNewCards();
-      slowScrollOnAddCards();
     }
   });
 }
-function addNewCards() {
+
+async function addNewCards() {
   const activeButton = document.querySelector('.library__item-btn--active');
   const actualArray = libraryGallery.querySelectorAll('li');
   const parsedObject = JSON.parse(
     localStorage.getItem(activeButton.dataset['action'])
   );
 
-  const idArray = parsedObject.map(film => film.id);
+  if (parsedObject && actualArray.length < parsedObject.length) {
+    startLoader();
 
-  if (idArray && actualArray.length < idArray.length) {
-    fetchByIds(idArray.slice(actualArray.length, actualArray.length + 3)).then(
-      movies => {
-        movies.forEach(movie => renderMovieCardsLibrary(movie));
-      }
+    await renderMovieCardsLibrary(
+      parsedObject.slice(actualArray.length, actualArray.length + 9)
     );
+
+    setTimeout(() => {
+      stopLoader();
+    }, 500);
+
+    slowScrollOnAddCards(libraryGallery);
   }
 
   if (parsedObject === null || actualArray.length === parsedObject.length) {
-    observer.unobserve(document.querySelector('.scroll-guard'));
+    stopPaginationObserver();
   }
 }
 
-function slowScrollOnAddCards() {
+export function slowScrollOnAddCards(gallery) {
   const { height: cardHeight } =
-    libraryGallery.firstElementChild.getBoundingClientRect();
+    gallery.firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
     top: cardHeight * 1,

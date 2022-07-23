@@ -25,6 +25,8 @@ libraryQueueBtn &&
 libraryQueueBtn && onLibraryQueueBtnClick();
 libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 
+// Add to Queue button logic
+
 function inLocalStorage(value) {
   if (localStorage.getItem('queue') !== null) {
     if (!JSON.parse(localStorage.getItem('queue').includes(value))) {
@@ -61,13 +63,15 @@ export async function onBtnQueueClick() {
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
+// Library Queue button logic
+
 async function onLibraryQueueBtnClick() {
   stopPaginationObserver();
   libraryWatchedBtn.classList.remove('library__item-btn--active');
   libraryQueueBtn.classList.add('library__item-btn--active');
   queueMovieId = localStorage.getItem('queue');
 
-  parseQueueMovieId = JSON.parse(queueMovieId);
+  parseQueueMovieId = JSON.parse(queueMovieId).slice(0, 9);
 
   clearGallery();
 
@@ -79,11 +83,16 @@ async function onLibraryQueueBtnClick() {
     return;
   } else if (!libraryTextContainer.classList.contains('visually-hidden')) {
     getPlugHidden();
-    startLoader();
   }
 
-  await fetchQueue(queueMovieId);
-  stopLoader();
+  startLoader();
+
+  await renderMovieCardsLibrary(parseQueueMovieId);
+
+  startPaginationObserver();
+  setTimeout(() => {
+    stopLoader();
+  }, 300);
 }
 
 function clearGallery() {
@@ -100,41 +109,10 @@ function getPlugHidden() {
   libraryTextContainer.classList.add('visually-hidden');
 }
 
-function fetchQueue(queueMovieId) {
-  const moviesIDInQueue = JSON.parse(queueMovieId);
-
-  const TEMPVAR = moviesIDInQueue.map(film => film.id);
-
-  //!VIktor: added slice method to moviesIDInQueue for showing only 6 cards when function onLibraryQueueBtnClick is executed
-  // moviesIDInQueue.slice(0, 6).map(movieID => {
-  //   fetchById(movieID).then(res => {
-  //     renderMovieCardsLibrary(res);
-  //   });
-  // });
-  fetchByIds(TEMPVAR.slice(0, 6)).then(movies => {
-    movies.forEach(movie => renderMovieCardsLibrary(movie));
-    startPaginationObserver();
-  });
-}
-
-export async function fetchByIds(Ids) {
-  let movies = [];
-  for (let i = 0; i < Ids.length; i += 1) {
-    const idURL = `${ID_URL}${Ids[i]}?api_key=${API_KEY}&language=en-US`;
-    const response = await axios.get(`${idURL}`);
-    movies.push(response.data);
-    // getMovies(idURL).then(movie => movies.push(movie));
-  }
-  return movies;
-}
-//! VIktor:Replace fetchById func with fetchByIds cause we need to get from backend
-// export function fetchById(movieId) {
-//   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
-//   return getMovies(idURL);
-// }
-
-export function renderMovieCardsLibrary(movie) {
-  const movieGalleryMarkup = createLibraryMovieMarkup(movie);
+export function renderMovieCardsLibrary(movies) {
+  const movieGalleryMarkup = movies
+    .map(movie => createLibraryMovieMarkup(movie))
+    .join('');
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
 }
@@ -149,7 +127,6 @@ export function createLibraryMovieMarkup(movie) {
 
   const queueGenres = getQueueMovieGenresList(genres);
 
-  //!Viktor: rewrite createLibraryMovieMarkup func, add poster_path verification and delete useless markup
   poster_src =
     poster_path === null
       ? 'https://dummyimage.com/395x574/000/fff.jpg&text=no+poster'

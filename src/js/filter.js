@@ -70,6 +70,7 @@ function toTrendingBtnClick() {
 
   filter.classList.remove('is-hidden');
   toTrendingBtn.classList.add('is-hidden');
+  form.reset();
 
   if (anchorNodeWeek.classList.contains('.selected')) {
     return;
