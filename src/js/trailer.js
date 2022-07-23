@@ -1,7 +1,6 @@
-// import * as basicLightbox from 'basiclightbox';
+import { BasicLightBox } from 'basiclightbox';
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, API_KEY } from './api/api-vars';
-import { trailer } from './trailer';
 const btnModalTrailer = document.querySelector('.modal-film__play-btn');
 
 //Фетч треллера
@@ -11,7 +10,8 @@ async function fetchTrailer(movieId) {
   return responce;
 }
 
-export async function trailer(e) {
+export function trailer(e) {
+  console.log(e.target.dataset);
   fetchTrailer(Number(e.target.dataset.id))
     .then(data => {
       trailerRender(data);
@@ -23,7 +23,7 @@ export async function trailer(e) {
 // console.log(modalTrailer);
 
 function trailerRender(data) {
-  const instance = basicLightbox.create(
+  const instance = BasicLightBox.create(
     `<div class="modal-trailer__backdrop">
           <iframe class="iframe" width="640" height="480" frameborder="0" allowfullscreen allow='autoplay'
             src="https://www.youtube.com/embed/${data.results[0].key}?autoplay=1" >

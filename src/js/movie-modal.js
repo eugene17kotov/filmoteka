@@ -182,8 +182,7 @@ export function modalFilmCart({
           <p class="value">${getGenresNames(genres)}</p>
           <p class="value"> 
            <button class="modal-film__play-btn" type="button" ></button>
-           Watch Trailer
-        </p>
+          </p>
         
       </div>
   </div>
