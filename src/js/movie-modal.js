@@ -3,6 +3,7 @@ import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
+import { loader, startLoader, stopLoader } from './loader';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -23,7 +24,7 @@ const {
   contentRef,
   addToWatchedButton,
 } = refs;
-
+export let muvieObject = {};
 const toTopBtn = document.getElementById('myBtn');
 
 function addAllEventListenersModal() {
@@ -36,7 +37,7 @@ function addAllEventListenersModal() {
 
 function onCloseBtnClick(e) {
   e.preventDefault();
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
@@ -46,16 +47,16 @@ function onKeydownEscape(e) {
   if (e.code !== 'Escape') {
     return;
   }
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
 
 function onBackdropClick(e) {
-  if (!e.target.classList.contains('backdrop')) {
+  if (!e.target.classList.contains('movie-backdrop')) {
     return;
   }
-  backdrop.classList.add('is-hidden');
+  backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
 }
@@ -66,7 +67,7 @@ function removeAllEventListenersModal() {
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
-  document.body.classList.toggle('modal-open');
+  document.body.classList.remove('modal-open');
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
@@ -74,35 +75,56 @@ cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 let movieId;
 
 // клик
-function clickOnMovieHandler(e) {
+async function clickOnMovieHandler(e) {
   e.preventDefault();
 
   if (e.target.nodeName !== 'IMG') {
     return;
   }
 
-  backdrop.classList.remove('is-hidden');
-  document.body.classList.toggle('modal-open');
-  toTopBtn.style.display = 'none';
+  startLoader();
 
   movieId = e.target.dataset.id;
   backdrop.setAttribute('id', movieId);
 
-  fetchById(movieId);
+  await fetchById(movieId);
+
+  stopLoader();
+
+  backdrop.classList.remove('movie-backdrop--is-hidden');
+  document.body.classList.add('modal-open');
+  toTopBtn.style.display = 'none';
 
   addAllEventListenersModal();
 
   whichBtnShow(movieId);
   whichBtnShowInWatchedFilms(movieId);
+
+  // add/remove is-active class on buttons
+  if (addToWatchedButton.textContent.toLowerCase() === 'add to watched') {
+    addToWatchedButton.classList.remove('is-active');
+  } else {
+    addToWatchedButton.classList.add('is-active');
+  }
+
+  if (queueBtn.textContent.toLowerCase() === 'add to queue') {
+    queueBtn.classList.remove('is-active');
+  } else {
+    queueBtn.classList.add('is-active');
+  }
 }
 
 //Фетч фильма по ID
-function fetchById(movieId) {
+async function fetchById(movieId) {
   const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
 
-  getMovies(idURL).then(res => {
-    renderFilmCard(res);
-  });
+  const responce = await getMovies(idURL);
+
+  renderFilmCard(responce);
+
+  muvieObject = responce;
+
+  return responce;
 }
 
 function renderFilmCard(film) {
@@ -121,6 +143,7 @@ function modalFilmCart({
   overview,
   poster_path,
 }) {
+  let roundPopularity = Math.round(popularity);
   let imageMarkup = `
   <img 
     src="${BASE_IMG_URL}${poster_path}"
@@ -148,7 +171,7 @@ function modalFilmCart({
       </div>
       <div class="values">
           <p class="value"><span class="first-mark">${vote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
-          <p class="value">${popularity}</p>
+          <p class="value">${roundPopularity}</p>
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
           

@@ -12,7 +12,12 @@
           </a>
           <!--  -->
           <button type="button" class="header-mob-menu-open-btn">
-            <svg class="menu-btn__icon" aria-label="Включение моб. меню heder">
+            <svg
+              class="menu-btn__icon"
+              aria-label="Включение моб. меню heder"
+              width="32"
+              height="32"
+            >
               <use href="./././images/symbol-defs.svg#icon-menu"></use>
             </svg>
           </button>
@@ -55,6 +60,33 @@
           </button>
         </form>
       </div>
+    </div>
+
+    <div class="theme-switch home">
+      <svg class="theme-switch__icon sun" role="img" aria-label="Иконка солнца">
+        <use href="./images/sprite.svg#sun"></use>
+      </svg>
+
+      <div class="theme-switch__control">
+        <input
+          class="theme-switch__toggle"
+          type="checkbox"
+          name="theme"
+          id="theme-switch-toggle"
+          aria-label="Переключить между тёмной и светлой темой"
+        />
+        <label
+          aria-hidden="true"
+          class="theme-switch__track"
+          for="theme-switch-toggle"
+        >
+        </label>
+        <div aria-hidden="true" class="theme-switch__marker"></div>
+      </div>
+
+      <svg class="theme-switch__icon moon" aria-label="Иконка луны">
+        <use href="./images/sprite.svg#moon"></use>
+      </svg>
     </div>
   </div>
 

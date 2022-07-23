@@ -1,4 +1,3 @@
-$trans-time: 300ms;
 body.header-menu-open {
   overflow: hidden;
 }
@@ -133,6 +132,7 @@ body.header-menu-open {
 }
 
 .header__container {
+  position: relative;
   max-width: 100%;
   margin: 0 auto;
   padding: 0 20px;
@@ -156,6 +156,7 @@ body.header-menu-open {
   }
 }
 .header__nav {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -197,7 +198,9 @@ body.header-menu-open {
   align-items: center;
   display: flex;
   color: white;
-  transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+
+  transition: color $trans-time ease-in;
+
   &-icon {
     width: 32px;
     height: 32px;
@@ -219,7 +222,8 @@ body.header-menu-open {
     }
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $accent-color;
   }
 }
@@ -257,6 +261,10 @@ body.header-menu-open {
   justify-content: center;
   color: white;
 
+  @include media-min-max($mob, $mob-max-width) {
+    margin-left: 10px;
+  }
+
   &-input {
     background-color: transparent;
     border-top: none;
@@ -282,7 +290,7 @@ body.header-menu-open {
     }
 
     @include media-min-max($mob, $mob-max-width) {
-      width: 278px;
+      width: 100%;
     }
 
     width: 336px;
@@ -317,7 +325,6 @@ body.header-menu-open {
 
 .library-btn {
   margin-top: 45px;
-  cursor: pointer;
   &-list {
     display: flex;
     justify-content: center;
@@ -348,11 +355,16 @@ body.header-menu-open {
   color: $secondary-text-color;
   background-color: transparent;
   align-content: center;
-  transition: background-color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
+  transition: box-shadow $trans-time ease-in,
+    background-color $trans-time ease-in;
 
   &--active {
     background-color: $accent-color;
     border: $accent-color;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   }
 
   &:hover,
@@ -384,16 +396,26 @@ body.header-menu-open {
   }
 }
 .menu-btn__icon {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+
   color: white;
   fill: currentColor;
-  width: 32px;
-  height: 32px;
+  transition: color 300ms ease-in;
+
+  &:hover,
+  &:focus {
+    color: $accent-color;
+  }
+  // width: 32px;
+  // height: 32px;
 }
 
 @media screen and(max-width: 768px) {
   .header-mob-menu {
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     font-size: larger;
     font-weight: 600;
     //   background-image: url(../images/add-giphy.gif);
