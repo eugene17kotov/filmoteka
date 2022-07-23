@@ -1,4 +1,4 @@
-import { API_KEY, SEARCH_URL } from './api/api-vars';
+import { BASE_URL, API_KEY, SEARCH_URL, ID_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
 import { renderPagination } from './pagination'; //Viktor;
 import { renderMovieCards } from './render-movie-cards';
@@ -17,7 +17,7 @@ const refs = {
   filter: document.querySelector('.filter'),
 };
 
-console.log(refs.mainSection)
+
 export function searchMovies(searchText) {
   const searchUrl = `${SEARCH_URL}&query=${searchText}`;
   localStorage.setItem('LAST_REQUESTED_URL', searchUrl);
@@ -26,8 +26,8 @@ export function searchMovies(searchText) {
 
 let searchText = '';
 
-// Search by submit
 
+// Search by submit
 export async function onFormSubmit(e) {
   e.preventDefault();
   
@@ -36,8 +36,8 @@ export async function onFormSubmit(e) {
   if (searchText === '') {
     return;
   }
-
-if (SEARCH_URL === false) {
+  if (SEARCH_URL.total_results === undefined) {
+ 
     toTrendingBtn.classList.remove('is-hidden');
     refs.gallery.classList.remove('gallery');
     let noMovieToMatch = refs.gallery.innerHTML = '<p class="mainsection-container">Search result not successful. Enter the correct movie name.</p>';
@@ -47,6 +47,10 @@ if (SEARCH_URL === false) {
     refs.mainSection.classList.add('mainsection-container');
     return [noMovieToMatch, paginationWhenMovieIsNotFound,noFilter];
   }
+ 
+
+
+
 
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
@@ -86,7 +90,8 @@ async function onInputText(e) {
   if (searchText === '') {
     return;
   }
-  if (SEARCH_URL === false) {
+  if (SEARCH_URL.total_results === undefined) {
+ 
     toTrendingBtn.classList.remove('is-hidden');
     refs.gallery.classList.remove('gallery');
     let noMovieToMatch = refs.gallery.innerHTML = '<p class="mainsection-container">Search result not successful. Enter the correct movie name.</p>';
