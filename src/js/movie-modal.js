@@ -4,7 +4,7 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { loader, startLoader, stopLoader } from './loader';
-import { trailer } from './trailer';
+ import { onTreilerBtnClick, closeModalTrailer } from './trailer';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -95,10 +95,7 @@ export async function clickOnMovieHandler(e) {
 
   stopLoader();
 
-//трейлер
-  const trailerBtn = document.querySelector('.modal-film__play-btn');
-  // trailerBtn && trailerBtn.addEventListener('click', trailer(e));
-  console.log(trailerBtn);
+
 
 
 
@@ -124,6 +121,10 @@ export async function clickOnMovieHandler(e) {
   } else {
     queueBtn.classList.add('is-active');
   }
+
+
+
+
 }
 
 //Фетч фильма по ID
@@ -134,6 +135,14 @@ async function fetchById(movieId) {
 
   renderFilmCard(responce);
 
+// //трейлер
+const trailerBtn = document.querySelector('.modal-film__play-btn');
+// trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
+console.log(trailerBtn);
+trailerBtn.addEventListener('click', onTreilerBtnClick);
+// closeModalTrailer()
+
+
   muvieObject = responce;
 
   return responce;
@@ -142,6 +151,7 @@ async function fetchById(movieId) {
 function renderFilmCard(film) {
   modalFilmCart(film);
 }
+
 
 const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
 

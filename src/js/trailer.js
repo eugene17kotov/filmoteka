@@ -22,7 +22,7 @@ async function fetchTrailer(movieId) {
 
 }
 
-function onTreilerBtnClick(e) {
+export function onTreilerBtnClick(e) {
   modalTrailer.classList.remove('modal-trailer--is-hidden');
   videoFrameClean();
   videoFrameCreate();
@@ -37,8 +37,8 @@ function videoFrameCreate(key) {
     
     const trailer = `
 <iframe 
-    width="560" 
-    height="315" 
+     width="560px" 
+     height="300px"  
     src="${BASE_TREILER_URL}${key}" 
     title="YouTube video player" 
     frameborder="0" 
@@ -54,9 +54,9 @@ function videoFrameClean() {
 };
 
 
-closeTrailer.addEventListener('click', closeModalTrailer);
+// closeTrailer.addEventListener('click', closeModalTrailer);
 
-function closeModalTrailer() {
+export function closeModalTrailer() {
   videoFrameClean();
   modalTrailer.classList.add('modal-trailer--is-hidden');
 }
