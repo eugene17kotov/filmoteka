@@ -57,7 +57,7 @@ btnWeek.addEventListener('click', () => {
   }
 });
 
-function renderMovies(url) {
+export function renderMovies(url) {
   getMovies(url).then(response => {
     renderMovieCards(response.results);
   });

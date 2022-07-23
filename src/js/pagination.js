@@ -3,7 +3,7 @@ import { renderMovieCards } from './render-movie-cards';
 import { topFunction } from './scroll-up';
 import { loader, startLoader, stopLoader } from './loader';
 
-const paginationWrapRef = document.querySelector('.pagination-wrap');
+export const paginationWrapRef = document.querySelector('.pagination-wrap');
 
 export function renderPagination(currentPage, totalPages) {
   let buttons = [];
