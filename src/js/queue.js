@@ -1,16 +1,13 @@
-import axios from 'axios';
-
-import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
+import { BASE_IMG_URL } from './api/api-vars.js';
 import { localstorage } from './localstorage.js';
 import { muvieObject } from './movie-modal';
 import {
   startPaginationObserver,
   stopPaginationObserver,
 } from './infinity-scroll';
-import { loader, startLoader, stopLoader } from './loader';
+import { startLoader, stopLoader } from './loader';
 
 const queueBtn = document.querySelector('.to-queue');
-const bg = document.querySelector('.backdrop');
 const libraryTextContainer = document.querySelector('.library-text');
 export const libraryGallery = document.querySelector('.library-gallery');
 const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
@@ -20,6 +17,8 @@ const libraryWatchedBtn = document.querySelector(
 let queueMovieId = localStorage.getItem('queue');
 let parseQueueMovieId = JSON.parse(queueMovieId);
 
+// Library page enter
+
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 libraryQueueBtn && onLibraryQueueBtnClick();
@@ -27,51 +26,37 @@ libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 
 // Add to Queue button logic
 
-function inLocalStorage(value) {
-  if (localStorage.getItem('queue') !== null) {
-    if (!JSON.parse(localStorage.getItem('queue').includes(value))) {
-      return false;
-    }
-    return true;
-  }
-  return true;
-}
-
 export async function onBtnQueueClick() {
   if (localStorage.getItem('queue') === null) {
     localStorage.setItem('queue', '[]');
   }
 
-  if (!inLocalStorage(muvieObject.id)) {
+  if (!inLocalStorage(muvieObject, 'queue')) {
     queueBtn.textContent = 'Remove from queue';
     queueBtn.classList.add('is-active');
     localstorage.setFilm('queue', muvieObject);
+    checkCurrentPageAndRewrite(libraryQueueBtn, 1);
   } else {
     queueBtn.textContent = 'Add to queue';
     queueBtn.classList.remove('is-active');
     localstorage.removeFilm('queue', muvieObject);
-  }
-  //!VIktor: add check if button is active to prevent changing library tabs
-  if (
-    libraryGallery &&
-    libraryQueueBtn.classList.contains('library__item-btn--active')
-  ) {
-    onLibraryQueueBtnClick();
+    checkCurrentPageAndRewrite(libraryQueueBtn, -1);
   }
 }
+
+// Library Queue button logic
 
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
-// Library Queue button logic
-
 async function onLibraryQueueBtnClick() {
   stopPaginationObserver();
+
   libraryWatchedBtn.classList.remove('library__item-btn--active');
   libraryQueueBtn.classList.add('library__item-btn--active');
-  queueMovieId = localStorage.getItem('queue');
 
-  parseQueueMovieId = JSON.parse(queueMovieId).slice(0, 9);
+  queueMovieId = localStorage.getItem('queue');
+  parseQueueMovieId = JSON.parse(queueMovieId);
 
   clearGallery();
 
@@ -87,7 +72,7 @@ async function onLibraryQueueBtnClick() {
 
   startLoader();
 
-  await renderMovieCardsLibrary(parseQueueMovieId);
+  await renderMovieCardsLibrary(parseQueueMovieId.slice(0, 9));
 
   startPaginationObserver();
   setTimeout(() => {
@@ -95,17 +80,30 @@ async function onLibraryQueueBtnClick() {
   }, 300);
 }
 
-function clearGallery() {
+export function inLocalStorage(value, key) {
+  const lsWhenBtnClick = localStorage.getItem(key);
+  const filmsIdArrayInLs = JSON.parse(lsWhenBtnClick).map(film => film.id);
+
+  if (lsWhenBtnClick !== null) {
+    if (!filmsIdArrayInLs.includes(value.id)) {
+      return false;
+    }
+    return true;
+  }
+  return true;
+}
+
+export function clearGallery() {
   libraryGallery.innerHTML = '';
 }
 
-function getPlugVisible() {
+export function getPlugVisible() {
   libraryGallery.innerHTML = '';
 
   libraryTextContainer.classList.remove('visually-hidden');
 }
 
-function getPlugHidden() {
+export function getPlugHidden() {
   libraryTextContainer.classList.add('visually-hidden');
 }
 
@@ -154,4 +152,39 @@ function getQueueMovieGenresList(genres) {
     genresNames.push('Other');
   }
   return genresNames.join(', ');
+}
+
+export function checkCurrentPageAndRewrite(button, amount) {
+  if (
+    libraryGallery &&
+    button.classList.contains('library__item-btn--active')
+  ) {
+    rewriteGalleryAfterChange(amount);
+  }
+}
+
+function rewriteGalleryAfterChange(changeAmount) {
+  const actualArray = libraryGallery.querySelectorAll('li');
+  const activeButton = document.querySelector('.library__item-btn--active');
+  const parseWatchedMovie = JSON.parse(
+    localStorage.getItem(activeButton.dataset['action'])
+  );
+
+  clearGallery();
+
+  if (parseWatchedMovie.length === 0) {
+    getPlugVisible();
+    return;
+  } else if (!libraryTextContainer.classList.contains('visually-hidden')) {
+    getPlugHidden();
+  }
+
+  if (actualArray.length > 9) {
+    renderMovieCardsLibrary(
+      parseWatchedMovie.slice(0, actualArray.length + changeAmount)
+    );
+    return;
+  }
+
+  renderMovieCardsLibrary(parseWatchedMovie.slice(0, 9));
 }
