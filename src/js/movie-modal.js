@@ -137,9 +137,11 @@ async function fetchById(movieId) {
 
 // //трейлер
 const trailerBtn = document.querySelector('.modal-film__play-btn');
-// trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
+trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
 console.log(trailerBtn);
-trailerBtn.addEventListener('click', onTreilerBtnClick);
+
+closeModalTrailer()
+// trailerBtn.addEventListener('click', onTreilerBtnClick);
 // closeModalTrailer()
 
 
