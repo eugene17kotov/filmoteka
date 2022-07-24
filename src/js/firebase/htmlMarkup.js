@@ -53,7 +53,7 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
           <button type="submit" id="fire" value="log" class="btn fbs-modal-btn--submit">Login</button>
           <p id="login-error"></p>
           </div>
-          <a class="fbs-forgot" href="#">Forgot Password?</a>
+          <a class="visually-hidden fbs-forgot" href="#">Forgot Password?</a>
         </form>
 
         </div>

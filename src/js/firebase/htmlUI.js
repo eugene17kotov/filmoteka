@@ -114,7 +114,7 @@ export function makeLogRegHtml() {
 
 export function makeLoggedHtml(loggedUser) {
   hrefAuthHeaderHtml.innerHTML = loggedMarkup;
-  document.getElementById('logged-user').innerText = loggedUser;
+  document.getElementById('logged-user').innerText = ''; // logged
   document.getElementById('logout').addEventListener('click', onLogoutBtn);
 }
 
@@ -129,13 +129,15 @@ function onSignButton(e) {
 
   if (e.target === tosignin) {
     makeLoginModalHtml();
-    const { closeBackdrop, form } = getElementsLoginModal();
+    const { closeBackdrop, form, fbsBackdrop } = getElementsLoginModal();
     closeBackdrop.addEventListener('click', cancelLogin);
+    fbsBackdrop.addEventListener('click', fbsClose);
     form.addEventListener('submit', onLoginBtn);
   } else {
     makeRegisterModalHtml();
-    const { closeBackdrop, form } = getElementsLoginModal();
+    const { closeBackdrop, form, fbsBackdrop } = getElementsLoginModal();
     closeBackdrop.addEventListener('click', cancelLogin);
+    fbsBackdrop.addEventListener('click', fbsClose);
     form.addEventListener('submit', onLoginBtn);
   }
 }
@@ -144,18 +146,20 @@ function onSignButton(e) {
 
 function getElementsLoginModal() {
   const modal = document.getElementById('auth-modal');
+  const fbsBackdrop = document.querySelector('.fbs-backdrop');
   const closeBackdrop = document.getElementById('close-backdrop');
   const signup = document.getElementById('signup');
   const signin = document.getElementById('signin');
   const form =
     document.getElementById('login-form') ||
     document.getElementById('signup-form');
-  return { modal, closeBackdrop, signup, signin, form };
+  return { modal, closeBackdrop, signup, signin, form, fbsBackdrop };
 }
 
 function cleanLoginModal() {
-  const { modal, closeBackdrop, form } = getElementsLoginModal();
+  const { modal, closeBackdrop, form, fbsBackdrop } = getElementsLoginModal();
 
+  fbsBackdrop.removeEventListener('click', fbsClose);
   closeBackdrop.removeEventListener('click', cancelLogin);
 
   form.removeEventListener('submit', onLoginBtn);
@@ -169,4 +173,10 @@ function makeLoginModalHtml() {
 
 function makeRegisterModalHtml() {
   hrefModalHtml.innerHTML = registerMarkup;
+}
+
+function fbsClose(e) {
+  if (e.target === e.currentTarget) {
+    cancelLogin();
+  }
 }
