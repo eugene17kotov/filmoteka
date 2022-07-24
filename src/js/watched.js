@@ -1,3 +1,8 @@
+import { getAuth } from 'firebase/auth';
+import { createNote } from './firebase/firebaseAuth.js';
+
+import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
+import { getMovies } from './api/fetch-movie';
 import { localstorage } from './localstorage.js';
 import { movieObject } from './movie-modal';
 import {
@@ -42,6 +47,14 @@ export function onAddToWatchedBtnClick() {
     localstorage.removeFilm('watched', movieObject);
     addToWatchedButton.classList.remove('is-active');
     checkCurrentPageAndRewrite(libraryWatchedBtn, -1);
+  }
+
+  // auth
+  const currentUser = getAuth().currentUser;
+  if (currentUser !== null) {
+    const queue = localStorage.getItem('queue') || [];
+    const watched = localStorage.getItem('watched') || [];
+    createNote(currentUser, queue, watched);
   }
 }
 

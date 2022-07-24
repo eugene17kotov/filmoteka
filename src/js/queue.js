@@ -1,4 +1,10 @@
-import { BASE_IMG_URL } from './api/api-vars.js';
+import { getAuth } from 'firebase/auth';
+import { createNote } from './firebase/firebaseAuth.js';
+
+import { getMovies } from './api/fetch-movie';
+import axios from 'axios';
+
+import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
 import { localstorage } from './localstorage.js';
 import { movieObject } from './movie-modal';
 import {
@@ -41,6 +47,22 @@ export async function onBtnQueueClick() {
     queueBtn.classList.remove('is-active');
     localstorage.removeFilm('queue', movieObject);
     checkCurrentPageAndRewrite(libraryQueueBtn, -1);
+  }
+
+  libraryGallery && onLibraryQueueBtnClick();
+
+  // auth
+  // auth
+  // auth
+  // auth
+  // auth
+  // auth
+  const currentUser = getAuth().currentUser;
+
+  if (currentUser !== null) {
+    const queue = localStorage.getItem('queue') || [];
+    const watched = localStorage.getItem('watched') || [];
+    createNote(currentUser, queue, watched);
   }
 }
 

@@ -11,4 +11,4 @@ import './js/pagination';
 import './js/team-modal';
 import './js/scroll-up';
 import './js/theme-switch';
-import './js/firebase/index';
+import './js/firebase/firebase';
