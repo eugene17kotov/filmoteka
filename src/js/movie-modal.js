@@ -4,6 +4,7 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { startLoader, stopLoader } from './loader';
+import { slideGalleryRef } from "./slider";
 import { onTreilerBtnClick, closeModalTrailer } from './trailer';
 
 const refs = {
@@ -76,8 +77,14 @@ cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 export let movieId;
 
 // клик
-async function clickOnMovieHandler(e) {
+export async function clickOnMovieHandler(e) {
   e.preventDefault();
+ //!Viktor: disabling buttons for slider gallery
+  if (e.path.includes(slideGalleryRef)) {
+    queueBtn.parentElement.classList.add("visually-hidden");
+  } else {
+    queueBtn.parentElement.classList.remove("visually-hidden");
+  }
 
   if (e.target.nodeName !== 'IMG') {
     return;
