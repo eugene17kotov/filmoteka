@@ -155,7 +155,7 @@ body {
 }
 .fbs-backdrop {
   position: fixed;
-  z-index: 1999;
+  z-index: 9;
   top: 0;
   // left: 0;
   overflow-y: scroll;
@@ -169,7 +169,7 @@ body {
 
   transition: opacity 350ms ease-in, visibility 350ms ease-in;
   @media screen and (max-width: 767px) {
-    z-index: 999;
+    z-index: 1999;
   }
 }
 .fbs-modal {
