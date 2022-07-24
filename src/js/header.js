@@ -11,20 +11,26 @@
   function toggleMenu() {
     document.body.classList.toggle('header-menu-open');
     refs.menu.classList.toggle('visually-hidden');
-    // console.log(document.getElementsByTagName('body')[0].classList[0]);
+    // console.log(
+    //   document
+    //     .getElementsByTagName('body')[0]
+    //     .classList.toString()
+    //     .includes('header-menu-open')
+    // );
     if (
-      document.getElementsByTagName('body')[0].classList[0] !==
-        'header-menu-open' &&
+      !document
+        .getElementsByTagName('body')[0]
+        .classList.toString()
+        .includes('header-menu-open') &&
       window.innerWidth < 767
     ) {
       console.log('hide');
       document.getElementById('auth-header').classList.add('dispnone');
-      document.getElementById('auth-header').style.display = 'none';
     } else {
       console.log('show');
       document.getElementById('auth-header').classList.remove('dispnone');
+
       document.getElementById('auth-header').style.display = 'block';
     }
-    // document.;
   }
 })();
