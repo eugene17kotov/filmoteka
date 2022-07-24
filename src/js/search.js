@@ -30,13 +30,17 @@ let searchText = '';
 // Search by submit
 export async function onFormSubmit(e) {
   e.preventDefault();
+ 
+
   
   searchText = e.currentTarget.query.value.trim();
 
   if (searchText === '') {
     return;
   }
-  if (SEARCH_URL.total_results === undefined) {
+
+  const muvie = await searchMovies(searchText);
+  if (muvie.total_results === 0) {
  
     toTrendingBtn.classList.remove('is-hidden');
     refs.gallery.classList.remove('gallery');
@@ -47,19 +51,15 @@ export async function onFormSubmit(e) {
     refs.mainSection.classList.add('mainsection-container');
     return [noMovieToMatch, paginationWhenMovieIsNotFound,noFilter];
   }
- 
 
 
-
-
-  filter.classList.add('is-hidden');
+    filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
 
   refs.loader.classList.remove('backdrop-loader--is-hidden');
 
   clearGallery();
-
-  const muvie = await searchMovies(searchText);
+ 
 
   refs.loader.classList.add('backdrop-loader--is-hidden');
 
@@ -90,7 +90,9 @@ async function onInputText(e) {
   if (searchText === '') {
     return;
   }
-  if (SEARCH_URL.total_results === undefined) {
+
+  const muvie = await searchMovies(searchText);
+if (muvie.total_results === 0) {
  
     toTrendingBtn.classList.remove('is-hidden');
     refs.gallery.classList.remove('gallery');
@@ -102,15 +104,15 @@ async function onInputText(e) {
     return [noMovieToMatch, paginationWhenMovieIsNotFound,noFilter];
   }
 
-  filter.classList.add('is-hidden');
+
+    filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
 
   refs.loader.classList.remove('backdrop-loader--is-hidden');
 
   clearGallery();
 
-  const muvie = await searchMovies(searchText);
-
+  // 
   refs.loader.classList.add('backdrop-loader--is-hidden');
 
   renderMovieCards(muvie.results);
