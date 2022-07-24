@@ -1,14 +1,14 @@
 import icons from '../../images/symbol-defs.svg';
-  
-export const logregMarkup = `<div id="login-status" class="fbs__nav-item">
+
+export const logregMarkup = `<div id="login-status" class="login-status">
         <button id="tosignin"  type="button" class="fbs__nav-btn">sign in</button>
         <span class="fbs-header-span">  </span>
         <button id="tosignup"  type="button" class="fbs__nav-btn">sign up</button>
       </div>`;
 
-export const loggedMarkup = `<div id="login-status" class="fbs__nav-item">
+export const loggedMarkup = `<div id="login-status" class="login-status">
         <span id="logged-user"></span>
-        <button id="log out"  type="button" class="fbs__nav-btn">logout</button>
+        <button id="logout"  type="button" class="fbs__nav-btn">logout</button>
       </div>`;
 
 export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">

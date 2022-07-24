@@ -10,8 +10,8 @@ body.header-menu-open {
 
 .header--home,
 .header--library {
-  padding-top: 46px; 
-} 
+  padding-top: 46px;
+}
 .header--home {
   @include media-min($mob) {
     background: url('../images/header-img/header-home-mob-1.jpg');
@@ -144,14 +144,19 @@ body.header-menu-open {
 
   @include media-min($tab) {
     width: $tab;
-    padding: 0 230px 0 32px;
+    // padding: 0 230px 0 32px;
   }
 
   @include media-min($desk) {
     width: $desk;
   }
 }
+
 .header__section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   @include media-max($mob) {
     display: inline-flex;
   }
@@ -164,7 +169,7 @@ body.header-menu-open {
 
   &-list {
     display: none;
-    @include media-max($tab){
+    @include media-max($tab) {
       position: absolute;
       top: 0;
       right: 0;
@@ -173,6 +178,7 @@ body.header-menu-open {
     @include media-min($tab) {
       display: flex;
       list-style: none;
+      margin-left: 30px;
     }
   }
 
@@ -250,7 +256,6 @@ body.header-menu-open {
     color: $accent-color;
   }
 }
-
 
 .header__filmsearch {
   position: relative;
