@@ -89,6 +89,10 @@ async function clickOnMovieHandler(e) {
 
   await fetchById(movieId);
 
+  const trailerBtn = document.querySelector('.modal-film__play-btn');
+
+  trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
+
   stopLoader();
 
   backdrop.classList.remove('movie-backdrop--is-hidden');
@@ -168,12 +172,16 @@ function modalFilmCart({
           <p class="property">Popularity</p>
           <p class="property">Original Title</p>
           <p class="property">Genre</p>
+          <p class="property property--trailer">Trailer</p>
       </div>
       <div class="values">
           <p class="value"><span class="first-mark">${vote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
           <p class="value">${roundPopularity}</p>
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
+          <p class="value"> 
+           <button class="modal-film__play-btn" type="button" ></button>
+          </p>
           
       </div>
   </div>
