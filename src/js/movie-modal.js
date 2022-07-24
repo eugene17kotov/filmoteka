@@ -3,8 +3,8 @@ import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
-import { loader, startLoader, stopLoader } from './loader';
- import { onTreilerBtnClick, closeModalTrailer } from './trailer';
+import { onTreilerBtnClick, closeModalTrailer } from './trailer';
+import { startLoader, stopLoader } from './loader';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -14,7 +14,6 @@ const refs = {
   imgRef: document.querySelector('.image-container'),
   contentRef: document.querySelector('.content-markup'),
   addToWatchedButton: document.querySelector('.to-watched'),
-  
 };
 
 const {
@@ -25,58 +24,13 @@ const {
   imgRef,
   contentRef,
   addToWatchedButton,
- } = refs;
-
-
-export let muvieObject = {};
+} = refs;
+export let movieObject = {};
 const toTopBtn = document.getElementById('myBtn');
-
-function addAllEventListenersModal() {
-  closeBtn.addEventListener('click', onCloseBtnClick);
-  window.addEventListener('keydown', onKeydownEscape);
-  backdrop.addEventListener('click', onBackdropClick);
-  queueBtn.addEventListener('click', onBtnQueueClick);
-  addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
-}
-
-function onCloseBtnClick(e) {
-  e.preventDefault();
-  backdrop.classList.add('movie-backdrop--is-hidden');
-  scrollFunction();
-  removeAllEventListenersModal();
-}
-
-function onKeydownEscape(e) {
-  e.preventDefault();
-  if (e.code !== 'Escape') {
-    return;
-  }
-  backdrop.classList.add('movie-backdrop--is-hidden');
-  scrollFunction();
-  removeAllEventListenersModal();
-}
-
-function onBackdropClick(e) {
-  if (!e.target.classList.contains('movie-backdrop')) {
-    return;
-  }
-  backdrop.classList.add('movie-backdrop--is-hidden');
-  scrollFunction();
-  removeAllEventListenersModal();
-}
-
-function removeAllEventListenersModal() {
-  closeBtn.removeEventListener('click', onCloseBtnClick);
-  window.removeEventListener('keydown', onKeydownEscape);
-  backdrop.removeEventListener('click', onBackdropClick);
-  queueBtn.removeEventListener('click', onBtnQueueClick);
-  addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
-  document.body.classList.remove('modal-open');
-}
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 
-let movieId;
+export let movieId;
 
 // клик
 export async function clickOnMovieHandler(e) {
@@ -94,15 +48,10 @@ export async function clickOnMovieHandler(e) {
   await fetchById(movieId);
 
   const trailerBtn = document.querySelector('.modal-film__play-btn');
+
   trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
-  console.log(trailerBtn);
 
   stopLoader();
-
-
-
-
-
 
   backdrop.classList.remove('movie-backdrop--is-hidden');
   document.body.classList.add('modal-open');
@@ -125,10 +74,6 @@ export async function clickOnMovieHandler(e) {
   } else {
     queueBtn.classList.add('is-active');
   }
-
-
-
-
 }
 
 //Фетч фильма по ID
@@ -139,15 +84,7 @@ async function fetchById(movieId) {
 
   renderFilmCard(responce);
 
-// //трейлер
-
-
-closeModalTrailer()
-// trailerBtn.addEventListener('click', onTreilerBtnClick);
-// closeModalTrailer()
-
-
-  muvieObject = responce;
+  movieObject = responce;
 
   return responce;
 }
@@ -155,7 +92,6 @@ closeModalTrailer()
 function renderFilmCard(film) {
   modalFilmCart(film);
 }
-
 
 const getGenresNames = genres => genres.map(genre => genre.name).join(', ');
 
@@ -202,8 +138,8 @@ export function modalFilmCart({
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
           <p class="value"> 
-           <button class = "modal-film__play-btn" type ="button" ></button>
-        </p>
+           <button class="modal-film__play-btn" type="button" ></button>
+          </p>
         
       </div>
   </div>
@@ -252,4 +188,45 @@ function whichBtnShowInWatchedFilms(id) {
   }
 }
 
+function addAllEventListenersModal() {
+  closeBtn.addEventListener('click', onCloseBtnClick);
+  window.addEventListener('keydown', onKeydownEscape);
+  backdrop.addEventListener('click', onBackdropClick);
+  queueBtn.addEventListener('click', onBtnQueueClick);
+  addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
+}
 
+function onCloseBtnClick(e) {
+  e.preventDefault();
+  backdrop.classList.add('movie-backdrop--is-hidden');
+  scrollFunction();
+  removeAllEventListenersModal();
+}
+
+function onKeydownEscape(e) {
+  e.preventDefault();
+  if (e.code !== 'Escape') {
+    return;
+  }
+  backdrop.classList.add('movie-backdrop--is-hidden');
+  scrollFunction();
+  removeAllEventListenersModal();
+}
+
+function onBackdropClick(e) {
+  if (!e.target.classList.contains('movie-backdrop')) {
+    return;
+  }
+  backdrop.classList.add('movie-backdrop--is-hidden');
+  scrollFunction();
+  removeAllEventListenersModal();
+}
+
+function removeAllEventListenersModal() {
+  closeBtn.removeEventListener('click', onCloseBtnClick);
+  window.removeEventListener('keydown', onKeydownEscape);
+  backdrop.removeEventListener('click', onBackdropClick);
+  queueBtn.removeEventListener('click', onBtnQueueClick);
+  addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
+  document.body.classList.remove('modal-open');
+}
