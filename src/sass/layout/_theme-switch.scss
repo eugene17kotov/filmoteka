@@ -95,6 +95,16 @@ footer.dark-theme {
   & .pagination-button {
     color: $secondary-text-color;
   }
+
+  & .social__link,
+  & .app__link {
+    color: $accent-color;
+
+    &:hover,
+    &:focus {
+      color: $bg-color;
+    }
+  }
 }
 
 .footer.dark-theme {
