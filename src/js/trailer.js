@@ -18,6 +18,7 @@ async function fetchForMovieTrailers(movieId) {
   return response.results;
 }
 
+
 // https://api.themoviedb.org/3/movie/507086/videos?api_key=820f51701c1eae13089594e954cb7930&language=en-US
 
 export function onTreilerBtnClick(e) {
@@ -44,7 +45,8 @@ const BASE_TREILER_URL = 'https://www.youtube.com/embed/';
 function openVideo(id) {
   fetchForMovieTrailers(id).then(result => {
     const key = result[0].key;
-    videoFrameCreate(key);
+    
+     videoFrameCreate(key);
   });
 }
 
