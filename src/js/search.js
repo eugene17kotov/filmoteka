@@ -2,10 +2,10 @@ import { API_KEY, SEARCH_URL, BASE_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
 import { renderPagination } from './pagination'; //Viktor;
 import { renderMovieCards } from './render-movie-cards';
-import { filter, toTrendingBtn } from './filter';
+import { filter, toTrendingBtn, renderMovies } from './filter';
 import { debounce } from './debounce';
 import { paginationWrapRef } from './pagination';
-import { renderMovies } from './filter';
+import { startLoader, stopLoader } from './loader';
 
 const refs = {
   form: document.querySelector('.header__form'),
@@ -36,11 +36,15 @@ export async function onFormSubmit(e) {
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
 
-  refs.loader.classList.remove('backdrop-loader--is-hidden');
+  // refs.loader.classList.remove('backdrop-loader--is-hidden');
 
   clearGallery();
 
+  startLoader();
+
   const muvie = await searchMovies(searchText);
+
+  stopLoader();
 
   refs.loader.classList.add('backdrop-loader--is-hidden');
 
@@ -80,15 +84,22 @@ async function onInputText(e) {
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
 
-  refs.loader.classList.remove('backdrop-loader--is-hidden');
+  // refs.loader.classList.remove('backdrop-loader--is-hidden');
 
   clearGallery();
 
+  startLoader();
+
   const muvie = await searchMovies(searchText);
 
+  stopLoader();
+
   if (!muvie.total_results) {
-    console.log('YEEEEEH');
     paginationWrapRef.classList.add('visually-hidden');
+    refs.gallery.innerHTML =
+      '<p class="not-succesful-search-text">Search result not successful. Enter the correct movie name.</p>';
+  } else {
+    paginationWrapRef.classList.remove('visually-hidden');
   }
 
   refs.loader.classList.add('backdrop-loader--is-hidden');
