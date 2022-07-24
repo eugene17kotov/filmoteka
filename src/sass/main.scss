@@ -22,3 +22,7 @@
 @import './layout/movie-modal';
 @import './layout/team-modal';
 @import './layout/theme-switch';
+@import './layout/slider';
+
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.theme";
