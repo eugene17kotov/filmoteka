@@ -4,6 +4,7 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { startLoader, stopLoader } from './loader';
+import { slideGalleryRef } from "./slider";
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -75,8 +76,14 @@ cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 let movieId;
 
 // клик
-async function clickOnMovieHandler(e) {
+export async function clickOnMovieHandler(e) {
   e.preventDefault();
+ //!Viktor: disabling buttons for slider gallery
+  if (e.path.includes(slideGalleryRef)) {
+    queueBtn.parentElement.classList.add("visually-hidden");
+  } else {
+    queueBtn.parentElement.classList.remove("visually-hidden");
+  }
 
   if (e.target.nodeName !== 'IMG') {
     return;
