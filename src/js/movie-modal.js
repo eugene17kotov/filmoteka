@@ -73,7 +73,7 @@ function removeAllEventListenersModal() {
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 
-let movieId;
+export let movieId;
 
 // клик
 async function clickOnMovieHandler(e) {

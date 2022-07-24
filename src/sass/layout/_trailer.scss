@@ -4,7 +4,7 @@
      width: 55px;
      height: 40px;
      background: rgba(204, 204, 204, 0.8);
-     border-radius: 25px;
+     border-radius: 7px;
      position: absolute;
      border: none;
      transition: all .4s cubic-bezier(.55,.055,.675,.19);
@@ -110,7 +110,19 @@
  .modal-video__trailer {
    display: flex;
    justify-content: center;
+  //  position: relative;
    // width: 100%;
    // height: 100%;
+ }
+
+ .modal-video__error{
+  position: absolute;
+  content: "";
+  
+  font-weight: 700;
+  color: rgba(252, 29, 13, 0.651);
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
  }
  

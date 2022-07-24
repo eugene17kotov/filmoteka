@@ -6,4 +6,4 @@ const ID_URL = `${BASE_URL}/movie/`;
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const VIDEO_URL = `/videos?api_key=${API_KEY}&language=en-US`;
 
-export { API_KEY, BASE_URL, TREND_URL, SEARCH_URL, ID_URL, BASE_IMG_URL };
+export { API_KEY, BASE_URL, TREND_URL, SEARCH_URL, ID_URL, BASE_IMG_URL, VIDEO_URL };

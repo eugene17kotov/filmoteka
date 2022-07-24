@@ -44,9 +44,14 @@ const BASE_TREILER_URL = 'https://www.youtube.com/embed/';
 
 function openVideo(id) {
   fetchForMovieTrailers(id).then(result => {
-    const key = result[0].key;
+    if(result[0]){
+
+      const key =  result[0].key;
+      videoFrameCreate(key);
+    }
+     return ;
     
-     videoFrameCreate(key);
+    // modalTrailerIfraim.innerHTML = `<p class="modal-video__error">Trailer not found!</p>`  
   });
 }
 
