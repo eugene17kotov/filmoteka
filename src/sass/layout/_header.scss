@@ -1,12 +1,17 @@
 body.header-menu-open {
   overflow: hidden;
+  position: relative;
 }
 .header {
   height: 230px;
-  padding-top: 46px;
   background-color: $logo-color;
+  position: relative;
 }
 
+.header--home,
+.header--library {
+  padding-top: 46px;
+}
 .header--home {
   @include media-min($mob) {
     background: url('../images/header-img/header-home-mob-1.jpg');
@@ -139,14 +144,19 @@ body.header-menu-open {
 
   @include media-min($tab) {
     width: $tab;
-    padding: 0 32px;
+    // padding: 0 230px 0 32px;
   }
 
   @include media-min($desk) {
     width: $desk;
   }
 }
+
 .header__section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   @include media-max($mob) {
     display: inline-flex;
   }
@@ -157,12 +167,21 @@ body.header-menu-open {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-grow: 1;
+  // margin-right: 20px;
 
   &-list {
     display: none;
+    @include media-max($tab) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 999;
+    }
     @include media-min($tab) {
       display: flex;
       list-style: none;
+      // margin-left: 30px;
     }
   }
 
@@ -181,8 +200,14 @@ body.header-menu-open {
   }
 
   &-item:not(:last-child) {
-    margin-right: 39px;
+    margin-right: 15px;
   }
+}
+
+.button_container {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 
 .header__logo {
@@ -235,26 +260,27 @@ body.header-menu-open {
   font-weight: 500;
 
   transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.header__nav-btn:hover,
-.header__nav-btn:focus {
-  color: $accent-color;
+  &:hover,
+  &:focus {
+    color: $accent-color;
+  }
 }
 
 .header__filmsearch {
-  position: relative;
+  // position: relative;
   margin-top: 37px;
+  display: flex;
+  justify-content: center;
 }
 
 .header__form {
-  display: flex;
-  justify-content: center;
+  position: relative;
+  margin: 0 auto;
   color: white;
 
-  @include media-min-max($mob, $mob-max-width) {
-    margin-left: 10px;
-  }
+  // @include media-min-max($mob, $mob-max-width) {
+  //   margin-left: 10px;
+  // }
 
   &-input {
     background-color: transparent;
@@ -268,7 +294,7 @@ body.header-menu-open {
     padding-bottom: 4px;
     color: white;
     outline: none;
-    transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color $trans-time $cubic;
 
     &:hover,
     &:focus {
@@ -281,7 +307,7 @@ body.header-menu-open {
     }
 
     @include media-min-max($mob, $mob-max-width) {
-      width: 100%;
+      max-width: 220px;
     }
 
     width: 336px;
@@ -295,9 +321,11 @@ body.header-menu-open {
   }
 
   &-input-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
     border: none;
     background-color: inherit;
-    transform: translateX(-100%);
     padding: 0px;
     cursor: pointer;
     color: white;
@@ -364,9 +392,13 @@ body.header-menu-open {
   }
 }
 
+// .header-mob-menu{
+//   position: relative;
+//   z-index: 1002;
+// }
 .header-mob-menu-open-btn {
   display: inline-flex;
-  z-index: 0;
+  z-index: 1000;
   margin: 0;
   padding: 0;
   border: none;
@@ -403,7 +435,7 @@ body.header-menu-open {
 @media screen and (max-width: 768px) {
   .header-mob-menu {
     position: fixed;
-    z-index: 2;
+    z-index: 1002;
     font-size: larger;
     font-weight: 600;
     //   background-image: url(../images/add-giphy.gif);
@@ -443,13 +475,19 @@ body.header-menu-open {
   border: none;
   background-color: transparent;
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 35px;
+  right: 25px;
   fill: currentColor;
 
   &:hover,
   &:focus {
     fill: $accent-color;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mob-menu-list {
+    display: none;
   }
 }
 

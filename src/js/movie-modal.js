@@ -151,6 +151,7 @@ function modalFilmCart({
   poster_path,
 }) {
   let roundPopularity = Math.round(popularity);
+  let roundVote_average = vote_average.toFixed(1);
   let imageMarkup = `
   <img 
     src="${BASE_IMG_URL}${poster_path}"
@@ -177,7 +178,7 @@ function modalFilmCart({
           <p class="property">Genre</p>
       </div>
       <div class="values">
-          <p class="value"><span class="first-mark">${vote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
+          <p class="value"><span class="first-mark">${roundVote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
           <p class="value">${roundPopularity}</p>
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
