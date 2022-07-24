@@ -24,13 +24,11 @@
         .includes('header-menu-open') &&
       window.innerWidth < 767
     ) {
-      console.log('hide');
-      document.getElementById('auth-header').classList.add('dispnone');
+      document.getElementById('auth-header').removeAttribute('style');
     } else {
-      console.log('show');
-      document.getElementById('auth-header').classList.remove('dispnone');
-
-      document.getElementById('auth-header').style.display = 'block';
+      document
+        .getElementById('auth-header')
+        .setAttribute('style', 'display: block');
     }
   }
 })();
