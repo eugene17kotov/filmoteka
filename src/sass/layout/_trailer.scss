@@ -3,11 +3,11 @@
  cursor: pointer;
     width: 55px;
     height: 40px;
-    background: rgba(242, 24, 9, 0.8);
+    background: rgba(204, 204, 204, 0.8);
     border-radius: 25px;
     position: absolute;
     border: none;
-    transition: box-shadow .4s cubic-bezier(.55,.055,.675,.19);
+    transition: all .4s cubic-bezier(.55,.055,.675,.19);
 
     &:after {
       content: "";
@@ -26,7 +26,7 @@
 
 &:hover,
 &:focus{
-  box-shadow: 0 0 2px 5px rgba(250, 170, 94, 0.8);
+  background: rgba(252, 29, 13, 0.651);
 }
 }
 
@@ -82,15 +82,22 @@
 }
 
 .modal__close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
   border: transparent;
   position: absolute;
+  width: 30px;
+  height: 30px;
   top: 5px;
   right: 5px;
-  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  transition: background-color 250ms cubic-bezier(.55,.055,.675,.19);
 
   &:hover {
-    fill: #FF6B01;
+    background-color: $accent-hover-color;
+    
   }
 }
 
