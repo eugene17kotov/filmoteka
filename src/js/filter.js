@@ -70,6 +70,8 @@ export function toTrendingBtnClick() {
   const TREND_URL_WEEK = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
 
   gallery.classList.add('gallery');
+  const mainSection = document.querySelector('.section.main');
+  mainSection.classList.remove('mainsection-container');
   filter.classList.remove('is-hidden');
   toTrendingBtn.classList.add('is-hidden');
 paginationWrapRef.classList.add('pagination-wrap');
