@@ -18,6 +18,11 @@
       sizes="32x32"
       href="./images/film-icon.svg"
     />
+    <!-- <link rel="stylesheet" href="./sass/animate.min.css">
+      <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  /> -->
   </head>
   <body>
     <!-- Header section -->
@@ -25,6 +30,9 @@
 
     <!-- Main section -->
     <include src="./partials/_movie-grid.html"></include>
+
+    <!-- Loader -->
+    <include src="./partials/_loader.html"></include>
 
     <!-- Pagination section -->
     <include src="./partials/_pagination-wrap.html"></include>
@@ -38,8 +46,14 @@
     <!-- Team modal -->
     <include src="./partials/_team-modal.html"></include>
 
+    <!-- Auth modal -->
+    <div id="auth-header" style="display: none"></div>
+    <div id="auth-modal" style="display: none"></div>
     <!-- Scroll up -->
     <include src="./partials/_scroll-up.html"></include>
+
+    <!-- Scroll anchor -->
+    <div class="scroll-guard"></div>
 
     <!-- JS -->
     <script src="./index.js" type="module"></script>

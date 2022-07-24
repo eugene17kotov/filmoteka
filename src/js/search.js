@@ -1,60 +1,98 @@
-import { API_KEY, SEARCH_URL } from './api/api-vars';
+import { API_KEY, SEARCH_URL, BASE_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
-import { renderPagination } from './pagination'; //Viktor;
+import { renderPagination, paginationWrapRef } from './pagination'; //Viktor;
 import { renderMovieCards } from './render-movie-cards';
+import { filter, toTrendingBtn, toTrendingBtnClick } from './filter';
+import { debounce } from './debounce';
+import { startLoader, stopLoader } from './loader';
 
 const refs = {
-    form: document.querySelector('.header__form'),
-    gallery: document.querySelector('.gallery'),
-    loader: document.querySelector(".backdrop-loader"),
-}
-if (refs.form) {
-    refs.form.addEventListener('submit', onFormSubmit);
-}
+  form: document.querySelector('.header__form'),
+  input: document.querySelector('.header__form-input'),
+  gallery: document.querySelector('.gallery'),
+  loader: document.querySelector('.backdrop-loader'),
+  failSearchText: document.querySelector('.not-succesful-search-text'),
+};
 
-
-
-// export function searchMovies(movie, pageNumber) {
-//     return getMovies(
-//         `${SEARCH_URL}?api_key=${API_KEY}&query=${movie}&page=${pageNumber}`
-//     ); 
-// }
-
-//Viktor rewrited function: save searchUrl to localStorage for using in pagination;
 export function searchMovies(searchText) {
-    const searchUrl = `${SEARCH_URL}&query=${searchText}`;
-    localStorage.setItem('LAST_REQUESTED_URL', searchUrl)
-    return getMovies(searchUrl); 
+  const searchUrl = `${SEARCH_URL}&query=${searchText}`;
+  localStorage.setItem('LAST_REQUESTED_URL', searchUrl);
+  return getMovies(searchUrl);
 }
 
 let searchText = '';
 
+// Search by submit
+
 export async function onFormSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    refs.loader.classList.remove('backdrop-loader--is-hidden');
-    
-    clearGallery();
-    
-    searchText = e.currentTarget.query.value.trim();
-    
-    const muvie = await searchMovies(searchText);
+  searchText = e.currentTarget.query.value.trim();
 
-    refs.loader.classList.add('backdrop-loader--is-hidden');
+  if (searchText === '') {
+    return;
+  }
 
-    e.target.reset();
-    
-    renderMovieCards(muvie.results);
-    renderPagination(muvie.page, muvie.total_pages);  //Viktor: renderPagination function added 
+  filter.classList.add('is-hidden');
+  toTrendingBtn.classList.remove('is-hidden');
+
+  clearGallery();
+
+  startLoader();
+
+  const movie = await searchMovies(searchText);
+
+  stopLoader();
+
+  e.target.reset();
+
+  if (!movie.total_results) {
+    paginationWrapRef.classList.add('visually-hidden');
+    refs.failSearchText.classList.remove('visually-hidden');
+    return;
+  }
+
+  renderMovieCards(movie.results);
+  renderPagination(movie.page, movie.total_pages);
 }
 
 function clearGallery() {
-    refs.gallery.innerHTML = '';
+  refs.gallery.innerHTML = '';
 }
 
+// Search by input
 
+const DEBOUNCE_DELAY = 500;
 
+refs.form && refs.form.addEventListener('submit', onFormSubmit);
+refs.input &&
+  refs.input.addEventListener('input', debounce(onInputText, DEBOUNCE_DELAY));
 
+async function onInputText(e) {
+  searchText = e.target.value.trim();
 
+  if (searchText === '') {
+    toTrendingBtnClick();
+    return;
+  }
 
+  filter.classList.add('is-hidden');
+  toTrendingBtn.classList.remove('is-hidden');
 
+  startLoader();
+
+  clearGallery();
+
+  const movie = await searchMovies(searchText);
+
+  stopLoader();
+
+  if (!movie.total_results) {
+    paginationWrapRef.classList.add('visually-hidden');
+    refs.failSearchText.classList.remove('visually-hidden');
+    return;
+  }
+
+  renderMovieCards(movie.results);
+  renderPagination(movie.page, movie.total_pages);
+}

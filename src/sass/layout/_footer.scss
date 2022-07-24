@@ -1,10 +1,10 @@
 body {
   min-height: 100vh;
   position: relative;
-  padding-bottom: 100px;
+  padding-bottom: 200px;
 
   @media screen and (min-width: 768px) {
-    padding-bottom: 77px;
+    padding-bottom: 107px;
   }
 
   &.modal-open {
@@ -18,39 +18,59 @@ body {
   left: 0;
   width: 100%;
   margin: 0 auto;
+  padding: 15px 0;
   background-color: #f7f7f7;
 }
 
-.footer__content {
+.footer__section {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    height: 77px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 768px) {
+  }
+}
+
+.footer__copyright {
+  margin-bottom: 15px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  height: 100px;
 
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14;
 
-  @media screen and (min-width: 768px) {
-    flex-direction: row;
-    height: 77px;
+  @media screen and (max-width: 767px) {
+    order: 1;
+  }
 
-    font-size: 16px;
+  @media screen and (min-width: 768px) {
+    margin: 0;
+    font-size: 18px;
     line-height: 1.187;
   }
-}
 
-.footer p {
-  color: #545454;
+  @media screen and (min-width: 1280px) {
+    flex-direction: row;
+  }
 }
 
 .footer__text {
   margin: 0 0 10px 0;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 1280px) {
     margin: 0 5px 0 0;
   }
 }
@@ -60,7 +80,7 @@ body {
 }
 
 .footer__link {
-  color: #545454;
+  font-weight: 500;
   text-decoration: underline;
   cursor: pointer;
 
@@ -70,4 +90,76 @@ body {
   &:focus {
     color: #ff6b08;
   }
+}
+
+@media screen and (max-width: 767px) {
+  .social {
+    margin-bottom: 15px;
+  }
+}
+
+.social,
+.app {
+  text-align: center;
+
+  @media screen and (max-width: 767px) {
+    order: 2;
+  }
+}
+
+.social__text,
+.app__text {
+  margin-bottom: 10px;
+
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 500;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 15px;
+    font-size: 19px;
+  }
+}
+
+.social__list,
+.app__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 767px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.social__item:not(:last-child) {
+  margin-right: 15px;
+}
+
+.app__item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.social__link,
+.app__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+
+  color: black;
+  transition: color $trans-time $cubic;
+
+  &:hover,
+  &:focus {
+    color: $accent-color;
+  }
+}
+
+.social__icon,
+.app__icon {
+  fill: currentColor;
 }

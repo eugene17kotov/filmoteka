@@ -1,48 +1,82 @@
+import { getAuth } from 'firebase/auth';
+import { createNote } from './firebase/firebaseAuth.js';
+
 import { getMovies } from './api/fetch-movie';
+import axios from 'axios';
+
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
-// import { renderPagination } from './pagination.js';
 import { localstorage } from './localstorage.js';
+import { movieObject } from './movie-modal';
+import {
+  startPaginationObserver,
+  stopPaginationObserver,
+} from './infinity-scroll';
+import { startLoader, stopLoader } from './loader';
 
 const queueBtn = document.querySelector('.to-queue');
-const bg = document.querySelector('.backdrop');
 const libraryTextContainer = document.querySelector('.library-text');
-const libraryGallery = document.querySelector('.library-gallery');
+export const libraryGallery = document.querySelector('.library-gallery');
 const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
+const libraryWatchedBtn = document.querySelector(
+  'button[data-action="watched"]'
+);
 let queueMovieId = localStorage.getItem('queue');
 let parseQueueMovieId = JSON.parse(queueMovieId);
 
-libraryQueueBtn && libraryQueueBtn.focus();
+// Library page enter
+
+libraryQueueBtn &&
+  libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 libraryQueueBtn && onLibraryQueueBtnClick();
+libraryQueueBtn && libraryQueueBtn.classList.add('library__item-btn--active');
 
-function inLocalStorage(value) {
-  if (localStorage.getItem('queue') !== null) {
-    if (!JSON.parse(localStorage.getItem('queue').includes(value))) {
-      return false;
-    }
-    return true;
+// Add to Queue button logic
+
+export async function onBtnQueueClick() {
+  if (localStorage.getItem('queue') === null) {
+    localStorage.setItem('queue', '[]');
   }
-  return true;
-}
 
-export function onBtnQueueClick() {
-  const id = bg.id;
-
-  if (!inLocalStorage(id)) {
+  if (!inLocalStorage(movieObject, 'queue')) {
     queueBtn.textContent = 'Remove from queue';
-    localstorage.setFilm('queue', id);
+    queueBtn.classList.add('is-active');
+    localstorage.setFilm('queue', movieObject);
+    checkCurrentPageAndRewrite(libraryQueueBtn, 1);
   } else {
     queueBtn.textContent = 'Add to queue';
-    localstorage.removeFilm('queue', id);
+    queueBtn.classList.remove('is-active');
+    localstorage.removeFilm('queue', movieObject);
+    checkCurrentPageAndRewrite(libraryQueueBtn, -1);
   }
 
   libraryGallery && onLibraryQueueBtnClick();
-  libraryQueueBtn && libraryQueueBtn.focus();
+
+  // auth
+  // auth
+  // auth
+  // auth
+  // auth
+  // auth
+  const currentUser = getAuth().currentUser;
+
+  if (currentUser !== null) {
+    const queue = localStorage.getItem('queue') || [];
+    const watched = localStorage.getItem('watched') || [];
+    createNote(currentUser, queue, watched);
+  }
 }
+
+// Library Queue button logic
 
 libraryQueueBtn &&
   libraryQueueBtn.addEventListener('click', onLibraryQueueBtnClick);
 
-function onLibraryQueueBtnClick() {
+async function onLibraryQueueBtnClick() {
+  stopPaginationObserver();
+
+  libraryWatchedBtn.classList.remove('library__item-btn--active');
+  libraryQueueBtn.classList.add('library__item-btn--active');
+
   queueMovieId = localStorage.getItem('queue');
   parseQueueMovieId = JSON.parse(queueMovieId);
 
@@ -58,45 +92,52 @@ function onLibraryQueueBtnClick() {
     getPlugHidden();
   }
 
-  fetchQueue(queueMovieId);
+  startLoader();
+
+  await renderMovieCardsLibrary(parseQueueMovieId.slice(0, 9));
+
+  startPaginationObserver();
+  setTimeout(() => {
+    stopLoader();
+  }, 300);
 }
 
-function clearGallery() {
+export function inLocalStorage(value, key) {
+  const lsWhenBtnClick = localStorage.getItem(key);
+  const filmsIdArrayInLs = JSON.parse(lsWhenBtnClick).map(film => film.id);
+
+  if (lsWhenBtnClick !== null) {
+    if (!filmsIdArrayInLs.includes(value.id)) {
+      return false;
+    }
+    return true;
+  }
+  return true;
+}
+
+export function clearGallery() {
   libraryGallery.innerHTML = '';
 }
 
-function getPlugVisible() {
+export function getPlugVisible() {
   libraryGallery.innerHTML = '';
 
   libraryTextContainer.classList.remove('visually-hidden');
 }
 
-function getPlugHidden() {
+export function getPlugHidden() {
   libraryTextContainer.classList.add('visually-hidden');
 }
 
-function fetchQueue(queueMovieId) {
-  const moviesIDInQueue = JSON.parse(queueMovieId);
-
-  moviesIDInQueue.map(movieID => {
-    fetchById(movieID).then(res => {
-      renderMovieCardsLibrary(res);
-    });
-  });
-}
-
-function fetchById(movieId) {
-  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
-  return getMovies(idURL);
-}
-
-function renderMovieCardsLibrary(movie) {
-  const movieGalleryMarkup = createLibraryMovieMarkup(movie);
+export function renderMovieCardsLibrary(movies) {
+  const movieGalleryMarkup = movies
+    .map(movie => createLibraryMovieMarkup(movie))
+    .join('');
 
   libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
 }
 
-function createLibraryMovieMarkup(movie) {
+export function createLibraryMovieMarkup(movie) {
   const { title, genres, release_date, poster_path, vote_average, id } = movie;
 
   let year = '';
@@ -106,9 +147,14 @@ function createLibraryMovieMarkup(movie) {
 
   const queueGenres = getQueueMovieGenresList(genres);
 
+  poster_src =
+    poster_path === null
+      ? 'https://dummyimage.com/395x574/000/fff.jpg&text=no+poster'
+      : `${BASE_IMG_URL}${poster_path}`;
+
   return `<li>
             <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
+              <img class="gallery__image" data-id="${id}" src="${poster_src}" alt="${title} movie poster" loading="lazy">
 
             <div class="info">
               <p class="info__item">${title}</p>
@@ -128,4 +174,39 @@ function getQueueMovieGenresList(genres) {
     genresNames.push('Other');
   }
   return genresNames.join(', ');
+}
+
+export function checkCurrentPageAndRewrite(button, amount) {
+  if (
+    libraryGallery &&
+    button.classList.contains('library__item-btn--active')
+  ) {
+    rewriteGalleryAfterChange(amount);
+  }
+}
+
+function rewriteGalleryAfterChange(changeAmount) {
+  const actualArray = libraryGallery.querySelectorAll('li');
+  const activeButton = document.querySelector('.library__item-btn--active');
+  const parseWatchedMovie = JSON.parse(
+    localStorage.getItem(activeButton.dataset['action'])
+  );
+
+  clearGallery();
+
+  if (parseWatchedMovie.length === 0) {
+    getPlugVisible();
+    return;
+  } else if (!libraryTextContainer.classList.contains('visually-hidden')) {
+    getPlugHidden();
+  }
+
+  if (actualArray.length > 9) {
+    renderMovieCardsLibrary(
+      parseWatchedMovie.slice(0, actualArray.length + changeAmount)
+    );
+    return;
+  }
+
+  renderMovieCardsLibrary(parseWatchedMovie.slice(0, 9));
 }

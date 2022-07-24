@@ -35,6 +35,8 @@
               <svg
                 class="menu-btn__icon"
                 aria-label="Включение моб. меню heder"
+                width="32"
+                height="32"
               >
                 <use href="./././images/symbol-defs.svg#icon-menu"></use>
               </svg>
@@ -57,6 +59,37 @@
         <h1 class="newsfeed-heading">
           News from the world of cinema for the last week
         </h1>
+
+        <div class="theme-switch">
+          <svg
+            class="theme-switch__icon sun"
+            role="img"
+            aria-label="Иконка солнца"
+          >
+            <use href="./images/sprite.svg#sun"></use>
+          </svg>
+
+          <div class="theme-switch__control">
+            <input
+              class="theme-switch__toggle"
+              type="checkbox"
+              name="theme"
+              id="theme-switch-toggle"
+              aria-label="Переключить между тёмной и светлой темой"
+            />
+            <label
+              aria-hidden="true"
+              class="theme-switch__track"
+              for="theme-switch-toggle"
+            >
+            </label>
+            <div aria-hidden="true" class="theme-switch__marker"></div>
+          </div>
+
+          <svg class="theme-switch__icon moon" aria-label="Иконка луны">
+            <use href="./images/sprite.svg#moon"></use>
+          </svg>
+        </div>
       </div>
 
       <div class="header-mob-menu visually-hidden">
@@ -102,17 +135,28 @@
         <h2 class="title visually-hidden">Newsfeed</h2>
         <div class="container">
           <ul class="newsfeed"></ul>
+          <p class="end-scroll-text is-hidden">No more news this time</p>
         </div>
       </section>
     </main>
 
+    <!-- Loader -->
+    <include src="./partials/_loader.html"></include>
+
     <!-- Footer section -->
     <include src="./partials/_footer.html"></include>
+
     <!-- Team modal -->
     <include src="./partials/_team-modal.html"></include>
 
     <!-- Scroll up -->
     <include src="./partials/_scroll-up.html"></include>
+    <!-- Auth modal -->
+    <div id="auth-header" style="display: none"></div>
+    <div id="auth-modal" style="display: none"></div>
+
+    <!-- Infinity scroll anchor -->
+    <div class="scroll-guard"></div>
 
     <!-- JS -->
     <script src="./newsfeed.js" type="module"></script>

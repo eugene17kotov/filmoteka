@@ -1,7 +1,23 @@
+import { getAuth } from 'firebase/auth';
+import { createNote } from './firebase/firebaseAuth.js';
+
 import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
-// import { renderPagination } from './pagination.js';
 import { getMovies } from './api/fetch-movie';
 import { localstorage } from './localstorage.js';
+import { movieObject } from './movie-modal';
+import {
+  startPaginationObserver,
+  stopPaginationObserver,
+} from './infinity-scroll';
+import {
+  renderMovieCardsLibrary,
+  checkCurrentPageAndRewrite,
+  getPlugHidden,
+  getPlugVisible,
+  clearGallery,
+  inLocalStorage,
+} from './queue';
+import { startLoader, stopLoader } from './loader';
 
 const addToWatchedButton = document.querySelector('.to-watched');
 const bg = document.querySelector('.backdrop');
@@ -10,39 +26,49 @@ const libraryGallery = document.querySelector('.library-gallery');
 const libraryWatchedBtn = document.querySelector(
   'button[data-action="watched"]'
 );
+const libraryQueueBtn = document.querySelector('button[data-action="queue"]');
+let watchedMovieId = localStorage.getItem('watched');
+let parseWatchedMovieId = JSON.parse(watchedMovieId);
 
-function inLocalStorage(value) {
-  if (localStorage.getItem('watched') !== null) {
-    if (!JSON.parse(localStorage.getItem('watched').includes(value))) {
-      return false;
-    }
-    return true;
-  }
-  return true;
-}
+// Add to Watched button logic
 
 export function onAddToWatchedBtnClick() {
-  const id = bg.id;
-
-  if (!inLocalStorage(id)) {
-    addToWatchedButton.textContent = 'Remove from watched';
-    localstorage.setFilm('watched', id);
-  } else {
-    addToWatchedButton.textContent = 'Add to watched';
-    localstorage.removeFilm('watched', id);
+  if (localStorage.getItem('watched') === null) {
+    localStorage.setItem('watched', '[]');
   }
 
-  libraryGallery && onWatchedBtnClick();
-  libraryWatchedBtn && libraryWatchedBtn.focus();
+  if (!inLocalStorage(movieObject, 'watched')) {
+    addToWatchedButton.textContent = 'Remove from watched';
+    localstorage.setFilm('watched', movieObject);
+    addToWatchedButton.classList.add('is-active');
+    checkCurrentPageAndRewrite(libraryWatchedBtn, 1);
+  } else {
+    addToWatchedButton.textContent = 'Add to watched';
+    localstorage.removeFilm('watched', movieObject);
+    addToWatchedButton.classList.remove('is-active');
+    checkCurrentPageAndRewrite(libraryWatchedBtn, -1);
+  }
+
+  // auth
+  const currentUser = getAuth().currentUser;
+  if (currentUser !== null) {
+    const queue = localStorage.getItem('queue') || [];
+    const watched = localStorage.getItem('watched') || [];
+    createNote(currentUser, queue, watched);
+  }
 }
+
+// Library Watched button logic
 
 libraryWatchedBtn &&
   libraryWatchedBtn.addEventListener('click', onWatchedBtnClick);
 
-let watchedMovieId;
-let parseWatchedMovieId;
+async function onWatchedBtnClick() {
+  stopPaginationObserver();
 
-function onWatchedBtnClick() {
+  libraryQueueBtn.classList.remove('library__item-btn--active');
+  libraryWatchedBtn.classList.add('library__item-btn--active');
+
   watchedMovieId = localStorage.getItem('watched');
   parseWatchedMovieId = JSON.parse(watchedMovieId);
 
@@ -58,74 +84,12 @@ function onWatchedBtnClick() {
     getPlugHidden();
   }
 
-  fetchWatched(watchedMovieId);
-}
+  startLoader();
 
-function clearGallery() {
-  libraryGallery.innerHTML = '';
-}
+  await renderMovieCardsLibrary(parseWatchedMovieId.slice(0, 9));
 
-function getPlugVisible() {
-  libraryGallery.innerHTML = '';
-
-  libraryTextContainer.classList.remove('visually-hidden');
-}
-
-function getPlugHidden() {
-  libraryTextContainer.classList.add('visually-hidden');
-}
-
-function fetchWatched(watchedMovieId) {
-  const moviesIDInWatched = JSON.parse(watchedMovieId);
-
-  moviesIDInWatched.map(movieID => {
-    fetchById(movieID).then(res => {
-      renderMovieCardsLibrary(res);
-    });
-  });
-}
-
-function fetchById(movieId) {
-  const idURL = `${ID_URL}${movieId}?api_key=${API_KEY}&language=en-US`;
-  return getMovies(idURL);
-}
-
-function renderMovieCardsLibrary(movie) {
-  const movieGalleryMarkup = createLibraryMovieMarkup(movie);
-
-  libraryGallery.insertAdjacentHTML('beforeend', movieGalleryMarkup);
-}
-
-function createLibraryMovieMarkup(movie) {
-  const { title, genres, release_date, poster_path, vote_average, id } = movie;
-
-  let year = '';
-  if (typeof release_date !== 'undefined' && release_date.length > 4) {
-    year = release_date.slice(0, 4);
-  }
-
-  const queueGenres = getQueueMovieGenresList(genres);
-
-  return `<li>
-            <a class="gallery__link" href="#">
-              <img class="gallery__image" data-id="${id}" src="${BASE_IMG_URL}${poster_path}" alt="${title} movie poster" loading="lazy">
-
-            <div class="info">
-              <p class="info__item">${title}</p>
-              <div class="info-detail">
-                <p class="info-detail__item">${queueGenres}</p>
-                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
-              </div>
-            </div>
-            </a>
-          </li>`;
-}
-
-function getQueueMovieGenresList(genres) {
-  let genresNames = genres.map(genre => genre.name);
-  if (genresNames.length > 3) {
-    genresNames = genresNames.slice(0, 2);
-    genresNames.push('Other');
-  }
-  return genresNames.join(', ');
+  startPaginationObserver();
+  setTimeout(() => {
+    stopLoader();
+  }, 300);
 }
