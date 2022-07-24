@@ -1,5 +1,5 @@
 import { localstorage } from './localstorage.js';
-import { muvieObject } from './movie-modal';
+import { movieObject } from './movie-modal';
 import {
   startPaginationObserver,
   stopPaginationObserver,
@@ -32,14 +32,14 @@ export function onAddToWatchedBtnClick() {
     localStorage.setItem('watched', '[]');
   }
 
-  if (!inLocalStorage(muvieObject, 'watched')) {
+  if (!inLocalStorage(movieObject, 'watched')) {
     addToWatchedButton.textContent = 'Remove from watched';
-    localstorage.setFilm('watched', muvieObject);
+    localstorage.setFilm('watched', movieObject);
     addToWatchedButton.classList.add('is-active');
     checkCurrentPageAndRewrite(libraryWatchedBtn, 1);
   } else {
     addToWatchedButton.textContent = 'Add to watched';
-    localstorage.removeFilm('watched', muvieObject);
+    localstorage.removeFilm('watched', movieObject);
     addToWatchedButton.classList.remove('is-active');
     checkCurrentPageAndRewrite(libraryWatchedBtn, -1);
   }

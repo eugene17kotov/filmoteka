@@ -1,6 +1,6 @@
 import { BASE_IMG_URL } from './api/api-vars.js';
 import { localstorage } from './localstorage.js';
-import { muvieObject } from './movie-modal';
+import { movieObject } from './movie-modal';
 import {
   startPaginationObserver,
   stopPaginationObserver,
@@ -31,15 +31,15 @@ export async function onBtnQueueClick() {
     localStorage.setItem('queue', '[]');
   }
 
-  if (!inLocalStorage(muvieObject, 'queue')) {
+  if (!inLocalStorage(movieObject, 'queue')) {
     queueBtn.textContent = 'Remove from queue';
     queueBtn.classList.add('is-active');
-    localstorage.setFilm('queue', muvieObject);
+    localstorage.setFilm('queue', movieObject);
     checkCurrentPageAndRewrite(libraryQueueBtn, 1);
   } else {
     queueBtn.textContent = 'Add to queue';
     queueBtn.classList.remove('is-active');
-    localstorage.removeFilm('queue', muvieObject);
+    localstorage.removeFilm('queue', movieObject);
     checkCurrentPageAndRewrite(libraryQueueBtn, -1);
   }
 }
