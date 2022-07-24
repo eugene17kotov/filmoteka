@@ -2,11 +2,13 @@ body {
   position: relative;
 }
 .auth-header {
+  display: block;
   @media only screen and (max-width: 767px) {
     position: fixed;
     bottom: 20%;
     left: 25%;
     z-index: 9991;
+    display: none;
   }
 }
 .fbs__nav {

@@ -19,11 +19,12 @@
     ) {
       console.log('hide');
       document.getElementById('auth-header').classList.add('dispnone');
+      document.getElementById('auth-header').style.display = 'none';
     } else {
       console.log('show');
       document.getElementById('auth-header').classList.remove('dispnone');
+      document.getElementById('auth-header').style.display = 'block';
     }
-    // document.getElementById('body');
     // document.;
   }
 })();
