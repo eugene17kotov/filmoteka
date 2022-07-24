@@ -374,12 +374,13 @@ body.header-menu-open {
   }
 }
 
-.header-mob-menu{
-  position: relative;
-}
+// .header-mob-menu{
+//   position: relative;
+//   z-index: 1002;
+// }
 .header-mob-menu-open-btn {
   display: inline-flex;
-  z-index: 0;
+  z-index: 1000;
   margin: 0;
   padding: 0;
   border: none;
@@ -416,7 +417,7 @@ body.header-menu-open {
 @media screen and(max-width: 768px) {
   .header-mob-menu {
     position: fixed;
-    z-index: 2;
+    z-index: 1002;
     font-size: larger;
     font-weight: 600;
     //   background-image: url(../images/add-giphy.gif);

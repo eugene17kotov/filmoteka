@@ -13,7 +13,7 @@ body {
         position: fixed;
         bottom: 20%;
         left: 25%;
-        z-index: 9999;
+        z-index: 999;
     }
 }
 .fbs__nav {
@@ -183,7 +183,7 @@ align-content: center;
 .fbs-modal {
         height: 70%;
         width: 320px;
- 
+        z-index: 1003;
         @include media-min($tab) {
             width: 480px;
             min-height: 580px;
@@ -231,16 +231,16 @@ align-content: center;
 }
 
 .fbs-modal-form {
-        width: 450px;
+        width: 100%;
             min-height: 500px;
-            height: auto;
+            height: 100%;
             border-radius: 5px;
             margin: 2% auto;
             box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
             padding: 2%;
 }
 .fbs-modal-content {
-
+width: 100%;
     margin: 0 auto;
 }
 .fbs-modal-form-field {
