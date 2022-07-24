@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { loader, startLoader, stopLoader } from './loader';
+import { slowScrollOnAddCards } from './infinity-scroll';
+import { options } from './infinity-scroll';
+import { scrollGuardRef } from './infinity-scroll';
 
 const regex = /[0-9]/g;
 const today = new Date().toISOString().slice(0, 10).match(regex).join('');
@@ -81,11 +84,6 @@ function getLastWeeksDate() {
 
 // Infinity scroll
 
-const scrollGuardRef = document.querySelector('.scroll-guard');
-const options = {
-  rootMargin: '250px',
-  threshold: 1.0,
-};
 const observer = new IntersectionObserver(getStartObserver, options);
 
 setTimeout(() => {
@@ -107,7 +105,7 @@ function getStartObserver(entries) {
         renderNews(newsArticles.docs);
         stopLoader();
         updatePageCountVar(newsArticles);
-        slowScrollOnAddPhotos();
+        slowScrollOnAddCards(newsfeedGallery);
 
         if (newsCountBySearch <= newsCountStartOnPage) {
           document
@@ -117,16 +115,6 @@ function getStartObserver(entries) {
         }
       });
     }
-  });
-}
-
-function slowScrollOnAddPhotos() {
-  const { height: cardHeight } =
-    newsfeedGallery.firstElementChild.getBoundingClientRect();
-
-  window.scrollBy({
-    top: cardHeight * 1,
-    behavior: 'smooth',
   });
 }
 

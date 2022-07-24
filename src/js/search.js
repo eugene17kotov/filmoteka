@@ -1,10 +1,11 @@
 import { BASE_URL, API_KEY, SEARCH_URL, ID_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
-import { renderPagination } from './pagination'; //Viktor;
+import { renderPagination, paginationWrapRef } from './pagination'; //Viktor;
 import { renderMovieCards } from './render-movie-cards';
-import { filter, toTrendingBtn } from './filter';
+import { filter, toTrendingBtn, toTrendingBtnClick } from './filter';
 import { debounce } from './debounce';
 import {toTrendingBtnClick} from './filter';
+import { startLoader, stopLoader } from './loader';
 
 const refs = {
   form: document.querySelector('.header__form'),
@@ -15,6 +16,7 @@ const refs = {
   mainSection: document.querySelector('.section.main'),
   toTrendingBtn: document.querySelector('.to-trending__button'),
   filter: document.querySelector('.filter'),
+  failSearchText: document.querySelector('.not-succesful-search-text'),
 };
 
 
@@ -56,20 +58,23 @@ export async function onFormSubmit(e) {
     filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
 
-  refs.loader.classList.remove('backdrop-loader--is-hidden');
-
   clearGallery();
  
 
-  refs.loader.classList.add('backdrop-loader--is-hidden');
+  const movie = await searchMovies(searchText);
+
+  stopLoader();
 
   e.target.reset();
 
-  renderMovieCards(muvie.results);
-  renderPagination(muvie.page, muvie.total_pages);
-  const paginationWrapRef = document.querySelector('.pagination-wrap');
-  refs.pagination.classList.add('pagination-wrap');
-  console.log(refs.pagination)
+  if (!movie.total_results) {
+    paginationWrapRef.classList.add('visually-hidden');
+    refs.failSearchText.classList.remove('visually-hidden');
+    return;
+  }
+
+  renderMovieCards(movie.results);
+  renderPagination(movie.page, movie.total_pages);
 }
 
 function clearGallery() {
@@ -78,7 +83,7 @@ function clearGallery() {
 
 // Search by input
 
-const DEBOUNCE_DELAY = 600;
+const DEBOUNCE_DELAY = 500;
 
 refs.form && refs.form.addEventListener('submit', onFormSubmit);
 refs.input &&
@@ -88,6 +93,7 @@ async function onInputText(e) {
   searchText = e.target.value.trim();
 
   if (searchText === '') {
+    toTrendingBtnClick();
     return;
   }
 
@@ -108,14 +114,20 @@ if (muvie.total_results === 0) {
     filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
 
-  refs.loader.classList.remove('backdrop-loader--is-hidden');
+  startLoader();
 
   clearGallery();
 
-  // 
-  refs.loader.classList.add('backdrop-loader--is-hidden');
+  const movie = await searchMovies(searchText);
 
-  renderMovieCards(muvie.results);
- 
-  renderPagination(muvie.page, muvie.total_pages);
+  stopLoader();
+
+  if (!movie.total_results) {
+    paginationWrapRef.classList.add('visually-hidden');
+    refs.failSearchText.classList.remove('visually-hidden');
+    return;
+  }
+
+  renderMovieCards(movie.results);
+  renderPagination(movie.page, movie.total_pages);
 }
