@@ -4,6 +4,7 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { startLoader, stopLoader } from './loader';
+import { onTreilerBtnClick, closeModalTrailer } from './trailer';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
