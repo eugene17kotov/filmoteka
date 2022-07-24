@@ -6,7 +6,7 @@ body {
     position: fixed;
     bottom: 20%;
     left: 25%;
-    z-index: 999;
+    z-index: 9991;
   }
 }
 .fbs__nav {
@@ -332,4 +332,8 @@ body {
   font-size: 0.6em;
   color: red;
   background-color: aqua;
+}
+
+.dispnone {
+  display: none;
 }
