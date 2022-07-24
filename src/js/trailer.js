@@ -1,31 +1,38 @@
 import { getMovies } from './api/fetch-movie';
-import { ID_URL, API_KEY } from './api/api-vars';
+import { ID_URL, VIDEO_URL } from './api/api-vars';
+import { movieId } from './movie-modal';
 
 const refs = {
   modalTrailerIfraim: document.querySelector('.modal-video__trailer'),
   modalTrailer: document.querySelector('.backdrop-video'),
-  closeTrailerBtn: document.querySelector('.modal__close-btn'),
 };
 
-const { modalTrailerIfraim, modalTrailer, closeTrailer, modal } = refs;
+const { modalTrailerIfraim, modalTrailer } = refs;
 
 //Фетч треллера
-async function fetchTrailer(movieId) {
-  const url = `${ID_URL}${movieId}/?api_key=${API_KEY}&append_to_response=videos`;
+async function fetchForMovieTrailers(movieId) {
+  const url = `${ID_URL}${movieId}${VIDEO_URL}`;
+
   const response = await getMovies(url);
 
-  return response.data;
+  return response.results;
 }
+
+// https://api.themoviedb.org/3/movie/507086/videos?api_key=820f51701c1eae13089594e954cb7930&language=en-US
 
 export function onTreilerBtnClick(e) {
   e.preventDefault();
 
+  videoFrameClean();
+
   modalTrailer.classList.remove('modal-trailer--is-hidden');
 
-  videoFrameClean();
-  openVideo();
+  openVideo(movieId);
 
-  closeTrailer.addEventListener('click', closeModalTrailer);
+  const closeTrailerBtn = document.querySelector('.modal__close-btn');
+
+  closeTrailerBtn &&
+    closeTrailerBtn.addEventListener('click', closeModalTrailer);
 }
 
 // `<iframe src="https://www.youtube.com/embed/${e.target.dataset.video}" width="80%" height="70%" frameborder="0"></iframe>`
@@ -33,11 +40,9 @@ export function onTreilerBtnClick(e) {
 const BASE_TREILER_URL = 'https://www.youtube.com/embed/';
 
 function openVideo(id) {
-  fetchTrailer(id).then(result => {
-    const playlist = result.videos.results.map(value => value.key).join(',');
-    console.log(playlist);
-
-    videoFrameCreate(playlist);
+  fetchForMovieTrailers(id).then(result => {
+    const key = result[0].key;
+    videoFrameCreate(key);
   });
 }
 

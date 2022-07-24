@@ -27,54 +27,10 @@ const {
 } = refs;
 export let movieObject = {};
 const toTopBtn = document.getElementById('myBtn');
-const trailerBtn = document.querySelector('.modal-film__play-btn');
-
-function addAllEventListenersModal() {
-  closeBtn.addEventListener('click', onCloseBtnClick);
-  window.addEventListener('keydown', onKeydownEscape);
-  backdrop.addEventListener('click', onBackdropClick);
-  queueBtn.addEventListener('click', onBtnQueueClick);
-  addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
-}
-
-function onCloseBtnClick(e) {
-  e.preventDefault();
-  backdrop.classList.add('movie-backdrop--is-hidden');
-  scrollFunction();
-  removeAllEventListenersModal();
-}
-
-function onKeydownEscape(e) {
-  e.preventDefault();
-  if (e.code !== 'Escape') {
-    return;
-  }
-  backdrop.classList.add('movie-backdrop--is-hidden');
-  scrollFunction();
-  removeAllEventListenersModal();
-}
-
-function onBackdropClick(e) {
-  if (!e.target.classList.contains('movie-backdrop')) {
-    return;
-  }
-  backdrop.classList.add('movie-backdrop--is-hidden');
-  scrollFunction();
-  removeAllEventListenersModal();
-}
-
-function removeAllEventListenersModal() {
-  closeBtn.removeEventListener('click', onCloseBtnClick);
-  window.removeEventListener('keydown', onKeydownEscape);
-  backdrop.removeEventListener('click', onBackdropClick);
-  queueBtn.removeEventListener('click', onBtnQueueClick);
-  addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
-  document.body.classList.remove('modal-open');
-}
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 
-let movieId;
+export let movieId;
 
 // клик
 export async function clickOnMovieHandler(e) {
@@ -91,9 +47,11 @@ export async function clickOnMovieHandler(e) {
 
   await fetchById(movieId);
 
-  stopLoader();
+  const trailerBtn = document.querySelector('.modal-film__play-btn');
 
-  trailerBtn && trailerBtn.addEventListener('click', trailer(e));
+  trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
+
+  stopLoader();
 
   backdrop.classList.remove('movie-backdrop--is-hidden');
   document.body.classList.add('modal-open');
@@ -125,15 +83,6 @@ async function fetchById(movieId) {
   const responce = await getMovies(idURL);
 
   renderFilmCard(responce);
-
-  // //трейлер
-  const trailerBtn = document.querySelector('.modal-film__play-btn');
-  trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
-  console.log(trailerBtn);
-
-  closeModalTrailer();
-  // trailerBtn.addEventListener('click', onTreilerBtnClick);
-  // closeModalTrailer()
 
   movieObject = responce;
 
@@ -237,4 +186,47 @@ function whichBtnShowInWatchedFilms(id) {
   } else {
     addToWatchedButton.textContent = 'Add to watched';
   }
+}
+
+function addAllEventListenersModal() {
+  closeBtn.addEventListener('click', onCloseBtnClick);
+  window.addEventListener('keydown', onKeydownEscape);
+  backdrop.addEventListener('click', onBackdropClick);
+  queueBtn.addEventListener('click', onBtnQueueClick);
+  addToWatchedButton.addEventListener('click', onAddToWatchedBtnClick);
+}
+
+function onCloseBtnClick(e) {
+  e.preventDefault();
+  backdrop.classList.add('movie-backdrop--is-hidden');
+  scrollFunction();
+  removeAllEventListenersModal();
+}
+
+function onKeydownEscape(e) {
+  e.preventDefault();
+  if (e.code !== 'Escape') {
+    return;
+  }
+  backdrop.classList.add('movie-backdrop--is-hidden');
+  scrollFunction();
+  removeAllEventListenersModal();
+}
+
+function onBackdropClick(e) {
+  if (!e.target.classList.contains('movie-backdrop')) {
+    return;
+  }
+  backdrop.classList.add('movie-backdrop--is-hidden');
+  scrollFunction();
+  removeAllEventListenersModal();
+}
+
+function removeAllEventListenersModal() {
+  closeBtn.removeEventListener('click', onCloseBtnClick);
+  window.removeEventListener('keydown', onKeydownEscape);
+  backdrop.removeEventListener('click', onBackdropClick);
+  queueBtn.removeEventListener('click', onBtnQueueClick);
+  addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
+  document.body.classList.remove('modal-open');
 }
