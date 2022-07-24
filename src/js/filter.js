@@ -3,7 +3,7 @@ import { getMovies } from './api/fetch-movie';
 import { API_KEY, BASE_URL } from './api/api-vars';
 import { paginationWrapRef } from './pagination';
 import { startLoader, stopLoader } from './loader';
-import { addAd } from './render-movie-cards';
+import { adRandomizer } from './render-movie-cards';
 
 const refs = {
   btnToday: document.querySelector('button[data-group="today"]'),
@@ -72,7 +72,8 @@ btnWeek.addEventListener('click', async () => {
 export function renderMovies(url) {
   getMovies(url).then(response => {
     renderMovieCards(response.results);
-    addAd();
+
+    adRandomizer();
   });
 }
 

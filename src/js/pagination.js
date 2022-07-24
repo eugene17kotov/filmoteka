@@ -1,7 +1,8 @@
 import { getMovies } from './api/fetch-movie';
 import { renderMovieCards } from './render-movie-cards';
 import { topFunction } from './scroll-up';
-import { loader, startLoader, stopLoader } from './loader';
+import { startLoader, stopLoader } from './loader';
+import { adRandomizer } from './render-movie-cards';
 
 export const paginationWrapRef = document.querySelector('.pagination-wrap');
 
@@ -98,6 +99,7 @@ async function pageButtonPressed(event) {
 
   await getMovies(newUrl).then(response => {
     renderMovieCards(response.results);
+    adRandomizer();
     renderPagination(response.page, response.total_pages);
   });
 
