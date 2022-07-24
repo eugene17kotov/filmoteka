@@ -323,7 +323,7 @@ body.header-menu-open {
     &__item :first-child {
       margin-right: 20px;
 
-      @media screen and(min-width:$tab) {
+      @media screen and (min-width:$tab) {
         margin-right: 32px;
       }
     }
@@ -399,7 +399,7 @@ body.header-menu-open {
   // height: 32px;
 }
 
-@media screen and(max-width: 768px) {
+@media screen and (max-width: 768px) {
   .header-mob-menu {
     position: fixed;
     z-index: 2;
