@@ -63,12 +63,21 @@ body {
   text-transform: uppercase;
   color: $secondary-text-color;
   cursor: pointer;
-  font-size: large;
   font-weight: 500;
+  font-size: 18px;
 
   transition: color $trans-time $cubic, border-color $trans-time $cubic;
 
+  @media screen and (max-width: 767px) {
+    font-size: 30px;
+  }
+
   &:last-child {
+    @media screen and (max-width: 767px) {
+      margin-top: 20px;
+      margin-left: 0;
+      padding: 7px 10px;
+    }
     margin-left: 15px;
     padding: 5px 7px;
     // padding-left: 7px;
@@ -212,6 +221,9 @@ body {
   transform: translate(-50%, -50%);
   transition: transform 500ms;
   padding: 20px;
+  @media screen and (max-width: 767px) {
+    padding-top: 30px;
+  }
 }
 .fbs-modal-close-btn {
   position: absolute;
@@ -235,7 +247,12 @@ body {
 }
 
 .fbs-modal-title {
-  @include font(700, 30px, 35px, 0.03em);
+  font-size: 24px;
+  font-weight: 700;
+
+  @media screen and (min-width: 768px) {
+    font-size: 30px;
+  }
 
   text-align: center;
   color: $accent-hover-color;
@@ -261,10 +278,10 @@ body {
 
 .fbs-modal-label {
   display: block;
-  font-size: 19px;
-  @include font(null, 20px, 18px, 0.01em);
+  @include font(null, 19px, 18px, 0.01em);
   color: $accent-hover-color;
   margin-bottom: 8px;
+  margin-left: 20px;
 }
 
 .fbs-modal-label--end {
@@ -319,10 +336,10 @@ body {
 
 .fbs-modal-btn--submit {
   display: block;
-  padding: 8px;
-  width: 100%;
+  padding: 8px 18px;
+  // width: 100%;
   border: 0;
-  border-radius: 30px;
+  border-radius: 15px;
 
   margin-top: 30px;
   cursor: pointer;
@@ -332,25 +349,29 @@ body {
   box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
 
   text-align: center;
-  color: $accent-hover-color;
+  // color: $accent-hover-color;
+  background-color: $accent-color;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 12px;
 
   @include font(500, 24px, 30px, 0.03em);
   text-align: center;
-  transition: color $trans-time $cubic, background-color $trans-time $cubic,
-    box-shadow $trans-time $cubic;
+
+  transition: transform $trans-time $cubic, color $trans-time $cubic,
+    background-color $trans-time $cubic, box-shadow $trans-time $cubic;
 
   &:hover,
   &:focus {
+    transform: scale(1.08);
     background-color: $accent-color;
     color: white;
-    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.25), 0 14px 14px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 8px 43px rgb(255 107 1 / 60%);
   }
 }
 
 .fbs-forgot {
+  display: none;
   margin-top: 2em;
   color: #ffffff;
   font-size: 0.5em;
@@ -360,18 +381,28 @@ body {
   text-decoration: underline;
 }
 
-// .login-status {
-// font-size: 0.6em;
-// margin-left: 40px;
-// padding: 5px 10px;
-// border-radius: 5px;
-// border: 1px solid #ffffff;
-// color: red;
-// background-color: aqua;
-// }
-
 #logged-user {
   color: #ffffff;
+}
+
+@media screen and (max-width: 767px) {
+  #logout {
+    padding: 10px 15px;
+  }
+  .login-status {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    // font-size: 40px;
+    // font-size: 0.6em;
+    // margin-left: 40px;
+    // padding: 5px 10px;
+    // border-radius: 5px;
+    // border: 1px solid #ffffff;
+    // color: red;
+    // background-color: aqua;
+  }
 }
 
 .login-status-icon {
@@ -379,5 +410,10 @@ body {
   fill: currentColor;
   position: absolute;
   left: 2px;
-  bottom: 7px;
+  bottom: 14px;
+
+  @media screen and (min-width: 768px) {
+    left: 2px;
+    bottom: 7px;
+  }
 }
