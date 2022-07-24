@@ -147,7 +147,7 @@ export function createLibraryMovieMarkup(movie) {
 
   const queueGenres = getQueueMovieGenresList(genres);
 
-  poster_src =
+  const poster_src =
     poster_path === null
       ? 'https://dummyimage.com/395x574/000/fff.jpg&text=no+poster'
       : `${BASE_IMG_URL}${poster_path}`;
