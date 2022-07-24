@@ -385,9 +385,28 @@ body {
   color: #ffffff;
 }
 
+#logout {
+  color: $accent-color;
+  border-color: $accent-color;
+
+  &:hover,
+  &:focus {
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+}
+
 @media screen and (max-width: 767px) {
   #logout {
     padding: 10px 15px;
+    color: #ffffff;
+    border-color: #ffffff;
+
+    &:hover,
+    &:focus {
+      color: $accent-color;
+      border-color: $accent-color;
+    }
   }
   .login-status {
     display: flex;
