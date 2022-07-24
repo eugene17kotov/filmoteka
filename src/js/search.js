@@ -46,7 +46,7 @@ export async function onFormSubmit(e) {
 
   stopLoader();
 
-  refs.loader.classList.add('backdrop-loader--is-hidden');
+  // refs.loader.classList.add('backdrop-loader--is-hidden');
 
   e.target.reset();
 
@@ -70,14 +70,12 @@ async function onInputText(e) {
   searchText = e.target.value.trim();
 
   if (searchText === '') {
-    renderMovies(
-      `${BASE_URL}/trending/movie/week?api_key=${API_KEY}&page=${
-        document.querySelector('.pagination-button--current').dataset.page
-      }`
-    );
-    filter.classList.remove('is-hidden');
-    toTrendingBtn.classList.add('is-hidden');
-    paginationWrapRef.classList.remove('visually-hidden');
+    // renderMovies(
+    //   `${BASE_URL}/trending/movie/week?api_key=${API_KEY}&page=${1}`
+    // );
+    // filter.classList.remove('is-hidden');
+    // toTrendingBtn.classList.add('is-hidden');
+    // paginationWrapRef.classList.remove('visually-hidden');
     return;
   }
 
@@ -98,11 +96,9 @@ async function onInputText(e) {
     paginationWrapRef.classList.add('visually-hidden');
     refs.gallery.innerHTML =
       '<p class="not-succesful-search-text">Search result not successful. Enter the correct movie name.</p>';
-  } else {
-    paginationWrapRef.classList.remove('visually-hidden');
   }
 
-  refs.loader.classList.add('backdrop-loader--is-hidden');
+  // refs.loader.classList.add('backdrop-loader--is-hidden');
 
   renderMovieCards(muvie.results);
   renderPagination(muvie.page, muvie.total_pages);

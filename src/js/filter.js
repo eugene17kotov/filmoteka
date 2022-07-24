@@ -2,6 +2,7 @@ import { renderMovieCards } from './render-movie-cards';
 import { getMovies } from './api/fetch-movie';
 import { API_KEY, BASE_URL } from './api/api-vars';
 // import { onFormSubmit } from './search';
+import { paginationWrapRef } from './pagination';
 
 const refs = {
   btnToday: document.querySelector('button[data-group="today"]'),
@@ -80,5 +81,6 @@ function toTrendingBtnClick() {
     filterBg.classList.add('to-right');
     localStorage.setItem('LAST_REQUESTED_URL', TREND_URL_WEEK);
     renderMovies(TREND_URL_WEEK + `&page=${page}`);
+    paginationWrapRef.classList.remove('visually-hidden');
   }
 }
