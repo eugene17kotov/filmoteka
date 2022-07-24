@@ -99,5 +99,3 @@ export const registerMarkup = `<div id="user-register" class="backdrop fbs-backd
         </form>
         </div>
       </div>`;
-
-// import svgClose from '../../images/symbol-defs.svg';
