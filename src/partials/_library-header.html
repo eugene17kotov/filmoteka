@@ -20,22 +20,24 @@
               <use href="./././images/symbol-defs.svg#icon-menu"></use>
             </svg>
           </button>
-
-          <ul class="header__nav-list">
-            <li class="header__nav-item">
-              <a class="header__nav-btn" href="././index.html">Home</a>
-            </li>
-            <li class="header__nav-item">
-              <a
-                class="header__nav-btn header__nav-item--active"
-                href="././my-library.html"
-                >My library</a
-              >
-            </li>
-            <li class="header__nav-item">
-              <a class="header__nav-btn" href="././newsfeed.html">Newsfeed</a>
-            </li>
-          </ul>
+          <div class="button_container">
+            <ul class="header__nav-list">
+              <li class="header__nav-item">
+                <a class="header__nav-btn" href="././index.html">Home</a>
+              </li>
+              <li class="header__nav-item">
+                <a
+                  class="header__nav-btn header__nav-item--active"
+                  href="././my-library.html"
+                  >My library</a
+                >
+              </li>
+              <li class="header__nav-item">
+                <a class="header__nav-btn" href="././newsfeed.html">Newsfeed</a>
+              </li>
+            </ul>
+            <div id="auth-header"></div>
+          </div>
         </nav>
       </div>
 
@@ -57,33 +59,36 @@
           </li>
         </ul>
       </div>
-    </div>
-
-    <div class="theme-switch">
-      <svg class="theme-switch__icon sun" role="img" aria-label="Иконка солнца">
-        <use href="./images/sprite.svg#sun"></use>
-      </svg>
-
-      <div class="theme-switch__control">
-        <input
-          class="theme-switch__toggle"
-          type="checkbox"
-          name="theme"
-          id="theme-switch-toggle"
-          aria-label="Переключить между тёмной и светлой темой"
-        />
-        <label
-          aria-hidden="true"
-          class="theme-switch__track"
-          for="theme-switch-toggle"
+      <div class="theme-switch">
+        <svg
+          class="theme-switch__icon sun"
+          role="img"
+          aria-label="Иконка солнца"
         >
-        </label>
-        <div aria-hidden="true" class="theme-switch__marker"></div>
-      </div>
+          <use href="./images/sprite.svg#sun"></use>
+        </svg>
 
-      <svg class="theme-switch__icon moon" aria-label="Иконка луны">
-        <use href="./images/sprite.svg#moon"></use>
-      </svg>
+        <div class="theme-switch__control">
+          <input
+            class="theme-switch__toggle"
+            type="checkbox"
+            name="theme"
+            id="theme-switch-toggle"
+            aria-label="Переключить между тёмной и светлой темой"
+          />
+          <label
+            aria-hidden="true"
+            class="theme-switch__track"
+            for="theme-switch-toggle"
+          >
+          </label>
+          <div aria-hidden="true" class="theme-switch__marker"></div>
+        </div>
+
+        <svg class="theme-switch__icon moon" aria-label="Иконка луны">
+          <use href="./images/sprite.svg#moon"></use>
+        </svg>
+      </div>
     </div>
   </div>
   <div class="header-mob-menu visually-hidden">

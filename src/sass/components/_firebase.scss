@@ -1,20 +1,23 @@
 body {
   position: relative;
 }
-.auth-header {
+
+#auth-header {
   display: flex;
-  @media screen and (min-width: 768px) {
-    margin-left: 20px;
-  }
   @media only screen and (max-width: 767px) {
     position: fixed;
     bottom: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 9991;
+    z-index: 5000;
     display: none;
   }
+
+  @media screen and (min-width: 768px) {
+    margin-left: 20px;
+  }
 }
+
 .fbs__nav {
   &-list {
     display: none;
@@ -201,13 +204,13 @@ body {
 
   transition: opacity 350ms ease-in, visibility 350ms ease-in;
   @media screen and (max-width: 767px) {
-    z-index: 1999;
+    z-index: 9998;
   }
 }
 .fbs-modal {
   height: 70%;
   width: 320px;
-  z-index: 1003;
+  z-index: 9999;
   @include media-min($tab) {
     width: 480px;
     min-height: 580px;

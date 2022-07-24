@@ -485,6 +485,12 @@ body.header-menu-open {
   }
 }
 
+@media screen and (min-width: 768px) {
+  .mob-menu-list {
+    display: none;
+  }
+}
+
 .mob-menu__item:not(:last-child) {
   margin-bottom: 32px;
 }
