@@ -154,12 +154,12 @@ footer.dark-theme {
   color: #ffffff;
   position: absolute;
   right: 20px;
-  top: 20px;
+  bottom: -40px;
   display: flex;
   align-items: center;
 
   &.home {
-    bottom: -70px;
+    bottom: -60px;
   }
 }
 
