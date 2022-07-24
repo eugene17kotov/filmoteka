@@ -8,7 +8,7 @@ body {
   }
   @media only screen and (max-width: 767px) {
     position: fixed;
-    bottom: 20%;
+    bottom: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9991;
@@ -69,7 +69,7 @@ body {
   transition: color $trans-time $cubic, border-color $trans-time $cubic;
 
   @media screen and (max-width: 767px) {
-    font-size: 30px;
+    font-size: 27px;
   }
 
   &:last-child {
@@ -398,7 +398,7 @@ body {
 
 @media screen and (max-width: 767px) {
   #logout {
-    padding: 10px 15px;
+    padding: 8px 12px;
     color: #ffffff;
     border-color: #ffffff;
 
