@@ -48,10 +48,13 @@ function openVideo(id) {
 
       const key =  result[0].key;
       videoFrameCreate(key);
+    } else{
+
+      modalTrailerIfraim.innerHTML = `<p class="modal-video__error">Trailer not found!</p>`
     }
-     return ;
+    //  return ;
     
-    // modalTrailerIfraim.innerHTML = `<p class="modal-video__error">Trailer not found!</p>` 
+      
     
   });
 }

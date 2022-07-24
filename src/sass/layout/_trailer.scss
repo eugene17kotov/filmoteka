@@ -3,7 +3,7 @@
   cursor: pointer;
      width: 55px;
      height: 40px;
-     background: rgba(204, 204, 204, 0.8);
+     background: rgba(255, 24, 7, 0.733);
      border-radius: 7px;
      position: absolute;
      border: none;
@@ -26,7 +26,7 @@
  
  &:hover,
  &:focus{
-   background: rgba(252, 29, 13, 0.651);
+  box-shadow: 0px 4px 16px rgba(231, 68, 56, 0.651);
  }
  }
  
