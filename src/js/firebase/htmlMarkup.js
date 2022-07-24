@@ -2,7 +2,7 @@ import icons from '../../images/symbol-defs.svg';
 
 export const logregMarkup = `<div id="login-status" class="login-status">
         <button id="tosignin"  type="button" class="fbs__nav-btn">log in</button>
-        <button id="tosignup"  type="button" class="fbs__nav-btn">
+        <button id="tosignup"  type="button" class="fbs__nav-btn sign-up">
                 <svg class="login-status-icon" width="18" height="18">
           <use href="${icons}#person-black-18dp"></use>
         </svg>

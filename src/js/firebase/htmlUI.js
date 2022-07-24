@@ -65,7 +65,7 @@ async function onLoginBtn(e) {
         localStorage.setItem('queue', queue);
       }
 
-      makeLoggedHtml(` user logged as ${myUser.email} `);
+      makeLoggedHtml(myUser.email);
     } else {
       document.getElementById('login-error').innerText = ` ${myUser
         .replace('auth/', '')
@@ -82,7 +82,7 @@ async function onLoginBtn(e) {
       await createNote(createdUser, queue, watched);
       cleanLoginModal();
 
-      makeLoggedHtml(` user logged as ${myUser.email} `);
+      makeLoggedHtml(myUser.email);
     } else {
       document.getElementById('login-error').innerText = ` ${createdUser
         .replace('auth/', '')
