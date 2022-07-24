@@ -5,7 +5,7 @@ import { clickOnMovieHandler } from './movie-modal';
 
 const UPCOMING_URL = `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
 const SLIDER_IMG_URL = 'https://image.tmdb.org/t/p/w200';
-export const slideGalleryRef = document.querySelector(".glide__slides-upcomingMovies");
+export const slideGalleryRef = document.querySelector(".glide__slides-upcoming");
 
 (async () => {
   const upcomingMovieList = await getMovies(UPCOMING_URL);
