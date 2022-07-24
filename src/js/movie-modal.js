@@ -93,6 +93,10 @@ export async function clickOnMovieHandler(e) {
 
   await fetchById(movieId);
 
+  const trailerBtn = document.querySelector('.modal-film__play-btn');
+  trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
+  console.log(trailerBtn);
+
   stopLoader();
 
 
@@ -136,9 +140,7 @@ async function fetchById(movieId) {
   renderFilmCard(responce);
 
 // //трейлер
-const trailerBtn = document.querySelector('.modal-film__play-btn');
-trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
-console.log(trailerBtn);
+
 
 closeModalTrailer()
 // trailerBtn.addEventListener('click', onTreilerBtnClick);

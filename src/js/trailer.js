@@ -12,7 +12,7 @@ const refs = {
 const {
   modalTrailerIfraim,
   modalTrailer,
-  closeTrailer,
+  closeTrailerBtn,
 } = refs;
 
 
@@ -22,30 +22,30 @@ const {
 
 //Фетч треллера 
 async function fetchTrailer(movieId) {
-  const url = `${ID_URL}${movieId}/?api_key=${API_KEY}&append_to_response=videos`;
+  const url = `${ID_URL}${movieId}/videos?api_key=${API_KEY}&language=en-US`;
   const response = await getMovies(url);
 
   return response
 
- 
 }
 
-
+let videoId;
 export function onTreilerBtnClick(e) {
   e.preventDefault();
 
   
+  
   modalTrailer.classList.remove('modal-trailer--is-hidden');
 
-
- ;
+  
+ 
   videoFrameClean();
   videoFrameCreate()
-  // openVideo()
+  openVideo(507086)
 
 
 
-  // closeTrailer.addEventListener('click', closeModalTrailer);
+  closeTrailerBtn && closeTrailerBtn.addEventListener('click', closeModalTrailer);
 }
 
 // `<iframe src="https://www.youtube.com/embed/${e.target.dataset.video}" width="80%" height="70%" frameborder="0"></iframe>`
@@ -53,14 +53,14 @@ export function onTreilerBtnClick(e) {
 
 const BASE_TREILER_URL = "https://www.youtube.com/embed/";
 
-// function openVideo(id) {
-//   fetchTrailer(id).then(result => {
-//     const playlist = result.videos.results.map(value => value.key).join(',');
-//     console.log(playlist);
+function openVideo(key) {
+  fetchTrailer(key).then(result => {
+    const playlist = result.videos.results.map(value => value.key).join(',');
+    console.log(playlist);
 
-//     videoFrameCreate(playlist)
-//   });
-// }
+    videoFrameCreate(playlist)
+  });
+}
 
 function videoFrameCreate(key) {
     
