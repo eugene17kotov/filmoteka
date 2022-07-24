@@ -1,9 +1,12 @@
 import icons from '../../images/symbol-defs.svg';
 
 export const logregMarkup = `<div id="login-status" class="login-status">
-        <button id="tosignin"  type="button" class="fbs__nav-btn">sign in</button>
-        <span class="fbs-header-span">  </span>
-        <button id="tosignup"  type="button" class="fbs__nav-btn">sign up</button>
+        <button id="tosignin"  type="button" class="fbs__nav-btn">log in</button>
+        <button id="tosignup"  type="button" class="fbs__nav-btn">
+                <svg class="login-status-icon" width="18" height="18">
+          <use href="${icons}#person-black-18dp"></use>
+        </svg>
+        sign up</button>
       </div>`;
 
 export const loggedMarkup = `<div id="login-status" class="login-status">
@@ -25,14 +28,14 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
             ></use>
           </svg></button>
 
-            <p class="fbs-modal-title">Login</p>
+            <p class="fbs-modal-title">Sign in with email</p>
         
         <form id="login-form" class="fbs-modal-form">
         <div class="fbs-modal-content">
           <label for="email" class="fbs-modal-label">Email: </label>
           <span class="fbs-modal-label__field">
             <input type="email" name="email" required 
-              placeholder="mail@mail.mail"
+              placeholder="email@address.com"
               class="fbs-modal-label__block fbs-modal-label__block--input"/>
               <svg class="fbs-modal-icon" width="18" height="18">
                 <use href="${icons}#email-black-18dp"></use>
@@ -47,7 +50,7 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
                 <use href="${icons}#person-black-18dp"></use>
               </svg>
           </span>
-          <button type="submit" id="fire" value="log" class="btn fbs-modal-btn--submit">Sign in</button>
+          <button type="submit" id="fire" value="log" class="btn fbs-modal-btn--submit">Login</button>
           <p id="login-error"></p>
           </div>
           <a class="fbs-forgot" href="#">Forgot Password?</a>
@@ -70,14 +73,14 @@ export const registerMarkup = `<div id="user-register" class="backdrop fbs-backd
             ></use>
           </svg></button>
 
-        <p class="fbs-modal-title">Login</p>
+        <p class="fbs-modal-title">Sign up with email</p>
         
         <form id="signup-form" class="fbs-modal-form">
         <div class="fbs-modal-content">
           <label for="email" class="fbs-modal-label">Email: </label>
           <span class="fbs-modal-label__field">
             <input type="email" name="email" required 
-              placeholder="mail@mail.mail"
+              placeholder="email@address.com"
               class="fbs-modal-label__block fbs-modal-label__block--input"/>
               <svg class="fbs-modal-icon" width="18" height="18">
                 <use href="${icons}#email-black-18dp"></use>

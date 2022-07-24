@@ -2,11 +2,15 @@ body {
   position: relative;
 }
 .auth-header {
-  display: block;
+  display: flex;
+  @media screen and (min-width: 768px) {
+    margin-left: 20px;
+  }
   @media only screen and (max-width: 767px) {
     position: fixed;
     bottom: 20%;
-    left: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 9991;
     display: none;
   }
@@ -47,6 +51,7 @@ body {
   }
 }
 .fbs__nav-btn {
+  position: relative;
   background-color: transparent;
   border: none;
   margin: 0px;
@@ -61,11 +66,22 @@ body {
   font-size: large;
   font-weight: 500;
 
-  transition: color $trans-time cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color $trans-time $cubic, border-color $trans-time $cubic;
 
+  &:last-child {
+    margin-left: 15px;
+    // padding: 5px 10px;
+    padding-left: 23px;
+    padding-right: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+  }
   &:hover,
   &:focus {
     color: $accent-color;
+    border-color: $accent-color;
   }
 }
 .fbs-header {
@@ -149,12 +165,12 @@ body {
 }
 .firebase-backdrop {
   height: 100%;
-  overflow: scroll;
   padding: 0;
   margin: 0;
-  font-size: 20px;
+  // font-size: 20px;
   position: relative;
 }
+
 .fbs-backdrop {
   position: fixed;
   z-index: 9;
@@ -184,7 +200,7 @@ body {
   }
   background: url('../images/add-giphy.gif') no-repeat left top;
 
-  border-radius: 10px;
+  border-radius: 30px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -204,7 +220,7 @@ body {
   background-color: transparent;
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 300ms ease-in;
+  transition: background-color $trans-time $cubic, fill $trans-time $cubic;
 
   &:hover,
   &:focus {
@@ -223,12 +239,12 @@ body {
 
 .fbs-modal-form {
   width: 100%;
-  min-height: 500px;
-  height: 100%;
-  border-radius: 5px;
+  // min-height: 500px;
+  // height: 100%;
+  border-radius: 30px;
   margin: 2% auto;
   box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
-  padding: 2%;
+  padding: 5%;
 }
 .fbs-modal-content {
   width: 100%;
@@ -240,8 +256,9 @@ body {
 
 .fbs-modal-label {
   display: block;
+  font-size: 19px;
   @include font(null, 20px, 18px, 0.01em);
-  color: $secondary-text-color;
+  color: $accent-hover-color;
   margin-bottom: 8px;
 }
 
@@ -262,9 +279,12 @@ body {
   border-radius: 30px;
   outline: none;
 
+  transition: color $trans-time $cubic, fill $trans-time $cubic;
+
   &::placeholder {
     @include font(null, 12px, 14px, 0.01em);
     color: rgba(117, 117, 117, 0.5);
+    transition: color $trans-time $cubic, fill $trans-time $cubic;
   }
 
   &:hover::placeholder,
@@ -282,12 +302,14 @@ body {
   height: 50px;
   padding-left: 42px;
 }
+
 .fbs-modal-icon {
   position: absolute;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
   fill: black;
+  transition: fill $trans-time $cubic;
 }
 
 .fbs-modal-btn--submit {
@@ -302,22 +324,25 @@ body {
   font-size: 0.85em;
   font-weight: 500;
   text-shadow: -1px -1px #b86200, 0 1px 0 #ecb76b;
+  box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
 
   text-align: center;
   color: $accent-hover-color;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 12px;
 
   @include font(500, 24px, 30px, 0.03em);
   text-align: center;
-  transition: color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color $trans-time $cubic, background-color $trans-time $cubic,
+    box-shadow $trans-time $cubic;
+
   &:hover,
   &:focus {
     background-color: $accent-color;
     color: white;
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.25), 0 14px 14px rgba(0, 0, 0, 0.22);
   }
-  color: $accent-hover-color;
-  margin-bottom: 12px;
 }
 
 .fbs-forgot {
@@ -330,8 +355,20 @@ body {
   text-decoration: underline;
 }
 
-.login-status {
-  font-size: 0.6em;
-  color: red;
-  background-color: aqua;
+// .login-status {
+// font-size: 0.6em;
+// margin-left: 40px;
+// padding: 5px 10px;
+// border-radius: 5px;
+// border: 1px solid #ffffff;
+// color: red;
+// background-color: aqua;
+// }
+
+.login-status-icon {
+  // color: #ffffff;
+  fill: currentColor;
+  position: absolute;
+  left: 2px;
+  bottom: 7px;
 }
