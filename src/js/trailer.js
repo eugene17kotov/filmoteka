@@ -1,55 +1,66 @@
-import { BasicLightBox } from 'basiclightbox';
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, API_KEY } from './api/api-vars';
-const btnModalTrailer = document.querySelector('.modal-film__play-btn');
+
+const refs = {
+  modalTrailerIfraim: document.querySelector('.modal-video__trailer'),
+  modalTrailer: document.querySelector('.backdrop-video'),
+  closeTrailerBtn: document.querySelector('.modal__close-btn'),
+};
+
+const { modalTrailerIfraim, modalTrailer, closeTrailer, modal } = refs;
 
 //Фетч треллера
 async function fetchTrailer(movieId) {
-  const url = `${ID_URL}${movieId}/videos?api_key=${API_KEY}&language=en-US`;
-  const responce = await getMovies(url);
-  return responce;
+  const url = `${ID_URL}${movieId}/?api_key=${API_KEY}&append_to_response=videos`;
+  const response = await getMovies(url);
+
+  return response.data;
 }
 
-export function trailer(e) {
-  console.log(e.target.dataset);
-  fetchTrailer(Number(e.target.dataset.id))
-    .then(data => {
-      trailerRender(data);
-    })
-    .catch(console.log);
+export function onTreilerBtnClick(e) {
+  e.preventDefault();
+
+  modalTrailer.classList.remove('modal-trailer--is-hidden');
+
+  videoFrameClean();
+  openVideo();
+
+  closeTrailer.addEventListener('click', closeModalTrailer);
 }
 
-// const modalTrailer = document.querySelector('.modal');
-// console.log(modalTrailer);
+// `<iframe src="https://www.youtube.com/embed/${e.target.dataset.video}" width="80%" height="70%" frameborder="0"></iframe>`
 
-function trailerRender(data) {
-  const instance = BasicLightBox.create(
-    `<div class="modal-trailer__backdrop">
-          <iframe class="iframe" width="640" height="480" frameborder="0" allowfullscreen allow='autoplay'
-            src="https://www.youtube.com/embed/${data.results[0].key}?autoplay=1" >
-          </iframe>
-          <p> Watch Trailer</p>
-    </div>`,
-    {
-      onShow: instance => {
-        instance.element().onclick = instance.close;
-        document.addEventListener('keydown', onEscClose);
-      },
-    },
-    {
-      onClose: instance => {
-        document.removeEventListener('keydown', onEscClose);
-        console.log(instance);
-      },
-    }
-  );
-  function onEscClose(event) {
-    if (event.code === 'Escape') {
-      instance.close();
-    }
-  }
-  btnModalTrailer &&
-    btnModalTrailer.addEventListener('click', () => {
-      instance.show();
-    });
+const BASE_TREILER_URL = 'https://www.youtube.com/embed/';
+
+function openVideo(id) {
+  fetchTrailer(id).then(result => {
+    const playlist = result.videos.results.map(value => value.key).join(',');
+    console.log(playlist);
+
+    videoFrameCreate(playlist);
+  });
+}
+
+function videoFrameCreate(key) {
+  const trailer = `
+    <iframe 
+    width="560px" 
+    height="300px"  
+   src="${BASE_TREILER_URL}${key}" 
+   title="YouTube video player" 
+   frameborder="0" 
+   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+   allowfullscreen>
+   </iframe>
+ `;
+  modalTrailerIfraim.insertAdjacentHTML('beforeend', trailer);
+}
+
+function videoFrameClean() {
+  modalTrailerIfraim.innerHTML = '';
+}
+
+export function closeModalTrailer() {
+  videoFrameClean();
+  modalTrailer.classList.add('modal-trailer--is-hidden');
 }

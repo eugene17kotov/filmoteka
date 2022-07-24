@@ -1,6 +1,6 @@
 
 .modal-film__play-btn {
-cursor: pointer;
+ cursor: pointer;
     width: 55px;
     height: 40px;
     background: rgba(242, 24, 9, 0.8);
@@ -30,8 +30,73 @@ cursor: pointer;
 }
 }
 
-.trailer{
+
+.backdrop-video {
+  overflow-y: auto;
+  z-index: 998;
+ 
   display: flex;
   justify-content: center;
-  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  padding: 20px;
+ 
+  background: rgba(0, 0, 0, 0.56);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &.modal-trailer--is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    & .modal-video__container {
+      transform: scale(2);
+    }
+  }
+
+  @media screen and (min-width: 767px) and (min-height: 500px) {
+    align-items: center;
+  }
+}
+
+.modal-video__container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: #E5E5E5;
+  width: 320px;
+  height: 380px;
+  padding: 48px 20px 40px 20px;
+  position: relative;
+  transform: scale(1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  @media screen and (min-width: 767px) {
+    padding: 40px 72px 40px 36px;
+    width: 580px;
+    height: 365px;
+  }
+  @media screen and (min-width: 1024px) {
+    overflow: hidden;
+    padding: 40px 16px;
+  }
+}
+
+.modal__close-btn {
+  background-color: transparent;
+  border: transparent;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    fill: #FF6B01;
+  }
+}
+
+
+
+.modal-video__trailer {
+  display: flex;
+  justify-content: center;
 }

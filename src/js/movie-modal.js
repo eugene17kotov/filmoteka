@@ -4,7 +4,7 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { loader, startLoader, stopLoader } from './loader';
-import { trailer } from './trailer';
+import { onTreilerBtnClick, closeModalTrailer } from './trailer';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -78,7 +78,7 @@ cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 let movieId;
 
 // клик
-async function clickOnMovieHandler(e) {
+export async function clickOnMovieHandler(e) {
   e.preventDefault();
 
   if (e.target.nodeName !== 'IMG') {
@@ -126,6 +126,15 @@ async function fetchById(movieId) {
   const responce = await getMovies(idURL);
 
   renderFilmCard(responce);
+
+  // //трейлер
+  const trailerBtn = document.querySelector('.modal-film__play-btn');
+  trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
+  console.log(trailerBtn);
+
+  closeModalTrailer();
+  // trailerBtn.addEventListener('click', onTreilerBtnClick);
+  // closeModalTrailer()
 
   muvieObject = responce;
 

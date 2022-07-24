@@ -2,20 +2,23 @@
 
 //
 
-import { makeLogRegHtml } from './htmlUI';
+import { makeLogRegHtml, makeLoggedHtml } from './htmlUI';
 
 const database = connectToBD();
 
-// console.log(database);
-// localStorage.getItem('watched') !== null)
-// localStorage.getItem('queue') !== null)
+const auth = getAuth();
 
-//  saveData(key, value) {
-//     const dataToSave = JSON.stringify(value);
-//     localStorage.setItem(key, JSON.stringify(value));
-//   },
+onAuthStateChanged(auth, myUser => {
+  if (myUser) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = myUser.uid;
+    makeLoggedHtml(` user logged as ${myUser.email} `);
+    // ...
+  } else {
+    // User is signed out
+    // ...
 
-// main enterance
-makeLogRegHtml();
-
-// // save test object to localStorage
+    makeLogRegHtml();
+  }
+});
