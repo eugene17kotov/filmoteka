@@ -51,7 +51,8 @@ function openVideo(id) {
     }
      return ;
     
-    // modalTrailerIfraim.innerHTML = `<p class="modal-video__error">Trailer not found!</p>`  
+    // modalTrailerIfraim.innerHTML = `<p class="modal-video__error">Trailer not found!</p>` 
+    
   });
 }
 
