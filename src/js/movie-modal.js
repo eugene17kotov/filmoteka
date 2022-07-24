@@ -3,7 +3,7 @@ import { ID_URL, BASE_IMG_URL, API_KEY } from './api/api-vars';
 import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
-import { loader, startLoader, stopLoader } from './loader';
+import { startLoader, stopLoader } from './loader';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -24,7 +24,7 @@ const {
   contentRef,
   addToWatchedButton,
 } = refs;
-export let muvieObject = {};
+export let movieObject = {};
 const toTopBtn = document.getElementById('myBtn');
 
 function addAllEventListenersModal() {
@@ -122,7 +122,7 @@ async function fetchById(movieId) {
 
   renderFilmCard(responce);
 
-  muvieObject = responce;
+  movieObject = responce;
 
   return responce;
 }
