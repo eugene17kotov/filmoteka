@@ -79,12 +79,15 @@ export let movieId;
 // клик
 export async function clickOnMovieHandler(e) {
   e.preventDefault();
-  //  //!Viktor: disabling buttons for slider gallery
-  //   if (e.path.includes(slideGalleryRef)) {
-  //     queueBtn.parentElement.classList.add("visually-hidden");
-  //   } else {
-  //     queueBtn.parentElement.classList.remove("visually-hidden");
-  //   }
+
+  // console.dir(e);
+  // console.log(e.path);
+  // //!Viktor: disabling buttons for slider gallery
+  if (e.currentTarget) {
+    queueBtn.parentElement.classList.add('visually-hidden');
+  } else {
+    queueBtn.parentElement.classList.remove('visually-hidden');
+  }
 
   if (e.target.nodeName !== 'IMG') {
     return;
