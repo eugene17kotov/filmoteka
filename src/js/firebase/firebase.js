@@ -29,3 +29,20 @@ onAuthStateChanged(auth, myUser => {
     makeLogRegHtml();
   }
 });
+
+// --- //
+// window.addEventListener('resize', resizeWindow);
+
+// function resizeWindow() {
+//   if (window.innerWidth < 767) {
+//     console.log('< 767');
+//     document.getElementById('auth-header').classList.add('dispnone');
+//   } else {
+//     console.log('> 767');
+//     document.getElementById('auth-header').remove('dispnone');
+//   }
+
+// +++++++++ //
+
+// console.log(hrefAuthHeaderHtml.classList);
+// }
