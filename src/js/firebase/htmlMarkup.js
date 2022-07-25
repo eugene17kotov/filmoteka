@@ -96,7 +96,26 @@ export const registerMarkup = `<div id="user-register" class="backdrop fbs-backd
           <button type="submit" id="fire" value="reg" class="btn fbs-modal-btn--submit">Sign up</button>
           <p id="login-error"></p>
           </div>
-          
-        </form>
+                  </form>
+                  <p class="policy-text">
+  By continuing, you are indicating that you accept our
+  <a
+    href="https://www.termsfeed.com/live/a4a90d1f-3dbd-4a5f-8d9b-f11bd7c44a8a"
+    target="_blank"
+    rel="noreferrer noopener nofollow"
+    aria-label="Terms"
+    class="policy-link"
+    >Terms of Service</a
+  >
+  and
+  <a
+    href="https://www.termsfeed.com/live/3410472a-4627-47f2-9940-040bfb0a9dca"
+    target="_blank"
+    rel="noreferrer noopener nofollow"
+    aria-label="Policy"
+    class="policy-link"
+    >Privacy Policy</a
+  >.
+</p>
         </div>
       </div>`;

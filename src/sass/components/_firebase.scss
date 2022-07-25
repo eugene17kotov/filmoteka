@@ -208,16 +208,16 @@ body {
   }
 }
 .fbs-modal {
-  height: 70%;
-  width: 320px;
+    min-height: 450px;  
+    width: 320px;
   z-index: 9999;
   @include media-min($tab) {
     width: 480px;
     min-height: 580px;
   }
-  background: url('../images/add-giphy.gif') no-repeat left top;
+  border-radius: 7% 7% 8% 8%;
+  background: url('../images/add-giphy.gif') no-repeat;
 
-  border-radius: 30px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -440,4 +440,23 @@ body {
     left: 2px;
     bottom: 7px;
   }
+}
+
+.policy-text {
+  padding: 0 10px;
+  position: fixed;
+  bottom: 4%;
+  left: 0;
+  text-align: center;
+  color: #757575;
+}
+
+.policy-link {
+  text-decoration: none;
+  color: #4286f4d2;
+  transition: color $trans-time $cubic;
+
+&:hover, &:focus {
+  color: #4285f4;
+}
 }
