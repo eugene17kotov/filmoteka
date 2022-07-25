@@ -156,7 +156,7 @@ function modalFilmCart({
   poster_path,
 }) {
   let roundPopularity = Math.round(popularity);
-  let roundVote_average = vote_average.toFixed(1);
+  let roundVote_average = vote_average.toFixed(2);
   let imageMarkup = `
   <img 
     src="${BASE_IMG_URL}${poster_path}"
