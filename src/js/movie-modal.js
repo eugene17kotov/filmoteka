@@ -80,9 +80,6 @@ export let movieId;
 export async function clickOnMovieHandler(e) {
   e.preventDefault();
 
-  // console.dir(e);
-  // console.log(e.path);
-  // //!Viktor: disabling buttons for slider gallery
   if (e.currentTarget === slideGalleryRef) {
     queueBtn.parentElement.classList.add('visually-hidden');
   } else {
