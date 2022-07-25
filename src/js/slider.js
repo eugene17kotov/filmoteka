@@ -36,13 +36,16 @@ function renderSlideMovieCards(movies) {
     .map(movie => createSlideMovieMarkup(movie))
     .join('');
 
-  slideGalleryRef.innerHTML = slideMovieGalleryMarkup;
-  slideGalleryRef.addEventListener('click', clickOnMovieHandler);
+  if (slideGalleryRef) {
+    slideGalleryRef.innerHTML = slideMovieGalleryMarkup;
+  }
+  slideGalleryRef &&
+    slideGalleryRef.addEventListener('click', clickOnMovieHandler);
 }
 
 function createSlideMovieMarkup(movie) {
   const { title, poster_path, id, release_date } = movie;
-  poster_src =
+  const poster_src =
     poster_path === null
       ? 'https://dummyimage.com/100x100/000/fff.jpg&text=no+poster'
       : `${SLIDER_IMG_URL}${poster_path}`;

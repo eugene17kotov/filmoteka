@@ -4,7 +4,7 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { startLoader, stopLoader } from './loader';
-import { slideGalleryRef } from "./slider";
+import { slideGalleryRef } from './slider';
 import { onTreilerBtnClick, closeModalTrailer } from './trailer';
 
 const refs = {
@@ -79,11 +79,13 @@ export let movieId;
 // клик
 export async function clickOnMovieHandler(e) {
   e.preventDefault();
+
  //!Viktor: disabling buttons for slider gallery
   if ( e.currentTarget === slideGalleryRef ) {
     queueBtn.parentElement.classList.add("visually-hidden");
+
   } else {
-    queueBtn.parentElement.classList.remove("visually-hidden");
+    queueBtn.parentElement.classList.remove('visually-hidden');
   }
 
   if (e.target.nodeName !== 'IMG') {
