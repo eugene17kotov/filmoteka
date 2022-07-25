@@ -5,6 +5,7 @@ import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { startLoader, stopLoader } from './loader';
 import { slideGalleryRef } from './slider';
+import { onTreilerBtnClick, closeModalTrailer } from './trailer';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -73,7 +74,7 @@ function removeAllEventListenersModal() {
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 
-let movieId;
+export let movieId;
 
 // клик
 export async function clickOnMovieHandler(e) {
@@ -95,6 +96,10 @@ export async function clickOnMovieHandler(e) {
   backdrop.setAttribute('id', movieId);
 
   await fetchById(movieId);
+
+  const trailerBtn = document.querySelector('.modal-film__play-btn');
+
+  trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
 
   stopLoader();
 
@@ -176,12 +181,16 @@ function modalFilmCart({
           <p class="property">Popularity</p>
           <p class="property">Original Title</p>
           <p class="property">Genre</p>
+          <p class="property property--trailer">Trailer</p>
       </div>
       <div class="values">
           <p class="value"><span class="first-mark">${roundVote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
           <p class="value">${roundPopularity}</p>
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
+          <p class="value"> 
+           <button class="modal-film__play-btn" type="button" ></button>
+          </p>
           
       </div>
   </div>
