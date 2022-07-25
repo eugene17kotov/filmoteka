@@ -1,10 +1,6 @@
 import { getAuth } from 'firebase/auth';
 import { createNote } from './firebase/firebaseAuth.js';
-
-import { getMovies } from './api/fetch-movie';
-import axios from 'axios';
-
-import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
+import { BASE_IMG_URL } from './api/api-vars.js';
 import { localstorage } from './localstorage.js';
 import { movieObject } from './movie-modal';
 import {
@@ -49,8 +45,6 @@ export async function onBtnQueueClick() {
     localstorage.removeFilm('queue', movieObject);
     checkCurrentPageAndRewrite(libraryQueueBtn, -1);
   }
-
-  libraryGallery && onLibraryQueueBtnClick();
 
   // auth
   // auth
@@ -197,6 +191,7 @@ export function checkCurrentPageAndRewrite(button, amount) {
 function rewriteGalleryAfterChange(changeAmount) {
   const actualArray = libraryGallery.querySelectorAll('li');
   const activeButton = document.querySelector('.library__item-btn--active');
+
   const parseWatchedMovie = JSON.parse(
     localStorage.getItem(activeButton.dataset['action'])
   );
