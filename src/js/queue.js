@@ -140,6 +140,7 @@ export function createLibraryMovieMarkup(movie) {
   }
 
   const queueGenres = getQueueMovieGenresList(genres);
+  let roundVote_average = vote_average.toFixed(2);
 
   const poster_src =
     poster_path === null
@@ -154,7 +155,7 @@ export function createLibraryMovieMarkup(movie) {
               <p class="info__item">${title}</p>
               <div class="info-detail">
                 <p class="info-detail__item">${queueGenres}</p>
-                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
+                <p class="info-detail__item">${year} <span class="points">${roundVote_average}</span></p>
               </div>
             </div>
             </a>

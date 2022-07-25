@@ -228,6 +228,7 @@ body {
     padding-top: 30px;
   }
 }
+
 .fbs-modal-close-btn {
   position: absolute;
   top: 8px;
@@ -242,10 +243,11 @@ body {
   cursor: pointer;
   transition: background-color $trans-time $cubic, fill $trans-time $cubic;
 
+  color: #ffffff;
+
   &:hover,
   &:focus {
     background-color: $accent-color;
-    fill: $accent-hover-color;
   }
 }
 

@@ -17,7 +17,6 @@ export const loggedMarkup = `<div id="login-status" class="login-status">
 export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
         <div class="fbs-modal">
 <button id="close-backdrop"  type="button" class="fbs-modal-close-btn"><svg
-            class="menu-btn__icon"
             width="40"
             height="40"
             aria-label="Выключение мобильного меню"
@@ -62,7 +61,6 @@ export const loginMarkup = `<div id="user-login" class="backdrop fbs-backdrop">
 export const registerMarkup = `<div id="user-register" class="backdrop fbs-backdrop">
           <div class="fbs-modal">
 <button id="close-backdrop" type="button" class="fbs-modal-close-btn"><svg
-            class="menu-btn__icon"
             width="40"
             height="40"
             aria-label="Выключение мобильного меню"
