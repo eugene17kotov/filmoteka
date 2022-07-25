@@ -4,6 +4,7 @@ import { API_KEY, BASE_URL } from './api/api-vars';
 import { paginationWrapRef } from './pagination';
 import { startLoader, stopLoader } from './loader';
 import { adRandomizer } from './render-movie-cards';
+import { showSlider } from './slider';
 
 const refs = {
   btnToday: document.querySelector('button[data-group="today"]'),
@@ -82,6 +83,7 @@ export async function toTrendingBtnClick() {
 
   const TREND_URL_WEEK = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
 
+  showSlider();
   filter.classList.remove('is-hidden');
   toTrendingBtn.classList.add('is-hidden');
   form.reset();

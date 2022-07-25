@@ -79,12 +79,12 @@ export let movieId;
 // клик
 export async function clickOnMovieHandler(e) {
   e.preventDefault();
-  //  //!Viktor: disabling buttons for slider gallery
-  //   if (e.path.includes(slideGalleryRef)) {
-  //     queueBtn.parentElement.classList.add("visually-hidden");
-  //   } else {
-  //     queueBtn.parentElement.classList.remove("visually-hidden");
-  //   }
+
+  if (e.currentTarget === slideGalleryRef) {
+    queueBtn.parentElement.classList.add('visually-hidden');
+  } else {
+    queueBtn.parentElement.classList.remove('visually-hidden');
+  }
 
   if (e.target.nodeName !== 'IMG') {
     return;
@@ -156,7 +156,7 @@ function modalFilmCart({
   poster_path,
 }) {
   let roundPopularity = Math.round(popularity);
-  let roundVote_average = vote_average.toFixed(1);
+  let roundVote_average = vote_average.toFixed(2);
   let imageMarkup = `
   <img 
     src="${BASE_IMG_URL}${poster_path}"

@@ -4,64 +4,64 @@
 
 // $mob-max-width: 767px;
 @mixin mob {
-    @media screen and (min-width: $mob) {
-        @content;
-    }
+  @media screen and (min-width: $mob) {
+    @content;
+  }
 }
 
 @mixin tel {
-    @media screen and (min-width: $mob) {
-        @content;
-    }
+  @media screen and (min-width: $mob) {
+    @content;
+  }
 }
 
 @mixin tab {
-    @media screen and (min-width: $tab) {
-        @content;
-    }
+  @media screen and (min-width: $tab) {
+    @content;
+  }
 }
 
 @mixin desk {
-    @media screen and (min-width: $desk) {
-        @content;
-    }
+  @media screen and (min-width: $desk) {
+    @content;
+  }
 }
 
 @mixin media-min($size) {
-    @media screen and (min-width: $size) {
-        @content;
-    }
+  @media screen and (min-width: $size) {
+    @content;
+  }
 }
 
 @mixin media-max($size) {
-    @media screen and (max-width: $size) {
-        @content;
-    }
+  @media screen and (max-width: $size) {
+    @content;
+  }
 }
 @mixin media-min-max($size-mine, $size-max) {
-    @media screen and (min-width: $size-mine) and (max-width: $size-max) {
-        @content;
-    }
+  @media screen and (min-width: $size-mine) and (max-width: $size-max) {
+    @content;
+  }
 }
 @mixin media-2-max($size) {
-    @media screen and (min-device-pixel-ratio: 2) and (max-width: $size),
+  @media screen and (min-device-pixel-ratio: 2) and (max-width: $size),
     (min-resolution: 192dpi) and (max-width: $size),
     (min-resolution: 2dppx) and (max-width: $size) {
-        @content;
-    }
+    @content;
+  }
 }
 
 @mixin media-2-min($size) {
-    @media screen and (min-device-pixel-ratio: 2) and (min-width: $size),
+  @media screen and (min-device-pixel-ratio: 2) and (min-width: $size),
     (min-resolution: 192dpi) and (min-width: $size),
     (min-resolution: 2dppx) and (min-width: $size) {
-        @content;
-    }
+    @content;
+  }
 }
 
 @mixin font($fw, $fs, $lh, $ls) {
-    font-weight: $fw;
-    font-size: $fs;
-    line-height: calc($lh / $fs);
-    letter-spacing: $ls;
+  font-weight: $fw;
+  font-size: $fs;
+  line-height: calc($lh / $fs);
+  letter-spacing: $ls;
 }
