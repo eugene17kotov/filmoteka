@@ -83,7 +83,7 @@ export async function clickOnMovieHandler(e) {
   // console.dir(e);
   // console.log(e.path);
   // //!Viktor: disabling buttons for slider gallery
-  if (e.currentTarget) {
+  if (e.currentTarget === slideGalleryRef) {
     queueBtn.parentElement.classList.add('visually-hidden');
   } else {
     queueBtn.parentElement.classList.remove('visually-hidden');

@@ -41,24 +41,19 @@
         </nav>
       </div>
 
-      <div class="library-btn">
-        <ul class="library-btn-list">
-          <li class="library-btn-list__item">
-            <button
-              class="library__item-btn"
-              type="button"
-              data-action="watched"
-            >
-              WATCHED
-            </button>
-          </li>
-          <li class="library-btn-list__item">
-            <button class="library__item-btn" type="button" data-action="queue">
-              QUEUE
-            </button>
-          </li>
-        </ul>
-      </div>
+      <ul class="library-btn-list">
+        <li class="library-btn-list__item">
+          <button class="library__item-btn" type="button" data-action="watched">
+            WATCHED
+          </button>
+        </li>
+        <li class="library-btn-list__item">
+          <button class="library__item-btn" type="button" data-action="queue">
+            QUEUE
+          </button>
+        </li>
+      </ul>
+
       <div class="theme-switch">
         <svg
           class="theme-switch__icon sun"
@@ -91,8 +86,9 @@
       </div>
     </div>
   </div>
+
   <div class="header-mob-menu visually-hidden">
-    <div class="container mob-menu-container">
+    <div class="mob-menu-container">
       <div class="mob-menu-top">
         <button type="button" class="header-mob-menu-close-btn">
           <svg

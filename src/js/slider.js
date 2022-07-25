@@ -9,11 +9,11 @@ export const slideGalleryRef = document.querySelector(
   '.glide__slides-upcoming'
 );
 
-(async () => {
+slideGalleryRef && startWorkSlider();
+
+async function startWorkSlider() {
   const upcomingMovieList = await getMovies(UPCOMING_URL);
-
   renderSlideMovieCards(upcomingMovieList.results);
-
   const options = {
     type: 'carousel',
     perView: 8,
@@ -29,7 +29,7 @@ export const slideGalleryRef = document.querySelector(
     },
   };
   const slider = new Glide('.glide', options).mount();
-})();
+}
 
 function renderSlideMovieCards(movies) {
   const slideMovieGalleryMarkup = movies

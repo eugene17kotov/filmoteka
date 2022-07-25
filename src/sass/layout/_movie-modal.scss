@@ -151,7 +151,7 @@ body.modal-open {
     transform: translate(-50%, -50%) scale(1);
 
     width: 704px;
-    height: auto;
+    // height: auto;
     max-height: 552px;
     flex-direction: row;
     padding-top: 40px;
@@ -162,8 +162,8 @@ body.modal-open {
 
   @media screen and (min-width: $desk) {
     width: 806px;
-    height: auto;
-    max-height: 625px;
+    // height: auto;
+    // max-height: 625px;
     padding-right: 40px;
     padding-left: 20px;
   }
@@ -203,7 +203,7 @@ body.modal-open {
   padding-bottom: 20px;
 }
 
-.modal .property--trailer{
+.modal .property--trailer {
   padding-top: 10px;
 }
 
