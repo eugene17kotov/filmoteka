@@ -5,6 +5,7 @@ import { renderMovieCards } from './render-movie-cards';
 import { filter, toTrendingBtn, toTrendingBtnClick } from './filter';
 import { debounce } from './debounce';
 import { startLoader, stopLoader } from './loader';
+import { hideSlider, showSlider } from './slider';
 
 const refs = {
   form: document.querySelector('.header__form'),
@@ -35,6 +36,8 @@ export async function onFormSubmit(e) {
 
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
+
+  hideSlider();
 
   clearGallery();
 
@@ -70,7 +73,7 @@ refs.input &&
 
 async function onInputText(e) {
   searchText = e.target.value.trim();
-
+  hideSlider();
   if (searchText === '') {
     toTrendingBtnClick();
     return;
