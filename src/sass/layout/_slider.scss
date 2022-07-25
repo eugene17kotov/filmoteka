@@ -1,5 +1,5 @@
 .slider {
-margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .upcoming-title {
@@ -9,7 +9,7 @@ margin-bottom: 20px;
   text-align: center;
   margin-bottom: 20px;
 
-    @media screen and (min-width: $tab) {
+  @media screen and (min-width: $tab) {
     text-transform: uppercase;
   }
 
@@ -20,33 +20,34 @@ margin-bottom: 20px;
 }
 
 .glide__slide-title {
-font-style: normal;
-font-weight: 500;
-font-size: 10px;
-line-height: 1.33;
-text-transform: uppercase;
-overflow: hidden;
-white-space: nowrap;
-text-overflow: ellipsis;
-cursor: text;
-padding: 8px 0px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.33;
+  text-transform: uppercase;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: text;
+  padding: 8px 0px;
 
   @include tab {
-  font-size: 14px;
-  line-height: 1.2;
+    font-size: 14px;
+    line-height: 1.2;
   }
 }
 
-.glide__slide-text{
-font-style: normal;
-font-weight: 500;
-font-size: 10px;
-line-height: 1.33;
+.glide__slide-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.33;
 }
 
 .glide__slide-item {
   border-radius: 10px 10px 5px 5px;
-  transition: transform .5s cubic-bezier(.4, 0, .2, 1), box-shadow .5s cubic-bezier(.4, 0, .2, 1);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glide__slide-item:hover {
@@ -63,7 +64,3 @@ line-height: 1.33;
     margin: -1px;
   }
 }
-
-
-
-
