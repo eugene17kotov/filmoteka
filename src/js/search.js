@@ -81,6 +81,7 @@ async function onInputText(e) {
 
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
+  refs.failSearchText.classList.add('visually-hidden');
 
   startLoader();
 

@@ -61,6 +61,11 @@ footer.dark-theme {
   background-color: #4b4a4a;
   color: $secondary-text-color;
 
+  & .not-succesful-search-text,
+  .library-text {
+    color: #9c9898;
+  }
+
   & .theme-switch__icon.moon {
     color: $accent-color;
   }
