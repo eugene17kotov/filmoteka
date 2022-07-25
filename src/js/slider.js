@@ -5,9 +5,9 @@ import { clickOnMovieHandler } from './movie-modal';
 
 const UPCOMING_URL = `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&region=US&language=en-US&page=1`;
 const SLIDER_IMG_URL = 'https://image.tmdb.org/t/p/w200';
-export const slideGalleryRef = document.querySelector(
-  '.glide__slides-upcoming'
-);
+export const slideGalleryRef = document.querySelector('.glide__slides-upcoming');
+export const sliderGalleryWrap = document.querySelector('.slider');
+export const sliderGalleryTitle = document.querySelector('.upcoming-title');
 
 (async () => {
   const upcomingMovieList = await getMovies(UPCOMING_URL);
@@ -52,4 +52,14 @@ function createSlideMovieMarkup(movie) {
               <p class="glide__slide-title">${title}</p>
               <p class="glide__slide-text">${release_date}</p>
           </li>`;
+}
+
+export function showSlider () {
+  sliderGalleryWrap.classList.remove("visually-hidden");
+  sliderGalleryTitle.classList.remove("visually-hidden");
+}
+
+export function hideSlider () {
+  sliderGalleryWrap.classList.add("visually-hidden");
+  sliderGalleryTitle.classList.add("visually-hidden");
 }
