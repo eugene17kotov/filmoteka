@@ -58,3 +58,10 @@
         @content;
     }
 }
+
+@mixin font($fw, $fs, $lh, $ls) {
+    font-weight: $fw;
+    font-size: $fs;
+    line-height: calc($lh / $fs);
+    letter-spacing: $ls;
+}

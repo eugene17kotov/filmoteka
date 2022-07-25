@@ -40,6 +40,7 @@ export async function onBtnQueueClick() {
   if (!inLocalStorage(movieObject, 'queue')) {
     queueBtn.textContent = 'Remove from queue';
     queueBtn.classList.add('is-active');
+    movieObject.user = userRating;
     localstorage.setFilm('queue', movieObject);
     checkCurrentPageAndRewrite(libraryQueueBtn, 1);
   } else {
@@ -138,7 +139,7 @@ export function renderMovieCardsLibrary(movies) {
 }
 
 export function createLibraryMovieMarkup(movie) {
-  const { title, genres, release_date, poster_path, vote_average, id } = movie;
+  const { title, genres, release_date, poster_path, vote_average, id, user_rating } = movie;
 
   let year = '';
   if (typeof release_date !== 'undefined' && release_date.length > 4) {
@@ -147,7 +148,7 @@ export function createLibraryMovieMarkup(movie) {
 
   const queueGenres = getQueueMovieGenresList(genres);
 
-  poster_src =
+  const poster_src =
     poster_path === null
       ? 'https://dummyimage.com/395x574/000/fff.jpg&text=no+poster'
       : `${BASE_IMG_URL}${poster_path}`;
@@ -163,14 +164,15 @@ export function createLibraryMovieMarkup(movie) {
                 <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
               </div>
             </div>
-            </a>
-            <div class="rating" data-total-value="0">
+            <div class="rating" data-total-value="${user_rating}">
       <div class="rating__item" data-item-value="5">★</div>
       <div class="rating__item" data-item-value="4">★</div>
       <div class="rating__item" data-item-value="3">★</div>
       <div class="rating__item" data-item-value="2">★</div>
       <div class="rating__item" data-item-value="1">★</div>
     </div>
+            </a>
+            
           </li>`;
 }
 
@@ -218,7 +220,7 @@ function rewriteGalleryAfterChange(changeAmount) {
   renderMovieCardsLibrary(parseWatchedMovie.slice(0, 9));
 }
 
-let userRating = [];
+
 const ratingItemsList = document.querySelectorAll('.rating__item');
 const ratingItemsArray = Array.prototype.slice.call(ratingItemsList); 
 
@@ -226,6 +228,12 @@ ratingItemsArray.forEach(item =>
   item.addEventListener('click', () => {
     const { itemValue } = item.dataset;
     item.parentNode.dataset.totalValue = itemValue;
-    userRating.push(itemValue);
-    localStorage.setItem('rating', JSON.stringify(userRating));
+    
+    const dataRating = JSON.stringify(itemValue);
+    localStorage.setItem('user_rating', dataRating)
   }))
+
+const localStorageData = localStorage.getItem('user_rating');
+let userRating = JSON.parse(localStorageData);
+
+console.log(userRating)

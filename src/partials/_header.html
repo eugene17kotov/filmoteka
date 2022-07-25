@@ -1,85 +1,101 @@
-<header class="header header--home">
-  <div class="header__container">
-    <div class="header__section">
-      <nav class="header__nav">
-        <a class="header__logo" href="././index.html">
-          <svg class="header__logo-icon">
-            <use href="./././images/symbol-defs.svg#icon-film"></use>
-          </svg>
-          <span class="header__logo-name">Filmoteka</span>
-        </a>
-        <!--  -->
-        <button type="button" class="header-mob-menu-open-btn">
-          <svg
-            class="menu-btn__icon"
-            aria-label="Включение моб. меню heder"
-            width="32"
-            height="32"
-          >
-            <use href="./././images/symbol-defs.svg#icon-menu"></use>
-          </svg>
-        </button>
-        <ul class="header__nav-list">
-          <li class="header__nav-item">
-            <a
-              class="header__nav-btn header__nav-item--active"
-              href="././index.html"
-              >Home</a
+<!-- <div id="auth-header" class="fbs-header"></div> -->
+<header class="">
+  <div class="header header--home">
+    <div class="header__container">
+      <div class="header__section">
+        <nav class="header__nav">
+          <a class="header__logo" href="././index.html">
+            <svg class="header__logo-icon">
+              <use href="./images/symbol-defs.svg#icon-film"></use>
+            </svg>
+            <span class="header__logo-name">Filmoteka</span>
+          </a>
+
+          <button type="button" class="header-mob-menu-open-btn">
+            <svg
+              class="menu-btn__icon"
+              aria-label="Включение моб. меню heder"
+              width="32"
+              height="32"
             >
-          </li>
-          <li class="header__nav-item">
-            <a class="header__nav-btn" href="././my-library.html">My library</a>
-          </li>
-          <li class="header__nav-item">
-            <a class="header__nav-btn" href="././newsfeed.html">Newsfeed</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+              <use href="./images/symbol-defs.svg#icon-menu"></use>
+            </svg>
+          </button>
 
-    <div class="header__filmsearch">
-      <form class="header__form" role="search">
-        <input
-          class="header__form-input"
-          type="text"
-          name="query"
-          placeholder="Movie search"
-          autocomplete="off"
-        />
-        <button type="submit" class="header__form-input-btn">
-          <svg class="header__form-input-icon" width="24" height="24">
-            <use href="./././images/symbol-defs.svg#icon-search"></use>
-          </svg>
-        </button>
-      </form>
-    </div>
-
-    <div class="theme-switch home">
-      <svg class="theme-switch__icon sun" role="img" aria-label="Иконка солнца">
-        <use href="./images/sprite.svg#sun"></use>
-      </svg>
-
-      <div class="theme-switch__control">
-        <input
-          class="theme-switch__toggle"
-          type="checkbox"
-          name="theme"
-          id="theme-switch-toggle"
-          aria-label="Переключить между тёмной и светлой темой"
-        />
-        <label
-          aria-hidden="true"
-          class="theme-switch__track"
-          for="theme-switch-toggle"
-        >
-        </label>
-        <div aria-hidden="true" class="theme-switch__marker"></div>
+          <div class="button_container">
+            <ul class="header__nav-list">
+              <li class="header__nav-item">
+                <a
+                  class="header__nav-btn header__nav-item--active"
+                  href="./index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="header__nav-item">
+                <a class="header__nav-btn" href="./my-library.html"
+                  >My library</a
+                >
+              </li>
+              <li class="header__nav-item">
+                <a class="header__nav-btn" href="./newsfeed.html">Newsfeed</a>
+              </li>
+            </ul>
+            <div id="auth-header" class="auth-header"></div>
+          </div>
+        </nav>
+        <!-- <div class="firebase-auth-header-desk"> </div> -->
       </div>
 
-      <svg class="theme-switch__icon moon" aria-label="Иконка луны">
-        <use href="./images/sprite.svg#moon"></use>
-      </svg>
+      <div class="header__filmsearch">
+        <form class="header__form" role="search">
+          <input
+            class="header__form-input"
+            type="text"
+            name="query"
+            placeholder="Movie search"
+            autocomplete="off"
+          />
+          <button type="submit" class="header__form-input-btn">
+            <svg class="header__form-input-icon" width="24" height="24">
+              <use href="./images/symbol-defs.svg#icon-search"></use>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="theme-switch home">
+        <svg
+          class="theme-switch__icon sun"
+          role="img"
+          aria-label="Иконка солнца"
+        >
+          <use href="./images/sprite.svg#sun"></use>
+        </svg>
+
+        <div class="theme-switch__control">
+          <input
+            class="theme-switch__toggle"
+            type="checkbox"
+            name="theme"
+            id="theme-switch-toggle"
+            aria-label="Переключить между тёмной и светлой темой"
+          />
+          <label
+            aria-hidden="true"
+            class="theme-switch__track"
+            for="theme-switch-toggle"
+          >
+          </label>
+          <div aria-hidden="true" class="theme-switch__marker"></div>
+        </div>
+
+        <svg class="theme-switch__icon moon" aria-label="Иконка луны">
+          <use href="./images/sprite.svg#moon"></use>
+        </svg>
+      </div>
     </div>
+
+    <!-- switcher??? -->
   </div>
 
   <div class="header-mob-menu visually-hidden">
@@ -98,10 +114,13 @@
             ></use>
           </svg>
         </button>
+        <!-- <div class="firebase-auth-header-desk">
+          <div id="auth-header" class="mob-menu-list fbs--mob"></div>
+        </div> -->
         <ul class="mob-menu-list list">
           <li class="mob-menu__item">
             <a
-              href="././index.html"
+              href="./index.html"
               class="mob-menu__link mob-menu__link--current"
               >Home</a
             >
@@ -110,7 +129,7 @@
             <a href="././my-library.html" class="mob-menu__link">My library</a>
           </li>
           <li class="mob-menu__item">
-            <a href="././newsfeed.html" class="mob-menu__link">Newsfeed</a>
+            <a href="./newsfeed.html" class="mob-menu__link">Newsfeed</a>
           </li>
         </ul>
       </div>
