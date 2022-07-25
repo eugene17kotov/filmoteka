@@ -164,6 +164,13 @@ export function createLibraryMovieMarkup(movie) {
               </div>
             </div>
             </a>
+            <div class="rating" data-total-value="0">
+      <div class="rating__item" data-item-value="5">★</div>
+      <div class="rating__item" data-item-value="4">★</div>
+      <div class="rating__item" data-item-value="3">★</div>
+      <div class="rating__item" data-item-value="2">★</div>
+      <div class="rating__item" data-item-value="1">★</div>
+    </div>
           </li>`;
 }
 
@@ -210,3 +217,15 @@ function rewriteGalleryAfterChange(changeAmount) {
 
   renderMovieCardsLibrary(parseWatchedMovie.slice(0, 9));
 }
+
+let userRating = [];
+const ratingItemsList = document.querySelectorAll('.rating__item');
+const ratingItemsArray = Array.prototype.slice.call(ratingItemsList); 
+
+ratingItemsArray.forEach(item =>
+  item.addEventListener('click', () => {
+    const { itemValue } = item.dataset;
+    item.parentNode.dataset.totalValue = itemValue;
+    userRating.push(itemValue);
+    localStorage.setItem('rating', JSON.stringify(userRating));
+  }))

@@ -1,0 +1,25 @@
+
+.rating {
+    display: inline-flex;
+    flex-direction: row-reverse;
+}
+
+.rating__item {
+    color: #dcdcdc;
+    font-size: 40px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.rating__item:hover,
+.rating__item:hover~.rating__item {
+    color:#f2d977;
+}
+
+.rating[data-total-value="1"] .rating__item:nth-child(n+5),
+.rating[data-total-value="2"] .rating__item:nth-child(n+4),
+.rating[data-total-value="3"] .rating__item:nth-child(n+3),
+.rating[data-total-value="4"] .rating__item:nth-child(n+2),
+.rating[data-total-value="5"] .rating__item:nth-child(n+1){
+    color: #FF6B01;
+} 
