@@ -50,7 +50,10 @@ function openVideo(id) {
       videoFrameCreate(key);
     } else{
 
-      modalTrailerIfraim.innerHTML = `<p class="modal-video__error">Trailer not found!</p>`
+      modalTrailerIfraim.innerHTML = `
+      <p class="modal-video__error">Trailer not found!</p>
+      
+      `
     }
     //  return ;
     
@@ -62,8 +65,8 @@ function openVideo(id) {
 function videoFrameCreate(key) {
   const trailer = `
     <iframe 
-    width="560px" 
-    height="315px"  
+    width="100%" 
+    height="100%"  
    src="${BASE_TREILER_URL}${key}" 
    title="YouTube video player" 
    frameborder="0" 

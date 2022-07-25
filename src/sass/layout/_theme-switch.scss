@@ -3,6 +3,7 @@ body.light-theme {
   color: $primary-text-color;
 }
 
+
 footer.light-theme {
   color: #545454;
 }
@@ -109,6 +110,22 @@ footer.dark-theme {
 
 .footer.dark-theme {
   background-color: #0808084d;
+}
+
+.modal-video__container.dark-theme{
+  background: rgb(110, 110, 110);
+   
+
+ 
+  &.modal__close-btn{
+    background-color: $secondary-text-color;
+     
+
+    &.modal__close-btn:hover,
+    &.modal__close-btn:focus{
+      background-color: $accent-hover-color;
+    }
+  }
 }
 
 .modal-team.dark-theme {
@@ -255,3 +272,4 @@ footer.dark-theme {
   color: lightgrey;
   background-color: #222;
 }
+
