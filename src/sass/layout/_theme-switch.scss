@@ -126,6 +126,22 @@ footer.dark-theme {
   background: linear-gradient(180deg, rgb(51, 51, 51), rgb(156, 156, 156) 100%);
 }
 
+.modal-video__container.dark-theme{
+  background: rgb(110, 110, 110);
+   
+
+ 
+  &.modal__close-btn{
+    background-color: $secondary-text-color;
+     
+
+    &.modal__close-btn:hover,
+    &.modal__close-btn:focus{
+      background-color: $accent-hover-color;
+    }
+  }
+}
+
 .modal-team.dark-theme {
   background-color: #4b4a4a;
   color: $secondary-text-color;
@@ -270,3 +286,4 @@ footer.dark-theme {
   color: lightgrey;
   background-color: #222;
 }
+

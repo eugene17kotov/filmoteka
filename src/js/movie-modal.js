@@ -29,7 +29,7 @@ const {
 export let movieObject = {};
 const toTopBtn = document.getElementById('myBtn');
 
-function addAllEventListenersModal() {
+export function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
@@ -42,6 +42,7 @@ function onCloseBtnClick(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
+    document.body.classList.remove('modal-open');
 }
 
 function onKeydownEscape(e) {
@@ -52,6 +53,7 @@ function onKeydownEscape(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
+    document.body.classList.remove('modal-open');
 }
 
 function onBackdropClick(e) {
@@ -61,15 +63,15 @@ function onBackdropClick(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
+    document.body.classList.remove('modal-open');
 }
 
-function removeAllEventListenersModal() {
+export function removeAllEventListenersModal() {
   closeBtn.removeEventListener('click', onCloseBtnClick);
   window.removeEventListener('keydown', onKeydownEscape);
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
-  document.body.classList.remove('modal-open');
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
@@ -204,11 +206,6 @@ function modalFilmCart({
 
   imgRef.innerHTML = imageMarkup;
   contentRef.innerHTML = markup;
-}
-
-function clearModalContent() {
-  imgRef.innerHTML = '';
-  contentRef.innerHTML = '';
 }
 
 function whichBtnShow(id) {

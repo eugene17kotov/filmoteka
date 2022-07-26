@@ -6,6 +6,7 @@ const refs = {
   modalTeam: document.querySelector('.modal-team'),
   sun: document.querySelector('.sun'),
   moon: document.querySelector('.moon'),
+  modalVideoContainer: document.querySelector('.modal-video__container')
 };
 
 const {
@@ -16,6 +17,7 @@ const {
   modalTeam,
   sun,
   moon,
+  modalVideoContainer,
 } = refs;
 
 toggleEl.addEventListener('change', event => {
@@ -24,12 +26,14 @@ toggleEl.addEventListener('change', event => {
     bodyEl.classList.add('light-theme');
     footerDarktheme.classList.remove('dark-theme');
     modalTeam.classList.remove('dark-theme');
+    modalVideoContainer.classList.remove('dark-theme');
     movieBackdrop && movieBackdrop.classList.remove('dark-theme');
   } else {
     bodyEl.classList.remove('light-theme');
     bodyEl.classList.add('dark-theme');
     footerDarktheme.classList.add('dark-theme');
     modalTeam.classList.add('dark-theme');
+    modalVideoContainer.classList.add('dark-theme');
     movieBackdrop && movieBackdrop.classList.add('dark-theme');
   }
 });
@@ -50,6 +54,7 @@ checkboxChecked();
 updataThemeFooter();
 updataThemeMovieBackdrop();
 updataThemeModalTeam();
+updataThemeVideoContainer();
 
 function updataTheme() {
   if (savedTheme) {
@@ -78,5 +83,11 @@ function updataThemeMovieBackdrop() {
 function updataThemeModalTeam() {
   if (savedTheme === 'dark-theme') {
     modalTeam.classList.add('dark-theme');
+  }
+}
+
+function updataThemeVideoContainer() {
+  if (savedTheme === 'dark-theme') {
+    modalVideoContainer.classList.add('dark-theme');
   }
 }
