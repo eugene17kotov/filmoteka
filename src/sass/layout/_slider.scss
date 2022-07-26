@@ -1,5 +1,14 @@
 .slider {
   margin-bottom: 40px;
+  min-height: 172px;
+
+  @include tab {
+    min-height: 210px;
+  }
+
+  @include desk {
+    min-height: 261px;
+  }
 }
 
 .upcoming-title {

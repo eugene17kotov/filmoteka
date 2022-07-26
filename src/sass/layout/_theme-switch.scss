@@ -121,6 +121,10 @@ footer.dark-theme {
       color: $bg-color;
     }
   }
+
+  & .anchor .no-click {
+    color: inherit;
+  }
 }
 
 .footer.dark-theme {
