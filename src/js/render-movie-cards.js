@@ -11,7 +11,7 @@ startLoader();
 (async () => {
   const trendMoviesList = await getMovies(TREND_URL);
 
-  renderMovieCards(trendMoviesList.results);
+  await renderMovieCards(trendMoviesList.results);
 
   addAd();
 

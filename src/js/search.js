@@ -47,7 +47,7 @@ export async function onFormSubmit(e) {
 
   stopLoader();
 
-  e.target.reset();
+  setTimeout(() => {e.target.reset();}, 200) 
 
   if (!movie.total_results) {
     paginationWrapRef.classList.add('visually-hidden');
@@ -65,7 +65,7 @@ function clearGallery() {
 
 // Search by input
 
-const DEBOUNCE_DELAY = 500;
+const DEBOUNCE_DELAY = 300;
 
 refs.form && refs.form.addEventListener('submit', onFormSubmit);
 refs.input &&
