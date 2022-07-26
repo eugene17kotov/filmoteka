@@ -140,7 +140,7 @@
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 20px;
-  box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
+  box-shadow: 0 50px 100px -20px #32325d40, 0 30px 60px -30px #0000004d, inset 0 -2px 6px #0a254059;
   transition: box-shadow 400ms $cubic;
 }
 

@@ -46,12 +46,12 @@
 
 .glide__slide-item {
   border-radius: 10px 10px 5px 5px;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 500ms $cubic,
+  box-shadow 500ms $cubic;
 }
 
 .glide__slide-item:hover {
-  transform: scale(1.03);
+  transform: scale(0.89);
   box-shadow: 0 14px 28px #00000040, 0 10px 10px #00000038;
 }
 

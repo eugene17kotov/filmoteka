@@ -1,6 +1,7 @@
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, VIDEO_URL } from './api/api-vars';
 import { movieId, removeAllEventListenersModal, addAllEventListenersModal} from './movie-modal';
+import { startLoader, stopLoader } from './loader';
 
 const refs = {
   modalTrailerIfraim: document.querySelector('.modal-video__trailer'),
@@ -23,16 +24,20 @@ async function fetchForMovieTrailers(movieId) {
 
 // https://api.themoviedb.org/3/movie/507086/videos?api_key=820f51701c1eae13089594e954cb7930&language=en-US
 
-export function onTreilerBtnClick(e) {
+export async function onTreilerBtnClick(e) {
   e.preventDefault();
 
+  startLoader();
+  
   videoFrameClean();
-
-  modalTrailer.classList.remove('modal-trailer--is-hidden');
 
   removeAllEventListenersModal();
 
-  openVideo(movieId);
+  await openVideo(movieId);
+
+  modalTrailer.classList.remove('modal-trailer--is-hidden');
+
+  stopLoader();
 
   closeTrailerBtn = document.querySelector('.modal__close-btn');
 
@@ -47,16 +52,14 @@ export function onTreilerBtnClick(e) {
 
 const BASE_TREILER_URL = 'https://www.youtube.com/embed/';
 
-function openVideo(id) {
-  fetchForMovieTrailers(id).then(result => {
-    if(result[0]){
-
-      const key =  result[0].key;
-      videoFrameCreate(key);
+async function openVideo(id) {
+  const result = await fetchForMovieTrailers(id);
+  if (result[0]) {
+    const key =  result[0].key;
+    await videoFrameCreate(key);
     } else{
       modalTrailerIfraim.innerHTML = `<p class="modal-video__error">Trailer not found!</p>`
-    }
-  });
+  }
 }
 
 function videoFrameCreate(key) {

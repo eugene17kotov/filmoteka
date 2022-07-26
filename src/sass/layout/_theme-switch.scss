@@ -61,6 +61,8 @@ footer.dark-theme {
   background-color: #4b4a4a;
   color: $secondary-text-color;
 
+  & .news-btn:hover, & .news-btn:focus, & .to-trending__button:hover, & .to-trending__button:focus, & .button.is-active:hover, & .button.is-active:focus {box-shadow: 0 15px 43px rgb(255 107 1 / 70%);}
+
   & .not-succesful-search-text,
   .library-text {
     color: #9c9898;

@@ -386,22 +386,21 @@ body.header-menu-open {
   background-color: transparent;
   align-content: center;
   box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
-  transition: box-shadow $trans-time ease-in,
-    background-color $trans-time ease-in;
+  transition: box-shadow $trans-time $cubic,
+    background-color $trans-time $cubic, border $trans-time $cubic;
 
-  &--active {
-    background-color: $accent-color;
-    border: $accent-color;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  }
+
 
   &:hover,
-  &:focus {
-    @extend .library__item-btn--active;
+  &:focus, &--active {
+          background-color: $accent-color;
+            border: $accent-color;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, 0 15px 43px rgb(255 107 1 / 70%),
+          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   }
 }
+
 
 .header-mob-menu-open-btn {
   position: absolute;

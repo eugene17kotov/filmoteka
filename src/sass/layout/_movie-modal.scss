@@ -287,6 +287,14 @@ body.modal-open {
   }
 }
 
+.buttons .is-active {
+      transition: box-shadow $trans-time $cubic;
+  
+      &:hover {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)
+        }
+    }
+
 .modal .first-mark {
   padding: 1px 10px;
   background-color: $accent-color;
