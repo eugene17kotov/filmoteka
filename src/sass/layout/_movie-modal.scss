@@ -124,7 +124,10 @@ body.modal-open {
     visibility: hidden;
     pointer-events: none;
     opacity: 0.3;
-    transform: translate(-50%, -50%) scale(0.7);
+        transform: scale(0.7);
+
+      @media screen and (min-width: 768px) {
+    transform: translate(-50%, -50%) scale(0.7);}
   }
 }
 
@@ -283,6 +286,14 @@ body.modal-open {
     margin-right: 15px;
   }
 }
+
+.buttons .is-active {
+      transition: box-shadow $trans-time $cubic;
+  
+      &:hover {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)
+        }
+    }
 
 .modal .first-mark {
   padding: 1px 10px;
