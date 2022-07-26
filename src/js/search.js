@@ -34,6 +34,10 @@ export async function onFormSubmit(e) {
     return;
   }
 
+  paginationWrapRef.classList.add('visually-hidden');
+
+  setTimeout(() => { e.target.reset(); }, 700);
+
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
 
@@ -45,18 +49,16 @@ export async function onFormSubmit(e) {
 
   const movie = await searchMovies(searchText);
 
-  stopLoader();
-
-  setTimeout(() => {e.target.reset();}, 200) 
-
   if (!movie.total_results) {
-    paginationWrapRef.classList.add('visually-hidden');
     refs.failSearchText.classList.remove('visually-hidden');
+    stopLoader();
     return;
   }
 
   renderMovieCards(movie.results);
   renderPagination(movie.page, movie.total_pages);
+  paginationWrapRef.classList.remove('visually-hidden');
+  stopLoader();
 }
 
 function clearGallery() {
@@ -65,7 +67,7 @@ function clearGallery() {
 
 // Search by input
 
-const DEBOUNCE_DELAY = 300;
+const DEBOUNCE_DELAY = 700;
 
 refs.form && refs.form.addEventListener('submit', onFormSubmit);
 refs.input &&
@@ -78,25 +80,27 @@ async function onInputText(e) {
     toTrendingBtnClick();
     return;
   }
+  paginationWrapRef.classList.add('visually-hidden');
+
+  startLoader();
 
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
   refs.failSearchText.classList.add('visually-hidden');
 
-  startLoader();
-
   clearGallery();
 
   const movie = await searchMovies(searchText);
 
-  stopLoader();
-
   if (!movie.total_results) {
     paginationWrapRef.classList.add('visually-hidden');
     refs.failSearchText.classList.remove('visually-hidden');
+    stopLoader(); 
     return;
   }
 
   renderMovieCards(movie.results);
   renderPagination(movie.page, movie.total_pages);
+  paginationWrapRef.classList.remove('visually-hidden');
+  stopLoader();
 }
