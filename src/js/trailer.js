@@ -1,6 +1,6 @@
 import { getMovies } from './api/fetch-movie';
 import { ID_URL, VIDEO_URL } from './api/api-vars';
-import { movieId } from './movie-modal';
+import { movieId, removeAllEventListenersModal, addAllEventListenersModal} from './movie-modal';
 
 const refs = {
   modalTrailerIfraim: document.querySelector('.modal-video__trailer'),
@@ -8,6 +8,8 @@ const refs = {
 };
 
 const { modalTrailerIfraim, modalTrailer } = refs;
+let closeTrailerBtn;
+
 
 //Фетч треллера
 async function fetchForMovieTrailers(movieId) {
@@ -28,13 +30,16 @@ export function onTreilerBtnClick(e) {
 
   modalTrailer.classList.remove('modal-trailer--is-hidden');
 
+  removeAllEventListenersModal();
+
   openVideo(movieId);
 
-  const closeTrailerBtn = document.querySelector('.modal__close-btn');
+  closeTrailerBtn = document.querySelector('.modal__close-btn');
+
 
   closeTrailerBtn &&
-    closeTrailerBtn.addEventListener('click', closeModalTrailer);
-    
+    closeTrailerBtn.addEventListener('click', closeModalTrailer);    
+  modalTrailer && modalTrailer.addEventListener('click', onTrailerBackdropClick);
     window.addEventListener('keydown', onKeydownEscape);
 }
 
@@ -49,16 +54,8 @@ function openVideo(id) {
       const key =  result[0].key;
       videoFrameCreate(key);
     } else{
-
-      modalTrailerIfraim.innerHTML = `
-      <p class="modal-video__error">Trailer not found!</p>
-      
-      `
+      modalTrailerIfraim.innerHTML = `<p class="modal-video__error">Trailer not found!</p>`
     }
-    //  return ;
-    
-      
-    
   });
 }
 
@@ -82,7 +79,17 @@ function videoFrameClean() {
 }
 
 export function closeModalTrailer() {
-  videoFrameClean();
+  addAllEventListenersModal();
+  removeAllEventListenersTrailer();
+  modalTrailer.classList.add('modal-trailer--is-hidden');
+}
+
+function onTrailerBackdropClick(e) {
+    if (!e.target.classList.contains('backdrop-video')) {
+    return;
+  }
+  addAllEventListenersModal();
+  removeAllEventListenersTrailer();
   modalTrailer.classList.add('modal-trailer--is-hidden');
 }
 
@@ -92,5 +99,13 @@ function onKeydownEscape(e) {
   if (e.code !== 'Escape') {
     return;
   }
+  addAllEventListenersModal();
+  removeAllEventListenersTrailer();
   modalTrailer.classList.add('modal-trailer--is-hidden');
+}
+
+function removeAllEventListenersTrailer() {
+  closeTrailerBtn.removeEventListener('click', closeModalTrailer);    
+  modalTrailer.removeEventListener('click', onTrailerBackdropClick);
+  window.removeEventListener('keydown', onKeydownEscape);
 }

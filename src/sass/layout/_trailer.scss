@@ -26,7 +26,6 @@
  &:hover,
  &:focus{
   box-shadow: 0px 4px 16px rgba(231, 68, 56, 0.651);
- 
  }
  }
  
@@ -51,7 +50,7 @@
      visibility: hidden;
      pointer-events: none;
      & .modal-video__container {
-       transform: scale(2);
+       transform: translate(-50%, -50%) scale(2);
      }
    }
  
@@ -62,30 +61,25 @@
  
  
  .modal-video__container {
-    overflow-y: scroll;
-    overflow-x: hidden;
    background: currentColor;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-   height: 180px;
+    transform: scale(1) translate(-50%, -50%);
+    width: 260px;
+   height: 220px;
    z-index: 1001;
-   transform: scale(1);
    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
  
    @media screen and (min-width: 767px) {
   
-    width: 748px;
-    height: 430px;
+    width: 630px;
+    height: 330px;
  
    }
-   @media screen and (min-width: 1024px) {
-     overflow: hidden;
-    
-     width: 984px;
-    height: 573px;
+   @media screen and (min-width: 1280px) {
+    width: 1064px;
+    height: 717px;
    }
  }
  
@@ -99,24 +93,15 @@
    width: 30px;
    height: 30px;
  
-    right: 1px;
-    top: 1px;
+    top: -30px;
+    right: -30px;
     z-index: 1001;
     border-radius: 50%;
-    transition: background-color 250ms cubic-bezier(.55,.055,.675,.19);
-
-    @media screen and (min-width: 767px) {
-     
-      top: 2px;
-      right: 2px;
-   
-     }
-
- 
+    transition: background-color $trans-time $cubic, color $trans-time $cubic;
   
    &:hover {
+    color: #fff;
      background-color: $accent-hover-color;
-     
    }
  }
  
@@ -138,5 +123,13 @@
   color: rgba(252, 29, 13, 0.651);
   left: 50%;
   top: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translate(-50%, -50%);
+
+  @media screen and (min-width: 768px) {
+      font-size: 24px;
+  }
+  
+  @media screen and (min-width: 1280px) {
+    font-size: 32px;
+  }
 }
