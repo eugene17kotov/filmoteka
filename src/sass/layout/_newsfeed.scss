@@ -33,6 +33,13 @@
   }
 }
 
+.news-item-card {
+  padding-bottom: 10px;
+  border-radius: 0 0 5px 0;
+
+  box-shadow: 10px 10px 8px 2px rgba(0, 0, 0, 0.3);
+}
+
 .news-item-image {
   margin-bottom: 15px;
   height: 200px;
@@ -54,6 +61,10 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.news-item-meta {
+  padding-left: 2px;
 }
 
 .news-item-btn {

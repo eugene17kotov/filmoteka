@@ -124,10 +124,11 @@ body.modal-open {
     visibility: hidden;
     pointer-events: none;
     opacity: 0.3;
-        transform: scale(0.7);
+    transform: scale(0.7);
 
-      @media screen and (min-width: 768px) {
-    transform: translate(-50%, -50%) scale(0.7);}
+    @media screen and (min-width: 768px) {
+      transform: translate(-50%, -50%) scale(0.7);
+    }
   }
 }
 
@@ -155,7 +156,7 @@ body.modal-open {
     transform: translate(-50%, -50%) scale(1);
 
     width: 704px;
-    max-height: 552px;
+    min-height: 552px;
     flex-direction: row;
     padding-top: 40px;
     padding-right: 40px;
@@ -165,7 +166,7 @@ body.modal-open {
 
   @media screen and (min-width: $desk) {
     width: 806px;
-    max-height: 625px;
+    min-height: 625px;
     padding-right: 40px;
     padding-left: 20px;
   }
@@ -288,12 +289,12 @@ body.modal-open {
 }
 
 .buttons .is-active {
-      transition: box-shadow $trans-time $cubic;
-  
-      &:hover {
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)
-        }
-    }
+  transition: box-shadow $trans-time $cubic;
+
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+}
 
 .modal .first-mark {
   padding: 1px 10px;
