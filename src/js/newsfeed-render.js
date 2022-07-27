@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loader, startLoader, stopLoader } from './loader';
+import { startLoader, stopLoader } from './loader';
 import { slowScrollOnAddCards } from './infinity-scroll';
 import { options } from './infinity-scroll';
 import { scrollGuardRef } from './infinity-scroll';

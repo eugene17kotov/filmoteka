@@ -21,7 +21,6 @@ async function fetchForMovieTrailers(movieId) {
   return response.results;
 }
 
-
 // https://api.themoviedb.org/3/movie/507086/videos?api_key=820f51701c1eae13089594e954cb7930&language=en-US
 
 export async function onTreilerBtnClick(e) {

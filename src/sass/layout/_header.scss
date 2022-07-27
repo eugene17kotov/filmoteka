@@ -149,7 +149,6 @@ body.header-menu-open {
 
   @include media-min($tab) {
     width: $tab;
-    // padding: 0 230px 0 32px;
   }
 
   @include media-min($desk) {
@@ -169,7 +168,6 @@ body.header-menu-open {
   justify-content: space-between;
   align-items: center;
   flex-grow: 1;
-  // margin-right: 20px;
 }
 
 .header__nav-list {
@@ -282,7 +280,6 @@ body.header-menu-open {
 }
 
 .header__filmsearch {
-  // position: relative;
   margin-top: 37px;
   display: flex;
   justify-content: center;
@@ -464,9 +461,6 @@ body.header-menu-open {
 
 .menu-btn__icon {
   display: block;
-  // position: absolute;
-  // top: 3px;
-  // right: 10px;
 
   color: white;
   fill: currentColor;
@@ -484,7 +478,6 @@ body.header-menu-open {
 
 .mob-menu-container {
   position: relative;
-  // width: 280px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -532,6 +525,5 @@ body.header-menu-open {
   &:hover,
   &:focus {
     color: $accent-color;
-    // text-decoration: underline;
   }
 }

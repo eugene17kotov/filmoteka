@@ -1,8 +1,3 @@
-// $mob: 320px;
-// $tab: 768px;
-// $desk: 1280px;
-
-// $mob-max-width: 767px;
 @mixin mob {
   @media screen and (min-width: $mob) {
     @content;

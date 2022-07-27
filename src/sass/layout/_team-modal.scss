@@ -101,7 +101,6 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  // padding-left: 10px;
 
   @media screen and (min-width: 768px) {
     padding-left: 50px;
@@ -140,19 +139,6 @@
     font-size: 32px;
     margin-left: -20px;
   }
-
-  // &::before {
-  //   content: '';
-  //   display: inline-block;
-  //   background-repeat: no-repeat;
-  //   background-size: 100%;
-  //   background-color: transparent;
-  //   background-position: -10%, 10%;
-  //   width: 100px;
-  //   height: 34px;
-
-  //   background-image: url(../images/lazy-cat.png);
-  // }
 }
 
 .team {

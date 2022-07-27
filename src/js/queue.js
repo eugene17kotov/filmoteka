@@ -46,11 +46,6 @@ export async function onBtnQueueClick() {
   }
 
   // auth
-  // auth
-  // auth
-  // auth
-  // auth
-  // auth
   const currentUser = getAuth().currentUser;
 
   if (currentUser !== null) {

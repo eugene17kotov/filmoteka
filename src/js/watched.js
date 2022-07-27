@@ -1,8 +1,5 @@
 import { getAuth } from 'firebase/auth';
 import { createNote } from './firebase/firebaseAuth.js';
-
-import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
-import { getMovies } from './api/fetch-movie';
 import { localstorage } from './localstorage.js';
 import { movieObject } from './movie-modal';
 import {
@@ -20,9 +17,7 @@ import {
 import { startLoader, stopLoader } from './loader';
 
 const addToWatchedButton = document.querySelector('.to-watched');
-const bg = document.querySelector('.backdrop');
 const libraryTextContainer = document.querySelector('.library-text');
-const libraryGallery = document.querySelector('.library-gallery');
 const libraryWatchedBtn = document.querySelector(
   'button[data-action="watched"]'
 );
