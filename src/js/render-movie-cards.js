@@ -1,15 +1,17 @@
 import { getMovies } from './api/fetch-movie';
 import { createMovieMarkup } from './create-movie-markup';
-import { TREND_URL } from './api/api-vars';
+import { TREND_DAY_URL } from './api/api-vars';
 import { renderPagination } from './pagination.js';
 import { startLoader, stopLoader } from './loader';
+import { startWorkSlider, slideGalleryRef } from './slider';
 
 const gallery = document.querySelector('.gallery');
 
 startLoader();
 
 (async () => {
-  const trendMoviesList = await getMovies(TREND_URL);
+
+  const trendMoviesList = await getMovies(TREND_DAY_URL);
 
   await renderMovieCards(trendMoviesList.results);
 
@@ -18,7 +20,7 @@ startLoader();
   stopLoader();
 
   // Viktor:need to save last url to localstorage
-  localStorage.setItem('LAST_REQUESTED_URL', TREND_URL);
+  localStorage.setItem('LAST_REQUESTED_URL', TREND_DAY_URL);
   // Viktor:render pagination buttons
   renderPagination(trendMoviesList.page, trendMoviesList.total_pages);
 })();

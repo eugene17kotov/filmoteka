@@ -4,7 +4,7 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { startLoader, stopLoader } from './loader';
-import { slideGalleryRef } from './slider';
+import { slideGalleryRef, stopSliderAutoplay, startSliderAutoplay } from './slider';
 import { onTreilerBtnClick, closeModalTrailer } from './trailer';
 
 const refs = {
@@ -72,6 +72,7 @@ export function removeAllEventListenersModal() {
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
+  startSliderAutoplay();
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
@@ -109,6 +110,7 @@ export async function clickOnMovieHandler(e) {
   document.body.classList.add('modal-open');
   toTopBtn.style.display = 'none';
 
+  stopSliderAutoplay();
   addAllEventListenersModal();
 
   whichBtnShow(movieId);
