@@ -4,6 +4,7 @@ body {
 
 #auth-header {
   display: flex;
+
   @media only screen and (max-width: 767px) {
     position: fixed;
     bottom: 5%;
@@ -15,6 +16,8 @@ body {
 
   @media screen and (min-width: 768px) {
     margin-left: 20px;
+    min-width: 175px;
+    justify-content: end;
   }
 }
 
@@ -83,10 +86,6 @@ body {
     }
     margin-left: 15px;
     padding: 5px 7px;
-    // padding-left: 7px;
-    // padding-right: 7px;
-    // padding-top: 5px;
-    // padding-bottom: 5px;
     border-radius: 5px;
     border: 1px solid #ffffff;
   }
@@ -118,7 +117,6 @@ body {
 
   @include media-min($tab) {
     width: $tab;
-    // padding: 0 32px;
   }
 
   @include media-min($desk) {
@@ -184,7 +182,6 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  // font-size: 20px;
   position: relative;
 }
 
@@ -192,7 +189,6 @@ body {
   position: fixed;
   z-index: 9;
   top: 0;
-  // left: 0;
   overflow-y: scroll;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
@@ -208,8 +204,8 @@ body {
   }
 }
 .fbs-modal {
-    min-height: 450px;  
-    width: 320px;
+  min-height: 450px;
+  width: 320px;
   z-index: 9999;
   @include media-min($tab) {
     width: 480px;
@@ -266,8 +262,6 @@ body {
 
 .fbs-modal-form {
   width: 100%;
-  // min-height: 500px;
-  // height: 100%;
   border-radius: 30px;
   margin: 2% auto;
   box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
@@ -342,7 +336,6 @@ body {
 .fbs-modal-btn--submit {
   display: block;
   padding: 8px 18px;
-  // width: 100%;
   border: 0;
   border-radius: 15px;
 
@@ -354,7 +347,6 @@ body {
   box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
 
   text-align: center;
-  // color: $accent-hover-color;
   background-color: $accent-color;
   margin-left: auto;
   margin-right: auto;
@@ -418,19 +410,10 @@ body {
     flex-direction: column;
     text-align: center;
     padding: 10px;
-    // font-size: 40px;
-    // font-size: 0.6em;
-    // margin-left: 40px;
-    // padding: 5px 10px;
-    // border-radius: 5px;
-    // border: 1px solid #ffffff;
-    // color: red;
-    // background-color: aqua;
   }
 }
 
 .login-status-icon {
-  // color: #ffffff;
   fill: currentColor;
   position: absolute;
   left: 2px;
@@ -456,7 +439,8 @@ body {
   color: #4286f4d2;
   transition: color $trans-time $cubic;
 
-&:hover, &:focus {
-  color: #4285f4;
-}
+  &:hover,
+  &:focus {
+    color: #4285f4;
+  }
 }

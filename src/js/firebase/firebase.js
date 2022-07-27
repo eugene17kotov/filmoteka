@@ -1,11 +1,6 @@
-import {
-  getAuth,
-  onAuthStateChanged,
-  currentUser,
-  setCurrentUser,
-} from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-import { connectToBD, logUser } from './firebaseAuth';
+import { connectToBD } from './firebaseAuth';
 
 //
 
@@ -29,20 +24,3 @@ onAuthStateChanged(auth, myUser => {
     makeLogRegHtml();
   }
 });
-
-// --- //
-// window.addEventListener('resize', resizeWindow);
-
-// function resizeWindow() {
-//   if (window.innerWidth < 767) {
-//     console.log('< 767');
-//     document.getElementById('auth-header').classList.add('dispnone');
-//   } else {
-//     console.log('> 767');
-//     document.getElementById('auth-header').remove('dispnone');
-//   }
-
-// +++++++++ //
-
-// console.log(hrefAuthHeaderHtml.classList);
-// }

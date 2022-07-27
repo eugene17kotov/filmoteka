@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loader, startLoader, stopLoader } from './loader';
+import { startLoader, stopLoader } from './loader';
 import { slowScrollOnAddCards } from './infinity-scroll';
 import { options } from './infinity-scroll';
 import { scrollGuardRef } from './infinity-scroll';
@@ -68,9 +68,11 @@ function createNewsCardMarkup(newsItem) {
                 <p class="news-item-description"><b>Overview: </b>${description}</p>
                 <p class="news-item-content">${content}</p>
                 <a class="news-item-btn" href="${url}" target="_blank"><button type="button" class="news-btn">Read more</button></a>
-                <p class="news-item-source"><b>Source: </b>${sourceName}</p>
-                <p class="news-item-author"><b>Author: </b>${author}</p>
-                <p class="news-item-date"><b>Published At: </b>${publishedAt}</p>
+                <div class="news-item-meta">
+                  <p class="news-item-source"><b>Source: </b>${sourceName}</p>
+                  <p class="news-item-author"><b>Author: </b>${author}</p>
+                  <p class="news-item-date"><b>Published At: </b>${publishedAt}</p>
+                </div>
             </div>
           </li>`;
 }

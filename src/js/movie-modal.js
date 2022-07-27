@@ -4,8 +4,12 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { startLoader, stopLoader } from './loader';
-import { slideGalleryRef } from './slider';
-import { onTreilerBtnClick, closeModalTrailer } from './trailer';
+import {
+  slideGalleryRef,
+  stopSliderAutoplay,
+  startSliderAutoplay,
+} from './slider';
+import { onTreilerBtnClick } from './trailer';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -42,7 +46,7 @@ function onCloseBtnClick(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
-    document.body.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
 }
 
 function onKeydownEscape(e) {
@@ -53,7 +57,7 @@ function onKeydownEscape(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
-    document.body.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
 }
 
 function onBackdropClick(e) {
@@ -63,7 +67,7 @@ function onBackdropClick(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
-    document.body.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
 }
 
 export function removeAllEventListenersModal() {
@@ -72,6 +76,7 @@ export function removeAllEventListenersModal() {
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
+  startSliderAutoplay();
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
@@ -109,6 +114,7 @@ export async function clickOnMovieHandler(e) {
   document.body.classList.add('modal-open');
   toTopBtn.style.display = 'none';
 
+  stopSliderAutoplay();
   addAllEventListenersModal();
 
   whichBtnShow(movieId);

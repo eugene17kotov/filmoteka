@@ -11,25 +11,28 @@ export const sliderGalleryTitle = document.querySelector('.upcoming-title');
 
 slideGalleryRef && startWorkSlider();
 
-async function startWorkSlider() {
+ export async function startWorkSlider() {
   const upcomingMovieList = await getMovies(UPCOMING_URL);
   renderSlideMovieCards(upcomingMovieList.results);
-  const options = {
-    type: 'carousel',
-    perView: 8,
-    draggable: true,
-    autoplay: 2500,
-    breakpoints: {
-      1280: {
-        perView: 6,
-      },
-      767: {
-        perView: 3,
-      },
-    },
-  };
-  const slider = new Glide('.glide', options).mount();
+  slider.mount();
 }
+
+const options = {
+  type: 'carousel',
+  perView: 8,
+  draggable: true,
+  autoplay: 2500,
+  breakpoints: {
+    1280: {
+      perView: 6,
+    },
+    767: {
+      perView: 3,
+    },
+  },
+};
+
+const slider = new Glide('.glide', options);
 
 function renderSlideMovieCards(movies) {
   const slideMovieGalleryMarkup = movies
@@ -60,9 +63,19 @@ function createSlideMovieMarkup(movie) {
 export function showSlider () {
   sliderGalleryWrap.classList.remove("visually-hidden");
   sliderGalleryTitle.classList.remove("visually-hidden");
+  startSliderAutoplay();
 }
 
 export function hideSlider () {
   sliderGalleryWrap.classList.add("visually-hidden");
   sliderGalleryTitle.classList.add("visually-hidden");
+  stopSliderAutoplay();
+}
+
+export function stopSliderAutoplay () {
+  slider.pause();
+}
+
+export function startSliderAutoplay () {
+  slider.play();
 }

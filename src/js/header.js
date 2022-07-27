@@ -11,12 +11,7 @@
   function toggleMenu() {
     document.body.classList.toggle('header-menu-open');
     refs.menu.classList.toggle('visually-hidden');
-    // console.log(
-    //   document
-    //     .getElementsByTagName('body')[0]
-    //     .classList.toString()
-    //     .includes('header-menu-open')
-    // );
+
     if (
       !document
         .getElementsByTagName('body')[0]

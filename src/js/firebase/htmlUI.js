@@ -9,19 +9,13 @@ import {
 
 import {
   logUser,
-  watchUser,
   logOut,
   createNote,
   readNote,
   createNewUser,
 } from './firebaseAuth';
 
-import {
-  getAuth,
-  onAuthStateChanged,
-  currentUser,
-  setCurrentUser,
-} from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 import {} from '@firebase/util';
 

@@ -1,6 +1,6 @@
 import { libraryGallery } from './queue';
 import { renderMovieCardsLibrary } from './queue';
-import { loader, startLoader, stopLoader } from './loader';
+import { startLoader, stopLoader } from './loader';
 
 export const scrollGuardRef = document.querySelector('.scroll-guard');
 

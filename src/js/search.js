@@ -1,6 +1,6 @@
 import { API_KEY, SEARCH_URL, BASE_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
-import { renderPagination, paginationWrapRef } from './pagination'; //Viktor;
+import { renderPagination, paginationWrapRef } from './pagination';
 import { renderMovieCards } from './render-movie-cards';
 import { filter, toTrendingBtn, toTrendingBtnClick } from './filter';
 import { debounce } from './debounce';
