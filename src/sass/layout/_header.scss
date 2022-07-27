@@ -61,7 +61,13 @@ body.header-menu-open {
 }
 
 .header--library {
-  background-image: url('../images/header-img/header-lib-mob-1.jpg');
+  background-color: rgba(0, 0, 0, 0.56);
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.56),
+      rgba(0, 0, 0, 0.56)
+    ),
+    url('../images/header-img/header-lib-mob-1.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -70,7 +76,12 @@ body.header-menu-open {
     (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
-    background-image: url('../images/header-img/header-lib-mob-2.jpg');
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.56),
+        rgba(0, 0, 0, 0.56)
+      ),
+      url('../images/header-img/header-lib-mob-2.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -110,7 +121,7 @@ body.header-menu-open {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    // background-color: rgba(0, 0, 0, 0.56);
+    background-color: rgba(0, 0, 0, 0.56);
   }
 
   @include media-2-min($desk) {
@@ -124,7 +135,6 @@ body.header-menu-open {
     background-position: center;
     background-size: cover;
   }
-  background: rgba(0, 0, 0, 0.56);
 }
 
 .header__container {
