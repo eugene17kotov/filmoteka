@@ -31,29 +31,35 @@
               <span class="header__logo-name">Filmoteka</span>
             </a>
             <!--  -->
-            <button type="button" class="header-mob-menu-open-btn">
-              <svg
-                class="menu-btn__icon"
-                aria-label="Включение моб. меню heder"
-                width="32"
-                height="32"
-              >
-                <use href="./././images/symbol-defs.svg#icon-menu"></use>
-              </svg>
-            </button>
-            <ul class="header__nav-list">
-              <li class="header__nav-item">
-                <a class="header__nav-btn" href="././index.html">Home</a>
-              </li>
-              <li class="header__nav-item">
-                <a class="header__nav-btn" href="././my-library.html"
-                  >My library</a
+            <div class="button_container">
+              <ul class="header__nav-list">
+                <li class="header__nav-item">
+                  <a class="header__nav-btn" href="././index.html">Home</a>
+                </li>
+                <li class="header__nav-item">
+                  <a class="header__nav-btn" href="././my-library.html"
+                    >My library</a
+                  >
+                </li>
+                <li class="header__nav-item header__nav-item--active">
+                  <a class="header__nav-btn" href="././newsfeed.html"
+                    >Newsfeed</a
+                  >
+                </li>
+              </ul>
+
+              <div id="auth-header"></div>
+              <button type="button" class="header-mob-menu-open-btn">
+                <svg
+                  class="menu-btn__icon"
+                  aria-label="Включение моб. меню heder"
+                  width="32"
+                  height="32"
                 >
-              </li>
-              <li class="header__nav-item header__nav-item--active">
-                <a class="header__nav-btn" href="././newsfeed.html">Newsfeed</a>
-              </li>
-            </ul>
+                  <use href="./././images/symbol-defs.svg#icon-menu"></use>
+                </svg>
+              </button>
+            </div>
           </nav>
         </div>
         <h1 class="newsfeed-heading">
@@ -93,7 +99,7 @@
       </div>
 
       <div class="header-mob-menu visually-hidden">
-        <div class="container mob-menu-container">
+        <div class="mob-menu-container">
           <div class="mob-menu-top">
             <button type="button" class="header-mob-menu-close-btn">
               <svg
@@ -151,9 +157,9 @@
 
     <!-- Scroll up -->
     <include src="./partials/_scroll-up.html"></include>
+
     <!-- Auth modal -->
-    <div id="auth-header" style="display: none"></div>
-    <div id="auth-modal" style="display: none"></div>
+    <include src="./partials/_firebase-modal.html"></include>
 
     <!-- Infinity scroll anchor -->
     <div class="scroll-guard"></div>

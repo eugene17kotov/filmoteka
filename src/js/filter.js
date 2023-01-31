@@ -4,6 +4,7 @@ import { API_KEY, BASE_URL } from './api/api-vars';
 import { paginationWrapRef } from './pagination';
 import { startLoader, stopLoader } from './loader';
 import { adRandomizer } from './render-movie-cards';
+import { showSlider } from './slider';
 
 const refs = {
   btnToday: document.querySelector('button[data-group="today"]'),
@@ -80,8 +81,9 @@ export function renderMovies(url) {
 export async function toTrendingBtnClick() {
   page = document.querySelector('.pagination-button--current').dataset.page;
 
-  const TREND_URL_WEEK = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
+  const TREND_URL_DAY = `${BASE_URL}/trending/movie/day?api_key=${API_KEY}`;
 
+  showSlider();
   filter.classList.remove('is-hidden');
   toTrendingBtn.classList.add('is-hidden');
   form.reset();
@@ -90,11 +92,11 @@ export async function toTrendingBtnClick() {
     return;
   } else {
     startLoader();
-    anchorNodeToday.classList.remove('selected');
-    anchorNodeWeek.classList.add('selected');
-    filterBg.classList.add('to-right');
-    localStorage.setItem('LAST_REQUESTED_URL', TREND_URL_WEEK);
-    await renderMovies(TREND_URL_WEEK + `&page=${page}`);
+    anchorNodeWeek.classList.remove('selected');
+    anchorNodeToday.classList.add('selected');
+    filterBg.classList.remove('to-right');
+    localStorage.setItem('LAST_REQUESTED_URL', TREND_URL_DAY);
+    await renderMovies(TREND_URL_DAY + `&page=${page}`);
     paginationWrapRef.classList.remove('visually-hidden');
     failSearchText.classList.add('visually-hidden');
     setTimeout(() => {

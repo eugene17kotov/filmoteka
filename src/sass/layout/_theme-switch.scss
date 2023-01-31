@@ -1,6 +1,10 @@
 body.light-theme {
-  background-color: $bg-color;
+  background: $bg-color -75% -15%;
   color: $primary-text-color;
+}
+
+body {
+  transition: background 500ms ease-in;
 }
 
 footer.light-theme {
@@ -47,10 +51,32 @@ footer.light-theme {
   }
 }
 
+body.dark-theme {
+  background: url(../images/stars-sky.jpg) 50% 50%;
+}
+
 body.dark-theme,
 footer.dark-theme {
   background-color: #4b4a4a;
   color: $secondary-text-color;
+
+  & .news-item-card {
+    box-shadow: 10px 10px 8px 2px rgba(255, 255, 255, 0.3);
+  }
+
+  & .news-btn:hover,
+  & .news-btn:focus,
+  & .to-trending__button:hover,
+  & .to-trending__button:focus,
+  & .button.is-active:hover,
+  & .button.is-active:focus {
+    box-shadow: 0 15px 43px rgb(255 107 1 / 70%);
+  }
+
+  & .not-succesful-search-text,
+  .library-text {
+    color: #9c9898;
+  }
 
   & .theme-switch__icon.moon {
     color: $accent-color;
@@ -105,10 +131,27 @@ footer.dark-theme {
       color: $bg-color;
     }
   }
+
+  & .anchor .no-click {
+    color: inherit;
+  }
 }
 
 .footer.dark-theme {
-  background-color: #0808084d;
+  background: linear-gradient(180deg, rgb(51, 51, 51), rgb(156, 156, 156) 100%);
+}
+
+.modal-video__container.dark-theme {
+  background: rgb(110, 110, 110);
+
+  &.modal__close-btn {
+    background-color: $secondary-text-color;
+
+    &.modal__close-btn:hover,
+    &.modal__close-btn:focus {
+      background-color: $accent-hover-color;
+    }
+  }
 }
 
 .modal-team.dark-theme {

@@ -1,10 +1,6 @@
 import { getAuth } from 'firebase/auth';
 import { createNote } from './firebase/firebaseAuth.js';
-
-import { getMovies } from './api/fetch-movie';
-import axios from 'axios';
-
-import { API_KEY, BASE_IMG_URL, SEARCH_URL, ID_URL } from './api/api-vars.js';
+import { BASE_IMG_URL } from './api/api-vars.js';
 import { localstorage } from './localstorage.js';
 import { movieObject } from './movie-modal';
 import {
@@ -49,13 +45,6 @@ export async function onBtnQueueClick() {
     checkCurrentPageAndRewrite(libraryQueueBtn, -1);
   }
 
-  libraryGallery && onLibraryQueueBtnClick();
-
-  // auth
-  // auth
-  // auth
-  // auth
-  // auth
   // auth
   const currentUser = getAuth().currentUser;
 
@@ -146,8 +135,9 @@ export function createLibraryMovieMarkup(movie) {
   }
 
   const queueGenres = getQueueMovieGenresList(genres);
+  let roundVote_average = vote_average.toFixed(2);
 
-  poster_src =
+  const poster_src =
     poster_path === null
       ? 'https://dummyimage.com/395x574/000/fff.jpg&text=no+poster'
       : `${BASE_IMG_URL}${poster_path}`;
@@ -160,7 +150,7 @@ export function createLibraryMovieMarkup(movie) {
               <p class="info__item">${title}</p>
               <div class="info-detail">
                 <p class="info-detail__item">${queueGenres}</p>
-                <p class="info-detail__item">${year} <span class="points">${vote_average}</span></p>
+                <p class="info-detail__item">${year} <span class="points">${roundVote_average}</span></p>
               </div>
             </div>
             </a>
@@ -188,6 +178,7 @@ export function checkCurrentPageAndRewrite(button, amount) {
 function rewriteGalleryAfterChange(changeAmount) {
   const actualArray = libraryGallery.querySelectorAll('li');
   const activeButton = document.querySelector('.library__item-btn--active');
+
   const parseWatchedMovie = JSON.parse(
     localStorage.getItem(activeButton.dataset['action'])
   );

@@ -4,6 +4,12 @@ import { onBtnQueueClick } from './queue';
 import { onAddToWatchedBtnClick } from './watched';
 import { scrollFunction } from './scroll-up';
 import { startLoader, stopLoader } from './loader';
+import {
+  slideGalleryRef,
+  stopSliderAutoplay,
+  startSliderAutoplay,
+} from './slider';
+import { onTreilerBtnClick } from './trailer';
 
 const refs = {
   backdrop: document.querySelector('.movie-backdrop'),
@@ -27,7 +33,7 @@ const {
 export let movieObject = {};
 const toTopBtn = document.getElementById('myBtn');
 
-function addAllEventListenersModal() {
+export function addAllEventListenersModal() {
   closeBtn.addEventListener('click', onCloseBtnClick);
   window.addEventListener('keydown', onKeydownEscape);
   backdrop.addEventListener('click', onBackdropClick);
@@ -40,6 +46,7 @@ function onCloseBtnClick(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
+  document.body.classList.remove('modal-open');
 }
 
 function onKeydownEscape(e) {
@@ -50,6 +57,7 @@ function onKeydownEscape(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
+  document.body.classList.remove('modal-open');
 }
 
 function onBackdropClick(e) {
@@ -59,24 +67,31 @@ function onBackdropClick(e) {
   backdrop.classList.add('movie-backdrop--is-hidden');
   scrollFunction();
   removeAllEventListenersModal();
+  document.body.classList.remove('modal-open');
 }
 
-function removeAllEventListenersModal() {
+export function removeAllEventListenersModal() {
   closeBtn.removeEventListener('click', onCloseBtnClick);
   window.removeEventListener('keydown', onKeydownEscape);
   backdrop.removeEventListener('click', onBackdropClick);
   queueBtn.removeEventListener('click', onBtnQueueClick);
   addToWatchedButton.removeEventListener('click', onAddToWatchedBtnClick);
-  document.body.classList.remove('modal-open');
+  startSliderAutoplay();
 }
 
 cardModal && cardModal.addEventListener('click', clickOnMovieHandler);
 
-let movieId;
+export let movieId;
 
 // клик
-async function clickOnMovieHandler(e) {
+export async function clickOnMovieHandler(e) {
   e.preventDefault();
+
+  if (e.currentTarget === slideGalleryRef) {
+    queueBtn.parentElement.classList.add('visually-hidden');
+  } else {
+    queueBtn.parentElement.classList.remove('visually-hidden');
+  }
 
   if (e.target.nodeName !== 'IMG') {
     return;
@@ -89,12 +104,17 @@ async function clickOnMovieHandler(e) {
 
   await fetchById(movieId);
 
+  const trailerBtn = document.querySelector('.modal-film__play-btn');
+
+  trailerBtn && trailerBtn.addEventListener('click', onTreilerBtnClick);
+
   stopLoader();
 
   backdrop.classList.remove('movie-backdrop--is-hidden');
   document.body.classList.add('modal-open');
   toTopBtn.style.display = 'none';
 
+  stopSliderAutoplay();
   addAllEventListenersModal();
 
   whichBtnShow(movieId);
@@ -144,6 +164,7 @@ function modalFilmCart({
   poster_path,
 }) {
   let roundPopularity = Math.round(popularity);
+  let roundVote_average = vote_average.toFixed(2);
   let imageMarkup = `
   <img 
     src="${BASE_IMG_URL}${poster_path}"
@@ -168,12 +189,16 @@ function modalFilmCart({
           <p class="property">Popularity</p>
           <p class="property">Original Title</p>
           <p class="property">Genre</p>
+          <p class="property property--trailer">Trailer</p>
       </div>
       <div class="values">
-          <p class="value"><span class="first-mark">${vote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
+          <p class="value"><span class="first-mark">${roundVote_average}</span>&nbsp;/&nbsp;<span class="second-mark">${vote_count}</span></p>
           <p class="value">${roundPopularity}</p>
           <p class="value">${original_title}</p>
           <p class="value">${getGenresNames(genres)}</p>
+          <p class="value"> 
+           <button class="modal-film__play-btn" type="button" ></button>
+          </p>
           
       </div>
   </div>
@@ -187,11 +212,6 @@ function modalFilmCart({
 
   imgRef.innerHTML = imageMarkup;
   contentRef.innerHTML = markup;
-}
-
-function clearModalContent() {
-  imgRef.innerHTML = '';
-  contentRef.innerHTML = '';
 }
 
 function whichBtnShow(id) {

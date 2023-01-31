@@ -1,10 +1,11 @@
 import { API_KEY, SEARCH_URL, BASE_URL } from './api/api-vars';
 import { getMovies } from './api/fetch-movie.js';
-import { renderPagination, paginationWrapRef } from './pagination'; //Viktor;
+import { renderPagination, paginationWrapRef } from './pagination';
 import { renderMovieCards } from './render-movie-cards';
 import { filter, toTrendingBtn, toTrendingBtnClick } from './filter';
 import { debounce } from './debounce';
 import { startLoader, stopLoader } from './loader';
+import { hideSlider, showSlider } from './slider';
 
 const refs = {
   form: document.querySelector('.header__form'),
@@ -33,8 +34,14 @@ export async function onFormSubmit(e) {
     return;
   }
 
+  paginationWrapRef.classList.add('visually-hidden');
+
+  setTimeout(() => { e.target.reset(); }, 700);
+
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
+
+  hideSlider();
 
   clearGallery();
 
@@ -42,18 +49,16 @@ export async function onFormSubmit(e) {
 
   const movie = await searchMovies(searchText);
 
-  stopLoader();
-
-  e.target.reset();
-
   if (!movie.total_results) {
-    paginationWrapRef.classList.add('visually-hidden');
     refs.failSearchText.classList.remove('visually-hidden');
+    stopLoader();
     return;
   }
 
   renderMovieCards(movie.results);
   renderPagination(movie.page, movie.total_pages);
+  paginationWrapRef.classList.remove('visually-hidden');
+  stopLoader();
 }
 
 function clearGallery() {
@@ -62,7 +67,7 @@ function clearGallery() {
 
 // Search by input
 
-const DEBOUNCE_DELAY = 500;
+const DEBOUNCE_DELAY = 700;
 
 refs.form && refs.form.addEventListener('submit', onFormSubmit);
 refs.input &&
@@ -70,29 +75,32 @@ refs.input &&
 
 async function onInputText(e) {
   searchText = e.target.value.trim();
-
+  hideSlider();
   if (searchText === '') {
     toTrendingBtnClick();
     return;
   }
+  paginationWrapRef.classList.add('visually-hidden');
+
+  startLoader();
 
   filter.classList.add('is-hidden');
   toTrendingBtn.classList.remove('is-hidden');
-
-  startLoader();
+  refs.failSearchText.classList.add('visually-hidden');
 
   clearGallery();
 
   const movie = await searchMovies(searchText);
 
-  stopLoader();
-
   if (!movie.total_results) {
     paginationWrapRef.classList.add('visually-hidden');
     refs.failSearchText.classList.remove('visually-hidden');
+    stopLoader(); 
     return;
   }
 
   renderMovieCards(movie.results);
   renderPagination(movie.page, movie.total_pages);
+  paginationWrapRef.classList.remove('visually-hidden');
+  stopLoader();
 }

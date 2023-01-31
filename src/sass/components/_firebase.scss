@@ -1,0 +1,446 @@
+body {
+  position: relative;
+}
+
+#auth-header {
+  display: flex;
+
+  @media only screen and (max-width: 767px) {
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5000;
+    display: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    margin-left: 20px;
+    min-width: 175px;
+    justify-content: end;
+  }
+}
+
+.fbs__nav {
+  &-list {
+    display: none;
+
+    @include media-max($tab) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 999;
+    }
+
+    @include media-min($tab) {
+      display: flex;
+      list-style: none;
+    }
+  }
+
+  &-item {
+    position: relative;
+
+    &--active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0px;
+      width: 100%;
+      height: 3px;
+      background-color: $accent-color;
+    }
+  }
+
+  &-item:not(:last-child) {
+    margin-right: 15px;
+  }
+}
+.fbs__nav-btn {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  margin: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  line-height: 1.17;
+  text-transform: uppercase;
+  color: $secondary-text-color;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 18px;
+
+  transition: color $trans-time $cubic, border-color $trans-time $cubic;
+
+  @media screen and (max-width: 767px) {
+    font-size: 27px;
+  }
+
+  &:last-child {
+    @media screen and (max-width: 767px) {
+      margin-top: 20px;
+      margin-left: 0;
+      padding: 7px 10px;
+    }
+    margin-left: 15px;
+    padding: 5px 7px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+  }
+
+  &.sign-up {
+    padding-left: 23px;
+  }
+
+  &:hover,
+  &:focus {
+    color: $accent-color;
+    border-color: $accent-color;
+  }
+}
+.fbs-header {
+  max-width: 100%;
+  margin: 0 auto;
+
+  border: none;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 2;
+
+  @include media-min($mob) {
+    width: $mob;
+  }
+
+  @include media-min($tab) {
+    width: $tab;
+  }
+
+  @include media-min($desk) {
+    width: $desk;
+  }
+}
+.fbs-header__section {
+  display: flex;
+  justify-content: right;
+  justify-items: center;
+}
+.fbs-header-btn,
+.fbs-header-span {
+  font-weight: 500;
+  border: none;
+  height: 20px;
+  align-content: center;
+}
+.fbs-header-btn {
+  width: 80px;
+  cursor: pointer;
+  border-radius: 14px;
+  background-color: rgb(240, 235, 227);
+  color: $accent-color;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:first-child {
+    margin-right: 20px;
+  }
+  &:hover,
+  &:focus {
+    background-color: $accent-color;
+    border: $accent-color;
+    color: wheat;
+  }
+}
+.fbs-header-span {
+  margin-right: 20px;
+  color: wheat;
+}
+.fbs-sign-menu {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.fbs-mob-menu-close-btn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  color: rgb(241, 236, 226);
+  fill: currentColor;
+
+  &:hover,
+  &:focus {
+    fill: rgb(241, 236, 226);
+    background-color: $accent-color;
+  }
+}
+.firebase-backdrop {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.fbs-backdrop {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  overflow-y: scroll;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+
+  visibility: visible;
+  opacity: 1;
+  width: 100vw;
+  height: 100vh;
+
+  transition: opacity 350ms ease-in, visibility 350ms ease-in;
+  @media screen and (max-width: 767px) {
+    z-index: 9998;
+  }
+}
+.fbs-modal {
+  min-height: 450px;
+  width: 320px;
+  z-index: 9999;
+  @include media-min($tab) {
+    width: 480px;
+    min-height: 580px;
+  }
+  border-radius: 7% 7% 8% 8%;
+  background: url('../images/add-giphy.gif') no-repeat;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 500ms;
+  padding: 20px;
+  @media screen and (max-width: 767px) {
+    padding-top: 30px;
+  }
+}
+
+.fbs-modal-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  border: none;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color $trans-time $cubic, fill $trans-time $cubic;
+
+  color: #ffffff;
+
+  &:hover,
+  &:focus {
+    background-color: $accent-color;
+  }
+}
+
+.fbs-modal-title {
+  font-size: 24px;
+  font-weight: 700;
+
+  @media screen and (min-width: 768px) {
+    font-size: 30px;
+  }
+
+  text-align: center;
+  color: $accent-hover-color;
+  margin-bottom: 12px;
+}
+
+.fbs-modal-form {
+  width: 100%;
+  border-radius: 30px;
+  margin: 2% auto;
+  box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+  padding: 5%;
+}
+.fbs-modal-content {
+  width: 100%;
+  margin: 0 auto;
+}
+.fbs-modal-form-field {
+  margin-bottom: 10px;
+}
+
+.fbs-modal-label {
+  display: block;
+  @include font(null, 19px, 18px, 0.01em);
+  color: $accent-hover-color;
+  margin-bottom: 8px;
+  margin-left: 20px;
+}
+
+.fbs-modal-label--end {
+  margin-bottom: 10px;
+}
+
+.fbs-modal-label__field {
+  position: relative;
+  display: flex;
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+.fbs-modal-label__block {
+  font-size: large;
+  width: 100%;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 30px;
+  outline: none;
+
+  transition: color $trans-time $cubic, fill $trans-time $cubic;
+
+  &::placeholder {
+    @include font(null, 12px, 14px, 0.01em);
+    color: rgba(117, 117, 117, 0.5);
+    transition: color $trans-time $cubic, fill $trans-time $cubic;
+  }
+
+  &:hover::placeholder,
+  &:focus::placeholder {
+    color: $accent-color;
+  }
+
+  &:hover + .fbs-modal-icon,
+  &:focus + .fbs-modal-icon {
+    fill: $accent-color;
+  }
+}
+
+.fbs-modal-label__block--input {
+  height: 50px;
+  padding-left: 42px;
+}
+
+.fbs-modal-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: black;
+  transition: fill $trans-time $cubic;
+}
+
+.fbs-modal-btn--submit {
+  display: block;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 15px;
+
+  margin-top: 30px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  text-shadow: -1px -1px #b86200, 0 1px 0 #ecb76b;
+  box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6);
+
+  text-align: center;
+  background-color: $accent-color;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 12px;
+
+  @include font(500, 24px, 30px, 0.03em);
+  text-align: center;
+
+  transition: transform $trans-time $cubic, color $trans-time $cubic,
+    background-color $trans-time $cubic, box-shadow $trans-time $cubic;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.08);
+    background-color: $accent-color;
+    color: white;
+    box-shadow: 0 8px 43px rgb(255 107 1 / 60%);
+  }
+}
+
+.fbs-forgot {
+  display: none;
+  margin-top: 2em;
+  color: #ffffff;
+  font-size: 0.5em;
+  text-align: center;
+  float: left;
+  @include font(null, 20px, 18px, 0.01em);
+  text-decoration: underline;
+}
+
+#logged-user {
+  color: #ffffff;
+}
+
+#logout {
+  color: $accent-color;
+  border-color: $accent-color;
+
+  &:hover,
+  &:focus {
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #logout {
+    padding: 8px 12px;
+    color: #ffffff;
+    border-color: #ffffff;
+
+    &:hover,
+    &:focus {
+      color: $accent-color;
+      border-color: $accent-color;
+    }
+  }
+  .login-status {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+.login-status-icon {
+  fill: currentColor;
+  position: absolute;
+  left: 2px;
+  bottom: 14px;
+
+  @media screen and (min-width: 768px) {
+    left: 2px;
+    bottom: 7px;
+  }
+}
+
+.policy-text {
+  padding: 0 10px;
+  position: fixed;
+  bottom: 4%;
+  left: 0;
+  text-align: center;
+  color: #757575;
+}
+
+.policy-link {
+  text-decoration: none;
+  color: #4286f4d2;
+  transition: color $trans-time $cubic;
+
+  &:hover,
+  &:focus {
+    color: #4285f4;
+  }
+}

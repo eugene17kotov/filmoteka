@@ -1,11 +1,6 @@
-import {
-  getAuth,
-  onAuthStateChanged,
-  currentUser,
-  setCurrentUser,
-} from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-import { connectToBD, logUser } from './firebaseAuth';
+import { connectToBD } from './firebaseAuth';
 
 //
 
