@@ -1,21 +1,21 @@
 {
-  "name": "team-project-2",
+  "name": "filmoteka",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://eugene17kotov.github.io/team-project-2",
+  "homepage": "https://eugene17kotov.github.io/filmoteka",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /team-project-2/"
+    "build": "parcel build src/*.html --public-url /filmoteka/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eugene17kotov/team-project-2.git"
+    "url": "git+https://github.com/eugene17kotov/filmoteka.git"
   },
   "keywords": [],
   "author": "Yevhenii Kobets <eu.kobets@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/eugene17kotov/team-project-2/issues"
+    "url": "https://github.com/eugene17kotov/filmoteka/issues"
   },
   "dependencies": {
     "@glidejs/glide": "^3.5.2",
